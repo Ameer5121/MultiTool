@@ -18,31 +18,90 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
             <ColumnDefinition Width="2*"></ColumnDefinition>
             <ColumnDefinition Width="2*"></ColumnDefinition>
+            
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
 
-        <CheckBox Content="Multiple Points Enable" VerticalAlignment="Center" Foreground="{StaticResource Text}" Background="White"  ></CheckBox>
-         
-        <Button Grid.Row="0" Grid.Column="1" Content="Record (F5)" Background="{StaticResource Buttons}" BorderBrush="Transparent" ></Button>
-       
-        <Button Grid.Row="1" Content="Clear Points" FontSize="10" HorizontalAlignment="Left" Background="{StaticResource Buttons}" BorderBrush="Transparent"></Button>
-        
-        
-        <Label Content="Custom Points" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Foreground="{StaticResource Text}" BorderBrush="White"></Label>
-        <ListBox Background="{StaticResource Chat}" ScrollViewer.CanContentScroll="False" BorderThickness="1" Foreground="{StaticResource Text}" Grid.Row="2" Grid.ColumnSpan="2">
+        <CheckBox Content="Multiple Points Enable" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Foreground="{StaticResource Text}" Background="White" >
+            <CheckBox.Resources>
+                <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+            </CheckBox.Resources>
+        </CheckBox>
 
-           
+        <Button Grid.Row="1" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontSize="13" Content="Record (F5)" Background="{StaticResource Buttons}" BorderBrush="Transparent" />
+
+
+        <TextBlock Text="Custom Points" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}"/>
+
+        <ListBox Background="{StaticResource Chat}" ScrollViewer.CanContentScroll="False" BorderThickness="1" BorderBrush="Black" Foreground="{StaticResource Text}" Grid.Row="4" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="0">
+            <ListBoxItem>(123,124)</ListBoxItem>
+            <ListBoxItem>(123,124)</ListBoxItem>
+            <ListBoxItem>(123,124)</ListBoxItem>
+            <ListBoxItem>(123,124)</ListBoxItem>
+            <ListBoxItem>(123,124)</ListBoxItem>
+            <ListBoxItem>(123,124)</ListBoxItem>
             <ListBoxItem>(123,124)</ListBoxItem>
         </ListBox>
+
+
+
+        <Label Grid.Column="3" Content="Speed" Foreground="{StaticResource Text}" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+
+
+        <Border Grid.Column="3" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
+            <CheckBox Content="Interval" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="2" Foreground="{StaticResource Text}" Background="White" >
+                <CheckBox.Resources>
+                    <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+                </CheckBox.Resources>
+            </CheckBox>
+        </Border>
+
+        <Border Grid.Column="4" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
+            <CheckBox Content="Clicks Per Second" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="2" Foreground="{StaticResource Text}" Background="White"  >
+                <CheckBox.Resources>
+                    <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+                </CheckBox.Resources>
+            </CheckBox>
+        </Border>
+
+
+        <StackPanel Grid.Row="2" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="0,0,206,0">
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="MilliSeconds" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
+                <TextBox Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Seconds" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
+                <TextBox Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Minutes" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
+                <TextBox Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Hours" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
+                <TextBox Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+            </StackPanel>
+        </StackPanel>
+
+
+        <Button Content="Start(F6)" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Background="{StaticResource Buttons}" BorderBrush="Transparent" Grid.Row="6"></Button>
+
     </Grid>
 </Window>

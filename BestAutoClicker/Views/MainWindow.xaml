@@ -36,6 +36,8 @@
         <Button Grid.Row="0" Grid.Column="1" Content="Record (F5)" Background="{StaticResource Buttons}" BorderBrush="Transparent" ></Button>
        
         <Button Grid.Row="1" Content="Clear Points" FontSize="10" HorizontalAlignment="Left" Background="{StaticResource Buttons}" BorderBrush="Transparent"></Button>
+        
+        
         <Label Content="Custom Points" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Foreground="{StaticResource Text}" BorderBrush="White"></Label>
         <ListBox Background="{StaticResource Chat}" ScrollViewer.CanContentScroll="False" BorderThickness="1" Foreground="{StaticResource Text}" Grid.Row="2" Grid.ColumnSpan="2">
 

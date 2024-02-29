@@ -19,7 +19,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
             <ColumnDefinition Width="2*"></ColumnDefinition>
             <ColumnDefinition Width="2*"></ColumnDefinition>
             
@@ -79,22 +79,22 @@
         </Border>
 
 
-        <StackPanel Grid.Row="2" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="0,0,206,0">
+        <StackPanel Grid.Row="2" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2">
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="MilliSeconds" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
                 <TextBox Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Seconds" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
                 <TextBox Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Minutes" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
                 <TextBox Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Hours" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
                 <TextBox Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
             </StackPanel>
@@ -103,5 +103,9 @@
 
         <Button Content="Start(F6)" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Background="{StaticResource Buttons}" BorderBrush="Transparent" Grid.Row="6"></Button>
 
+        <Border Background="White" BorderThickness="1" Grid.Column="2" Width="3" Grid.RowSpan="7" HorizontalAlignment="Right"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" Width="3" Grid.RowSpan="4"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="3"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="4" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="3"></Border>
     </Grid>
 </Window>

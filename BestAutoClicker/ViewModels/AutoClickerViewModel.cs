@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.Windows.Media.Media3D;
 using Point = System.Drawing.Point;
 using MessageBox = System.Windows.MessageBox;
+using System.DirectoryServices.ActiveDirectory;
 
 namespace BestAutoClicker.ViewModels
 {
@@ -33,63 +34,46 @@ namespace BestAutoClicker.ViewModels
         private static extern short GetAsyncKeyState(int vKey);
 
         public RelayCommand testing => new RelayCommand(ClickingFunction);
-
         public RelayCommand setcursorpos => new RelayCommand(SetCursor);
-
 
         public AutoClickerViewModel()
         {
-
             Task.Run(ListenForKeys);
 
         }
-        
         private async Task SetCursor()
         {
-
             SetCursorPos(_cursorPosition.X, _cursorPosition.Y);
-
         }
-
         private async Task ClickingFunction()
         {
-
             GetCursorPos(out _cursorPosition);
             MessageBox.Show(_cursorPosition.ToString());
         }
-
         private async Task Click()
         {
-
             if (true)
             {
                 
             }
-
         }
-
         private void ListenForKeys()
         {
+            bool FTR = true;
 
             while (true)
             {
-
                 for (int i = 0; i <= 255; i++)
                 {
-
                     short keyResult = GetAsyncKeyState(i);
                     Keys keyPressed = (Keys)i;
-                    if (keyResult != 0)
+                    if (keyResult != 0 && !FTR)
                     {
-                        if (keyPressed == Keys.S) MessageBox.Show(keyPressed.ToString());
+                        if (keyPressed == Keys.F1) MessageBox.Show(keyPressed.ToString());
+                        FTR = false;
                     }
-                    
                 }
-
             }
-
         }
-
-        
     }
 }

@@ -51,8 +51,8 @@ namespace BestAutoClicker.ViewModels
         }
         private void Click()
         {
-            int lButton = 0x0002;
-            mouse_event(lButton, _cursorPosition.X, _cursorPosition.Y, 0, 0);
+            int lButton = 0x0006;
+            mouse_event(lButton, 0, 0, 0, 0);
         }
         private void ListenForKeys()
         {

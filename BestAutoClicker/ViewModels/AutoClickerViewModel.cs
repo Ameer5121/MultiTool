@@ -15,13 +15,16 @@ using System.Windows.Media.Media3D;
 using Point = System.Drawing.Point;
 using MessageBox = System.Windows.MessageBox;
 using System.DirectoryServices.ActiveDirectory;
+using System.Threading;
 
 namespace BestAutoClicker.ViewModels
 {
     
     internal class AutoClickerViewModel : ViewModelBase
     {
-
+        private bool _isRunning;
+        private CancellationTokenSource _cancelClick;
+        private Keys _defaultClicker = Keys.F6;
         private Point _cursorPosition;
 
         [DllImport("user32.dll")]
@@ -38,6 +41,7 @@ namespace BestAutoClicker.ViewModels
 
         public AutoClickerViewModel()
         {
+            _cancelClick = new CancellationTokenSource();
             Task.Run(ListenForKeys);
 
         }
@@ -49,12 +53,18 @@ namespace BestAutoClicker.ViewModels
         {
             GetCursorPos(out _cursorPosition);
         }
-        private void Click()
+        private async Task Click()
         {
+            _isRunning = true;
             int lButton = 0x0006;
-            mouse_event(lButton, 0, 0, 0, 0);
+            while (_cancelClick.IsCancellationRequested == false)
+            {
+                mouse_event(lButton, 0, 0, 0, 0);
+                await Task.Delay(1000);
+            }
+            _cancelClick = new CancellationTokenSource();
         }
-        private void ListenForKeys()
+        private async Task ListenForKeys()
         {
             ClearPreviousInputs();
             while (true)
@@ -65,17 +75,17 @@ namespace BestAutoClicker.ViewModels
                     Keys keyPressed = (Keys)i;
                     if (keyResult != 0)
                     {
-                        if (keyPressed == Keys.S)
+                        if (keyPressed == _defaultClicker)
                         {
-                            Click();
-                        }
-                        if (keyPressed == Keys.F2)
-                        {
-                            GetCursor();
-                        }
-                        if (keyPressed == Keys.F3)
-                        {
-                            SetCursor();
+                            if (!_isRunning)
+                            {
+                                Click();
+                            }
+                            else
+                            {
+                                _cancelClick.Cancel();
+                                _isRunning = false;
+                            }
                         }
                     }
                 }

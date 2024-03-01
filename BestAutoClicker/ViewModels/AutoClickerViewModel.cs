@@ -23,27 +23,18 @@ namespace BestAutoClicker.ViewModels
         private static extern bool GetCursorPos(out Point getPoint);
 
         [DllImport("user32.dll")]
-        private static extern bool SetCursorPos(in int setX, in int setY);
+        private static extern bool SetCursorPos(int setX, int setY);
 
         Point CursorPostion;
 
-        public RelayCommand testing 
-        {
-
-            get
-            {
-                return new RelayCommand(ClickingFunction);
-            }
-        
-        }
+        public RelayCommand testing => new RelayCommand(ClickingFunction);
 
         public RelayCommand setcursorpos => new RelayCommand(setCursor);
 
         private async Task setCursor()
         {
-            int x = CursorPostion.X;
-            int y = CursorPostion.Y;
-            SetCursorPos(in x, in y);
+
+            SetCursorPos(CursorPostion.X, CursorPostion.Y);
 
         }
 

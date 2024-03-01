@@ -6,6 +6,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media.Media3D;
 
 namespace BestAutoClicker.ViewModels
 {
@@ -14,7 +17,7 @@ namespace BestAutoClicker.ViewModels
     {
 
         [DllImport("user32.dll")]
-        private static extern bool GetCursorPos(out Point x);
+        private static extern bool GetCursorPos(out int x, out int y);
 
         public RelayCommand testing 
         {
@@ -27,13 +30,11 @@ namespace BestAutoClicker.ViewModels
         }
         private async Task ClickingFunction()
         {
-
-            Point CurrentCursor;
-
-            GetCursorPos(out CurrentCursor);
-
-            MessageBox.Show(CurrentCursor.X.ToString() + ", " + CurrentCursor.Y.ToString());
-
+            int cursorXPos = 0;
+            int cursorYPos = 0;
+            GetCursorPos(out cursorXPos, out cursorYPos);
+            MessageBox.Show($"the x is {cursorXPos} and the Y IS {cursorYPos}");
+         
         }
         
     }

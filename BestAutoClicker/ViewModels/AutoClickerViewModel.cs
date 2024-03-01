@@ -34,7 +34,7 @@ namespace BestAutoClicker.ViewModels
         {
             Point CursorPostion;
             GetCursorPos(out CursorPostion);
-            MessageBox.Show(CursorPostion);
+            MessageBox.Show(CursorPostion.ToString());
          
         }
         

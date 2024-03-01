@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,7 +20,12 @@ namespace BestAutoClicker.ViewModels
     {
 
         [DllImport("user32.dll")]
-        private static extern bool GetCursorPos(out Point point);
+        private static extern bool GetCursorPos(out Point getPoint);
+
+        [DllImport("user32.dll")]
+        private static extern bool SetCursorPos(out Point setPoint);
+
+        Point CursorPostion;
 
         public RelayCommand testing 
         {
@@ -30,9 +36,19 @@ namespace BestAutoClicker.ViewModels
             }
         
         }
+
+        public RelayCommand setcursorpos => new RelayCommand(setCursor);
+
+        private async Task setCursor()
+        {
+
+            SetCursorPos(out CursorPostion);
+
+        }
+
         private async Task ClickingFunction()
         {
-            Point CursorPostion;
+
             GetCursorPos(out CursorPostion);
             MessageBox.Show(CursorPostion.ToString());
          

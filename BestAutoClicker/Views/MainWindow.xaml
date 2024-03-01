@@ -42,7 +42,7 @@
             </CheckBox.Resources>
         </CheckBox>
 
-        <Button Grid.Row="1" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontSize="13" Content="Record (F5)" Command="{Binding faggotcommand}" Background="{StaticResource Buttons}" BorderBrush="Transparent" />
+        <Button Grid.Row="1" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontSize="13" Content="Record (F5)" Command="{Binding setcursorpos}" Background="{StaticResource Buttons}" BorderBrush="Transparent" />
 
 
         <TextBlock Text="Custom Points" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}"/>

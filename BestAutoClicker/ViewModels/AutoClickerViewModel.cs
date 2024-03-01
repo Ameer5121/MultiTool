@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Forms;
 using System.Windows.Media.Media3D;
 using Point = System.Drawing.Point;
+using MessageBox = System.Windows.MessageBox;
 
 namespace BestAutoClicker.ViewModels
 {
@@ -72,17 +74,14 @@ namespace BestAutoClicker.ViewModels
             while (true)
             {
 
-                for (int i = 0; i <= 172; i++)
+                for (int i = 0; i <= 255; i++)
                 {
 
                     short keyResult = GetAsyncKeyState(i);
+                    Keys keyPressed = (Keys)i;
                     if (keyResult != 0)
                     {
-
-                        Key keyPressed = (Key)i;
-
-                        if (keyPressed == Key.S) MessageBox.Show(keyPressed.ToString());
-
+                        if (keyPressed == Keys.S) MessageBox.Show(keyPressed.ToString());
                     }
                     
                 }

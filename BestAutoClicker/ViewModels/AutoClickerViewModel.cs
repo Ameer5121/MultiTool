@@ -37,9 +37,11 @@ namespace BestAutoClicker.ViewModels
 
         public AutoClickerViewModel()
         {
-            
-        }
 
+            Task.Run(ListenForKeys);
+
+        }
+        
         private async Task SetCursor()
         {
 
@@ -57,13 +59,36 @@ namespace BestAutoClicker.ViewModels
         private async Task Click()
         {
 
-            
+            if (true)
+            {
+                
+            }
 
         }
 
         private void ListenForKeys()
         {
-          
+
+            while (true)
+            {
+
+                for (int i = 0; i <= 172; i++)
+                {
+
+                    short keyResult = GetAsyncKeyState(i);
+                    if (keyResult != 0)
+                    {
+
+                        Key keyPressed = (Key)i;
+
+                        if (keyPressed == Key.S) MessageBox.Show(keyPressed.ToString());
+
+                    }
+                    
+                }
+
+            }
+
         }
 
         

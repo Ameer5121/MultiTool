@@ -33,29 +33,26 @@ namespace BestAutoClicker.ViewModels
         [DllImport("User32.dll")]
         private static extern short GetAsyncKeyState(int vKey);
 
-        public RelayCommand testing => new RelayCommand(ClickingFunction);
-        public RelayCommand setcursorpos => new RelayCommand(SetCursor);
+        [DllImport("User32.dll")]
+        private static extern short mouse_event(int dwFlags, int xPos, int yPos, int dwData, int dwExtraInfo);
 
         public AutoClickerViewModel()
         {
             Task.Run(ListenForKeys);
 
         }
-        private async Task SetCursor()
+        private void SetCursor()
         {
             SetCursorPos(_cursorPosition.X, _cursorPosition.Y);
         }
-        private async Task ClickingFunction()
+        private void GetCursor()
         {
             GetCursorPos(out _cursorPosition);
-            MessageBox.Show(_cursorPosition.ToString());
         }
-        private async Task Click()
+        private void Click()
         {
-            if (true)
-            {
-                
-            }
+            int lButton = 0x0002;
+            mouse_event(lButton, _cursorPosition.X, _cursorPosition.Y, 0, 0);
         }
         private void ListenForKeys()
         {
@@ -68,7 +65,18 @@ namespace BestAutoClicker.ViewModels
                     Keys keyPressed = (Keys)i;
                     if (keyResult != 0)
                     {
-                        if (keyPressed == Keys.F1) MessageBox.Show(keyPressed.ToString());
+                        if (keyPressed == Keys.S)
+                        {
+                            Click();
+                        }
+                        if (keyPressed == Keys.F2)
+                        {
+                            GetCursor();
+                        }
+                        if (keyPressed == Keys.F3)
+                        {
+                            SetCursor();
+                        }
                     }
                 }
             }

@@ -59,20 +59,23 @@ namespace BestAutoClicker.ViewModels
         }
         private void ListenForKeys()
         {
-            bool FTR = true;
-
+            ClearPreviousInputs();
             while (true)
             {
                 for (int i = 0; i <= 255; i++)
                 {
                     short keyResult = GetAsyncKeyState(i);
                     Keys keyPressed = (Keys)i;
-                    if (keyResult != 0 && !FTR)
+                    if (keyResult != 0)
                     {
                         if (keyPressed == Keys.F1) MessageBox.Show(keyPressed.ToString());
-                        FTR = false;
                     }
                 }
+            }
+
+            void ClearPreviousInputs()
+            {
+                for (int i = 0; i <= 255; i++) GetAsyncKeyState(i);
             }
         }
     }

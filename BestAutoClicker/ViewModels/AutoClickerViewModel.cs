@@ -41,8 +41,9 @@ namespace BestAutoClicker.ViewModels
 
         private async Task setCursor()
         {
-
-            SetCursorPos(in CursorPostion.X, in CursorPostion.Y);
+            int x = CursorPostion.X;
+            int y = CursorPostion.Y;
+            SetCursorPos(in x, in y);
 
         }
 

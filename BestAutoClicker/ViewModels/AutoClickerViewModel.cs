@@ -42,8 +42,6 @@ namespace BestAutoClicker.ViewModels
         public AutoClickerViewModel()
         {
             _cancelClick = new CancellationTokenSource();
-            Task.Run(ListenForKeys);
-
         }
         private void SetCursor()
         {
@@ -53,48 +51,17 @@ namespace BestAutoClicker.ViewModels
         {
             GetCursorPos(out _cursorPosition);
         }
-        private async Task Click()
+        public void Click()
         {
             _isRunning = true;
             int lButton = 0x0006;
             while (_cancelClick.IsCancellationRequested == false)
             {
                 mouse_event(lButton, 0, 0, 0, 0);
-                await Task.Delay(1000);
+                Thread.Sleep(0);
             }
+            _isRunning = false;
             _cancelClick = new CancellationTokenSource();
-        }
-        private async Task ListenForKeys()
-        {
-            ClearPreviousInputs();
-            while (true)
-            {
-                for (int i = 0; i <= 255; i++)
-                {
-                    short keyResult = GetAsyncKeyState(i);
-                    Keys keyPressed = (Keys)i;
-                    if (keyResult != 0)
-                    {
-                        if (keyPressed == _defaultClicker)
-                        {
-                            if (!_isRunning)
-                            {
-                                Click();
-                            }
-                            else
-                            {
-                                _cancelClick.Cancel();
-                                _isRunning = false;
-                            }
-                        }
-                    }
-                }
-            }
-
-            void ClearPreviousInputs()
-            {
-                for (int i = 0; i <= 255; i++) GetAsyncKeyState(i);
-            }
-        }
+        }      
     }
 }

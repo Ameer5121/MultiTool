@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="MultiTool" 
         ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen"
         MinHeight="400" 
         MinWidth="700" 
         MaxHeight="400" 
@@ -41,9 +42,6 @@
                 <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
             </CheckBox.Resources>
         </CheckBox>
-
-        <Button Grid.Row="1" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontSize="13" Content="Record (F5)" Background="{StaticResource Buttons}" BorderBrush="Transparent" />
-
 
         <TextBlock Text="Custom Points" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}"/>
 
@@ -99,9 +97,6 @@
                 <TextBox Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
             </StackPanel>
         </StackPanel>
-
-
-        <Button Content="Start(F6)" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Background="{StaticResource Buttons}" BorderBrush="Transparent" Grid.Row="6"></Button>
 
         <Border Background="White" BorderThickness="1" Grid.Column="2" Width="3" Grid.RowSpan="7" HorizontalAlignment="Right"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" Width="3" Grid.RowSpan="4"></Border>

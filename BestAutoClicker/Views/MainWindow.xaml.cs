@@ -57,18 +57,8 @@ namespace BestAutoClicker
             {
                 if ((int)msg.wParam == (int)Keys.F1)
                 {
-                    if (_autoClickerViewModel.IsRunning == false)
-                    {
-                        Task.Run(_autoClickerViewModel.Click);
-                    }
-                    else
-                    {
-                        _autoClickerViewModel.ClickingProcess.Cancel();
-                    }
-                }
-                else if ((int)msg.wParam == (int)Keys.F2)
-                {
-                    MessageBox.Show("test2");
+                    if (_autoClickerViewModel.IsRunning == false) Task.Run(_autoClickerViewModel.Click);
+                    else _autoClickerViewModel.ClickingProcess.Cancel();
                 }
             }
         }
@@ -76,7 +66,6 @@ namespace BestAutoClicker
         private void RegisterHotKeys()
         {
             RegisterHotKey(_windowHandle, (int)Keys.F1, 0, (int)Keys.F1);
-            RegisterHotKey(_windowHandle, (int)Keys.F2, 0, (int)Keys.F2);
         }
 
     }

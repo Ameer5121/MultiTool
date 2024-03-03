@@ -28,6 +28,7 @@ namespace BestAutoClicker.ViewModels
         private Point _cursorPosition;
         public bool IsRunning => _isRunning;
         public CancellationTokenSource ClickingProcess => _cancelClick;
+        public TimeSpan customTime = new TimeSpan(0, 0, 0, 0, 1);
 
         [DllImport("user32.dll")]
         private static extern bool GetCursorPos(out Point getPoint);
@@ -60,7 +61,7 @@ namespace BestAutoClicker.ViewModels
             while (_cancelClick.IsCancellationRequested == false)
             {
                 mouse_event(lButton, 0, 0, 0, 0);
-                Thread.Sleep(1);
+                Thread.Sleep(customTime);
             }
             _isRunning = false;
             _cancelClick = new CancellationTokenSource();

@@ -42,7 +42,7 @@
 
         <Label Grid.ColumnSpan="2" Content="Mode" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
 
-        <CheckBox Content="Auto Clicker" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0" >
+        <CheckBox IsChecked="True" Content="Auto Clicker" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0" >
             <CheckBox.Resources>
                 <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
             </CheckBox.Resources>
@@ -81,7 +81,7 @@
 
 
         <Border Grid.Column="3" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
-            <CheckBox Content="Interval" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="2" Foreground="{StaticResource Text}" Background="White" >
+            <CheckBox IsChecked="True" Content="Interval" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="2" Foreground="{StaticResource Text}" Background="White" >
                 <CheckBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
                 </CheckBox.Resources>

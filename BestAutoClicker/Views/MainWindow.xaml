@@ -19,33 +19,53 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="2*"></ColumnDefinition>
             <ColumnDefinition Width="2*"></ColumnDefinition>
-            
+
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="20"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
 
 
-        <CheckBox Content="Multiple Points Enable" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Foreground="{StaticResource Text}" Background="White" >
+
+        <Label Grid.ColumnSpan="2" Content="Mode" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+
+        <CheckBox Content="Auto Clicker" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0" >
+            <CheckBox.Resources>
+                <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+            </CheckBox.Resources>
+        </CheckBox>
+        <CheckBox Content="Hold Clicker" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="2" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0"  >
+            <CheckBox.Resources>
+                <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+            </CheckBox.Resources>
+        </CheckBox>
+        <CheckBox Content="Multiple Points Enable" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="3" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0"  >
             <CheckBox.Resources>
                 <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
             </CheckBox.Resources>
         </CheckBox>
 
-        <TextBlock Text="Custom Points" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}"/>
+        <Button Content="Load" Grid.Row="4" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Bottom" Margin="5"></Button>
+        <Button Content="Save" Grid.Row="4" Grid.Column="1" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Bottom" Margin="5"></Button>
 
-        <ListBox Background="{StaticResource Chat}" ScrollViewer.CanContentScroll="False" BorderThickness="1" BorderBrush="Black" Foreground="{StaticResource Text}" Grid.Row="4" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="0">
+        <TextBlock Text="Custom Points" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}"/>
+
+        <ListBox Background="{StaticResource Chat}" ScrollViewer.CanContentScroll="False" BorderThickness="1" BorderBrush="Black" Foreground="{StaticResource Text}" Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2">
+            <ListBoxItem>(123,124)</ListBoxItem>
+            <ListBoxItem>(123,124)</ListBoxItem>
             <ListBoxItem>(123,124)</ListBoxItem>
             <ListBoxItem>(123,124)</ListBoxItem>
             <ListBoxItem>(123,124)</ListBoxItem>
@@ -77,7 +97,7 @@
         </Border>
 
 
-        <StackPanel Grid.Row="2" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="2" Grid.Column="3" Grid.RowSpan="4" Grid.ColumnSpan="1">
 
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="MilliSeconds" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
@@ -98,9 +118,25 @@
             </StackPanel>
         </StackPanel>
 
-        <Border Background="White" BorderThickness="1" Grid.Column="2" Width="3" Grid.RowSpan="7" HorizontalAlignment="Right"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" Width="3" Grid.RowSpan="4"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="3"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="4" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="3"></Border>
+
+        <!-- Right Outlines-->
+        <Border Background="White" BorderThickness="1" Grid.Column="2" Width="3" Grid.RowSpan="9" HorizontalAlignment="Right"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" Width="3" Grid.RowSpan="5"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="5" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="6" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
+        <!-- Right Outlines-->
+
+
+        <!-- Left Outlines-->
+        <Border Background="White" BorderThickness="1" Grid.Column="0" Width="3" Grid.RowSpan="6" HorizontalAlignment="Left"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="5"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="3"></Border>
+        <!-- Left Outlines-->
+
+
+
+        <TextBlock Text="Controls" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource Text}" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2"></TextBlock>
+
+
     </Grid>
 </Window>

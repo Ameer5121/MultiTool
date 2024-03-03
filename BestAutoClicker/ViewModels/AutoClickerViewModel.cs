@@ -28,7 +28,7 @@ namespace BestAutoClicker.ViewModels
         private Point _cursorPosition;
         public bool IsRunning => _isRunning;
         public CancellationTokenSource ClickingProcess => _cancelClick;
-        public TimeSpan customTime = new TimeSpan(0, 0, 0, 0, 1);
+        public TimeSpan customTime = new TimeSpan(0, 0, 0, 0, 0);
 
         [DllImport("user32.dll")]
         private static extern bool GetCursorPos(out Point getPoint);

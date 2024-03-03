@@ -129,7 +129,7 @@
 
 
         <!-- Left Outlines-->
-        <Border Background="White" BorderThickness="1" Grid.Column="0" Width="3" Grid.RowSpan="6" HorizontalAlignment="Left"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Column="0" Width="3" Grid.RowSpan="9" HorizontalAlignment="Left"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="5"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="3"></Border>
         <!-- Left Outlines-->

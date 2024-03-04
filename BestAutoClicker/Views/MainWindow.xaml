@@ -14,7 +14,10 @@
         MaxHeight="400" 
         MaxWidth="700" 
         Background="{StaticResource HomeWindow}"
-        FontFamily="{materialDesign:MaterialDesignFont}" >
+        FontFamily="{materialDesign:MaterialDesignFont}" Style="{StaticResource CustomWindowStyle}" >
+
+   
+
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -63,7 +66,7 @@
 
         <TextBlock Text="Custom Points" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}"/>
 
-        <ListBox Background="{StaticResource Chat}" ScrollViewer.CanContentScroll="False" BorderThickness="1" BorderBrush="Black" Foreground="{StaticResource Text}" Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2">
+        <ListBox Background="{StaticResource Chat}" ScrollViewer.CanContentScroll="False" BorderThickness="1" BorderBrush="{StaticResource WindowBorder}" Margin="5" Foreground="{StaticResource Text}" Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2">
             <ListBoxItem>(123,124)</ListBoxItem>
             <ListBoxItem>(123,124)</ListBoxItem>
             <ListBoxItem>(123,124)</ListBoxItem>
@@ -124,12 +127,10 @@
         <Border Background="White" BorderThickness="1" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" Width="3" Grid.RowSpan="5"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="5" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="6" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Column="6" Width="3" Grid.RowSpan="9" HorizontalAlignment="Right"></Border>
         <!-- Right Outlines-->
 
 
         <!-- Left Outlines-->
-        <Border Background="White" BorderThickness="1" Grid.Column="0" Width="3" Grid.RowSpan="9" HorizontalAlignment="Left"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="5"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="3"></Border>
         <!-- Left Outlines-->
@@ -140,19 +141,19 @@
 
         <StackPanel Grid.Column="3" Grid.Row="7" HorizontalAlignment="Center">
             <TextBlock Foreground="{StaticResource Text}" HorizontalAlignment="Left" Margin="5">
-                <Run Text="Auto Clicker: "></Run>
-                <Run Text="Start/Stop (F6)" Foreground="AntiqueWhite"></Run>
+         <Run Text="Auto Clicker: "></Run>
+         <Run Text="Start/Stop (F6)" Foreground="AntiqueWhite"></Run>
             </TextBlock>
 
             <TextBlock Foreground="{StaticResource Text}" HorizontalAlignment="Left" Margin="5">
-                <Run Text="Multiple Points Record "></Run>
-                <Run Text="(F5)" Foreground="AntiqueWhite"></Run>
+         <Run Text="Multiple Points Record "></Run>
+         <Run Text="(F5)" Foreground="AntiqueWhite"></Run>
             </TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Column="4" Grid.Row="7">
             <ComboBox VerticalAlignment="Top" Width="50" HorizontalAlignment="Left" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
-                    materialDesign:TextFieldAssist.UnderlineBrush="White">
+             materialDesign:TextFieldAssist.UnderlineBrush="White">
 
                 <ComboBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignPaper" Color="#2F3136"/>
@@ -160,7 +161,7 @@
             </ComboBox>
 
             <ComboBox VerticalAlignment="Top" Width="50" HorizontalAlignment="Left" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
-                    materialDesign:TextFieldAssist.UnderlineBrush="White">
+             materialDesign:TextFieldAssist.UnderlineBrush="White">
 
                 <ComboBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignPaper" Color="#2F3136"/>

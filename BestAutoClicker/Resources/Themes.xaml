@@ -1,5 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    x:Class="BestAutoClicker.Resources.Themes">
 
     <!--Default Properties ~~ Changeable-->
     <SolidColorBrush x:Key="WindowBorder" Color="#202225"></SolidColorBrush>
@@ -24,4 +26,41 @@
     <SolidColorBrush x:Key="SubWindow">#FF303030</SolidColorBrush>
     <SolidColorBrush x:Key="ChatDisplayName" Color="Silver"></SolidColorBrush>
     <SolidColorBrush x:Key="UnderLineBrush" Color="Silver"></SolidColorBrush>
+
+
+
+
+
+
+    <Style x:Key="CustomWindowStyle" TargetType="{x:Type Window}">
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome CaptionHeight="30"
+                  GlassFrameThickness="0,30,0,0"
+                  NonClientFrameEdges="None"
+                   UseAeroCaptionButtons="False"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <Grid>
+
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{StaticResource WindowBorder}"
+                                BorderThickness="0,30,0,0">
+                            <ContentPresenter/>
+                        </Border>
+                        <DockPanel Height="30"  VerticalAlignment="Top" LastChildFill="False">
+                            <Button Background="Transparent" BorderBrush="Transparent" Foreground="Red" Content="X" DockPanel.Dock="Right" WindowChrome.IsHitTestVisibleInChrome="True" Click="ShutDown"></Button>
+                            <Button Background="Transparent" BorderBrush="Transparent" Foreground="White" DockPanel.Dock="Right" WindowChrome.IsHitTestVisibleInChrome="True" Click="Minimize">
+                                <materialDesign:PackIcon Kind="Minimize"></materialDesign:PackIcon>
+                            </Button>
+                        </DockPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
 </ResourceDictionary>

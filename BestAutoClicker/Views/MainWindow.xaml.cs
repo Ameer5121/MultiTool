@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MessageBox = System.Windows.MessageBox;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace BestAutoClicker
 {
@@ -68,5 +69,10 @@ namespace BestAutoClicker
             RegisterHotKey(_windowHandle, (int)Keys.F1, 0, (int)Keys.F1);
         }
 
+        private void CheckForNumbers(object sender, TextCompositionEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (!int.TryParse(e.Text, out _)) e.Handled = true;
+        }
     }
 }

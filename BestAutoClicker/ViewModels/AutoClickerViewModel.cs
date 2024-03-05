@@ -27,9 +27,51 @@ namespace BestAutoClicker.ViewModels
         private Keys _defaultClicker = Keys.F6;
         private Point _cursorPosition;
         private const int lButton = 0x0006;
+        private int _milliSeconds;
+        private int _seconds;
+        private int _minutes;
+        private int _hours; 
+
+        public int MilliSeconds
+        {
+            get => _milliSeconds;
+            set
+            {
+                SetPropertyValue(ref _milliSeconds, value);
+                UpdateTime();
+            }
+        }
+        public int Seconds
+        {
+            get => _seconds;
+            set
+            {
+                SetPropertyValue(ref _seconds, value);
+                UpdateTime();
+            }
+        }
+        public int Minutes
+        {
+            get => _minutes;
+            set
+            {
+                SetPropertyValue(ref _minutes, value);
+                UpdateTime();
+            }
+        }
+        public int Hours
+        {
+            get => _hours;
+            set
+            {
+                SetPropertyValue(ref _hours, value);
+                UpdateTime();
+            }
+        }
+
         public bool IsRunning => _isRunning;
         public CancellationTokenSource ClickingProcess => _cancelClick;
-        public TimeSpan customTime = new TimeSpan(0, 0, 0, 0, 1);
+        private TimeSpan _customTime;
 
         [DllImport("user32.dll")]
         private static extern bool GetCursorPos(out Point getPoint);
@@ -46,6 +88,8 @@ namespace BestAutoClicker.ViewModels
         public AutoClickerViewModel()
         {
             _cancelClick = new CancellationTokenSource();
+            _milliSeconds = 100;
+            UpdateTime();
         }
         private void SetCursor()
         {
@@ -55,13 +99,15 @@ namespace BestAutoClicker.ViewModels
         {
             GetCursorPos(out _cursorPosition);
         }
+
+        private void UpdateTime() => _customTime = new TimeSpan(0, _hours, _minutes, _seconds, _milliSeconds);
         public void Click()
         {
             _isRunning = true;
             while (_cancelClick.IsCancellationRequested == false)
             {
                 mouse_event(lButton, 0, 0, 0, 0);
-                Thread.Sleep(customTime);
+                Thread.Sleep(_customTime);
             }
             _isRunning = false;
             _cancelClick = new CancellationTokenSource();

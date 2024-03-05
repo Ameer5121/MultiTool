@@ -71,7 +71,6 @@ namespace BestAutoClicker
 
         private void CheckForNumbers(object sender, TextCompositionEventArgs e)
         {
-            var textBox = sender as TextBox;
             if (!int.TryParse(e.Text, out _)) e.Handled = true;
         }
     }

@@ -26,9 +26,10 @@ namespace BestAutoClicker.ViewModels
         private CancellationTokenSource _cancelClick;
         private Keys _defaultClicker = Keys.F6;
         private Point _cursorPosition;
+        private const int lButton = 0x0006;
         public bool IsRunning => _isRunning;
         public CancellationTokenSource ClickingProcess => _cancelClick;
-        public TimeSpan customTime = new TimeSpan(0, 0, 0, 0, 0);
+        public TimeSpan customTime = new TimeSpan(0, 0, 0, 0, 1);
 
         [DllImport("user32.dll")]
         private static extern bool GetCursorPos(out Point getPoint);
@@ -37,7 +38,7 @@ namespace BestAutoClicker.ViewModels
         private static extern bool SetCursorPos(int setX, int setY);
 
         [DllImport("User32.dll")]
-        private static extern short GetAsyncKeyState(int vKey);
+        private static extern short GetKeyState(int vKey);
 
         [DllImport("User32.dll")]
         private static extern short mouse_event(int dwFlags, int xPos, int yPos, int dwData, int dwExtraInfo);
@@ -57,7 +58,6 @@ namespace BestAutoClicker.ViewModels
         public void Click()
         {
             _isRunning = true;
-            int lButton = 0x0006;
             while (_cancelClick.IsCancellationRequested == false)
             {
                 mouse_event(lButton, 0, 0, 0, 0);
@@ -65,6 +65,6 @@ namespace BestAutoClicker.ViewModels
             }
             _isRunning = false;
             _cancelClick = new CancellationTokenSource();
-        }      
+        }        
     }
 }

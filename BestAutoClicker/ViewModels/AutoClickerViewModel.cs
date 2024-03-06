@@ -16,11 +16,11 @@ using Point = System.Drawing.Point;
 using MessageBox = System.Windows.MessageBox;
 using System.DirectoryServices.ActiveDirectory;
 using System.Threading;
-using BestAutoClicker.Helper;
+using BestAutoClicker.Helper.Enums;
 
 namespace BestAutoClicker.ViewModels
 {
-    
+
     internal class AutoClickerViewModel : ViewModelBase
     {
         private bool _isRunning;
@@ -31,7 +31,9 @@ namespace BestAutoClicker.ViewModels
         private int _milliSeconds;
         private int _seconds;
         private int _minutes;
-        private int _hours; 
+        private int _hours;
+
+        private AutoClickerMode _currentMode;
 
         public int MilliSeconds
         {
@@ -70,7 +72,15 @@ namespace BestAutoClicker.ViewModels
             }
         }
 
-        public AutoClickerMode CurrentMode { get; private set; }
+        public AutoClickerMode CurrentMode
+        {
+            get => _currentMode;
+            set
+            {
+                SetPropertyValue(ref _currentMode, value);
+                UpdateTime();
+            }
+        }
 
         public bool IsRunning => _isRunning;
         public CancellationTokenSource ClickingProcess => _cancelClick;

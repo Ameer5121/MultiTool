@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BestAutoClicker"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Converters="clr-namespace:BestAutoClicker.Helper.Converter"
+        xmlns:Enums="clr-namespace:BestAutoClicker.Helper.Enums"
         mc:Ignorable="d"
         Title="MultiTool" 
         ResizeMode="CanMinimize"
@@ -16,7 +18,10 @@
         Background="{StaticResource HomeWindow}"
         FontFamily="{materialDesign:MaterialDesignFont}" Style="{StaticResource CustomWindowStyle}" >
 
-   
+    <Window.Resources>
+        <Converters:IsCheckedConverter x:Key="IsCheckedConverter"></Converters:IsCheckedConverter>
+        <Enums:AutoClickerMode x:Key="AutoClickerMode"></Enums:AutoClickerMode>
+    </Window.Resources>
 
     <Grid>
 
@@ -45,17 +50,17 @@
 
         <Label Grid.ColumnSpan="2" Content="Mode" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
 
-        <CheckBox IsChecked="True" Content="Auto Clicker" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0" >
+        <CheckBox IsChecked="{Binding CurrentMode, Converter={StaticResource IsCheckedConverter}, ConverterParameter={x:Static Enums:AutoClickerMode.AutoClicker}}" Content="Auto Clicker" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0" >
             <CheckBox.Resources>
                 <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
             </CheckBox.Resources>
         </CheckBox>
-        <CheckBox Content="Hold Clicker" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="2" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0"  >
+        <CheckBox IsChecked="{Binding CurrentMode, Converter={StaticResource IsCheckedConverter}, ConverterParameter={x:Static Enums:AutoClickerMode.HoldClicker}}" Content="Hold Clicker" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="2" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0"  >
             <CheckBox.Resources>
                 <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
             </CheckBox.Resources>
         </CheckBox>
-        <CheckBox Content="Multiple Points Enable" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="3" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0"  >
+        <CheckBox IsChecked="{Binding CurrentMode, Converter={StaticResource IsCheckedConverter}, ConverterParameter={x:Static Enums:AutoClickerMode.MultiplePoints}}" Content="Multiple Points Enable" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="3" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0"  >
             <CheckBox.Resources>
                 <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
             </CheckBox.Resources>

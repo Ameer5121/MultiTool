@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestAutoClicker.Helper
+namespace BestAutoClicker.Helper.Enums
 {
     internal enum AutoClickerMode
     {

@@ -1,4 +1,4 @@
-﻿using BestAutoClicker.Helper;
+﻿using BestAutoClicker.Helper.Enums;
 using BestAutoClicker.ViewModels;
 using System;
 using System.Collections.Generic;

@@ -9,14 +9,14 @@ namespace BestAutoClicker.Commands
 {
     public class RelayCommand : ICommand
     {
-        private readonly Func<Task> execute;
+        private readonly Action execute;
         private readonly Func<bool> canExecute;
-        public RelayCommand(Func<Task> execute) : this(execute, canExecute: null)
+        public RelayCommand(Action execute) : this(execute, canExecute: null)
         {
         }
 
 
-        public RelayCommand(Func<Task> execute, Func<bool> canExecute)
+        public RelayCommand(Action execute, Func<bool> canExecute)
         {
             if (execute == null)
                 throw new ArgumentNullException("execute is null");
@@ -47,7 +47,7 @@ namespace BestAutoClicker.Commands
         {
             if (execute != null)
             {
-                await execute();
+                execute();
             }
         }
     }

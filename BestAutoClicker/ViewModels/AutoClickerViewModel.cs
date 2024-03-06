@@ -16,6 +16,7 @@ using Point = System.Drawing.Point;
 using MessageBox = System.Windows.MessageBox;
 using System.DirectoryServices.ActiveDirectory;
 using System.Threading;
+using BestAutoClicker.Helper;
 
 namespace BestAutoClicker.ViewModels
 {
@@ -69,6 +70,8 @@ namespace BestAutoClicker.ViewModels
             }
         }
 
+        public AutoClickerMode CurrentMode { get; private set; }
+
         public bool IsRunning => _isRunning;
         public CancellationTokenSource ClickingProcess => _cancelClick;
         private TimeSpan _customTime;
@@ -89,6 +92,7 @@ namespace BestAutoClicker.ViewModels
         {
             _cancelClick = new CancellationTokenSource();
             _milliSeconds = 100;
+            CurrentMode = AutoClickerMode.AutoClicker;
             UpdateTime();
         }
         private void SetCursor()
@@ -111,6 +115,6 @@ namespace BestAutoClicker.ViewModels
             }
             _isRunning = false;
             _cancelClick = new CancellationTokenSource();
-        }        
+        }    
     }
 }

@@ -1,4 +1,5 @@
-﻿using BestAutoClicker.ViewModels;
+﻿using BestAutoClicker.Helper;
+using BestAutoClicker.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace BestAutoClicker
         {
             if(msg.message == WM_HOTKEY)
             {
-                if ((int)msg.wParam == (int)Keys.F1)
+                if ((int)msg.wParam == (int)Keys.F1 && _autoClickerViewModel.CurrentMode == AutoClickerMode.AutoClicker)
                 {
                     if (_autoClickerViewModel.IsRunning == false) Task.Run(_autoClickerViewModel.Click);
                     else _autoClickerViewModel.ClickingProcess.Cancel();

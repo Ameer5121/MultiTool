@@ -20,7 +20,6 @@
 
     <Window.Resources>
         <Converters:IsCheckedConverter x:Key="IsCheckedConverter"></Converters:IsCheckedConverter>
-        <Enums:AutoClickerMode x:Key="AutoClickerMode"></Enums:AutoClickerMode>
     </Window.Resources>
 
     <Grid>

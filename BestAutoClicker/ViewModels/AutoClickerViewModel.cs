@@ -118,7 +118,7 @@ namespace BestAutoClicker.ViewModels
         public void Click()
         {
             _isRunning = true;
-            while (_cancelClick.IsCancellationRequested == false)
+            while (_cancelClick.IsCancellationRequested == false || _currentMode != AutoClickerMode.AutoClicker)
             {
                 mouse_event(lButton, 0, 0, 0, 0);
                 Thread.Sleep(_customTime);

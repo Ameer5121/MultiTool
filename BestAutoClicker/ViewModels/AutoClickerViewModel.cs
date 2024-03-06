@@ -24,7 +24,7 @@ namespace BestAutoClicker.ViewModels
     {
         private bool _isRunning;
         private CancellationTokenSource _cancelClick;
-        private Keys _defaultClicker = Keys.F6;
+        private Keys _defaultClicker = Keys.F1;
         private Point _cursorPosition;
         private const int lButton = 0x0006;
         private int _milliSeconds;

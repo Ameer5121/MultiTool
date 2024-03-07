@@ -74,5 +74,7 @@ namespace BestAutoClicker
         {
             if (!int.TryParse(e.Text, out _)) e.Handled = true;
         }
+
+        private void OnHoldClickChecked(object sender, RoutedEventArgs e) => Task.Run(_autoClickerViewModel.HoldClick);
     }
 }

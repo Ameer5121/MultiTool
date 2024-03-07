@@ -121,6 +121,24 @@ namespace BestAutoClicker.ViewModels
             }
             _isRunning = false;
             _cancelClick = new CancellationTokenSource();
-        }    
+        }   
+        
+        public void HoldClick()
+        {
+            _isRunning = true;
+            while (_currentMode == AutoClickerMode.HoldClicker)
+            {
+                if (((ushort)GetKeyState(0x01) >> 15) == 1)
+                {
+                    Thread.Sleep(500);
+                    while (((ushort)GetKeyState(0x01) >> 15) == 1)
+                    {
+                        mouse_event(0x002, 0, 0, 0, 0);
+                        Thread.Sleep(_customTime);
+                    }
+                }
+            }
+            _isRunning = false;
+        }
     }
 }

@@ -35,6 +35,8 @@ namespace BestAutoClicker
         [DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vlc);
 
+        [DllImport("user32.dll")]
+        private static extern bool SetCapture(IntPtr hWnd);
 
         public MainWindow()
         {
@@ -44,13 +46,13 @@ namespace BestAutoClicker
             _autoClickerViewModel = DataContext as AutoClickerViewModel;
 
             ComponentDispatcher.ThreadPreprocessMessage += HandleMessages;
-            RegisterHotKeys();
         }
 
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
             _windowHandle = new WindowInteropHelper(this).Handle;
+            RegisterHotKeys();
         }
 
         private void HandleMessages(ref MSG msg, ref bool handled)

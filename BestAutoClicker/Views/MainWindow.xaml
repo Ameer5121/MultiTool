@@ -70,16 +70,8 @@
 
         <TextBlock Text="Custom Points" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}"/>
 
-        <ListBox Background="{StaticResource Chat}" ScrollViewer.CanContentScroll="False" BorderThickness="1" BorderBrush="{StaticResource WindowBorder}" Margin="5" Foreground="{StaticResource Text}" Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2">
-            <ListBoxItem>(123,124)</ListBoxItem>
-            <ListBoxItem>(123,124)</ListBoxItem>
-            <ListBoxItem>(123,124)</ListBoxItem>
-            <ListBoxItem>(123,124)</ListBoxItem>
-            <ListBoxItem>(123,124)</ListBoxItem>
-            <ListBoxItem>(123,124)</ListBoxItem>
-            <ListBoxItem>(123,124)</ListBoxItem>
-            <ListBoxItem>(123,124)</ListBoxItem>
-            <ListBoxItem>(123,124)</ListBoxItem>
+        <ListBox Background="{StaticResource Chat}" ItemsSource="{Binding Points}" ScrollViewer.CanContentScroll="False" BorderThickness="1" BorderBrush="{StaticResource WindowBorder}" Margin="5" Foreground="{StaticResource Text}" Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2">
+
         </ListBox>
 
 

@@ -17,6 +17,7 @@ using MessageBox = System.Windows.MessageBox;
 using System.DirectoryServices.ActiveDirectory;
 using System.Threading;
 using BestAutoClicker.Helper.Enums;
+using System.Collections.ObjectModel;
 
 namespace BestAutoClicker.ViewModels
 {
@@ -81,9 +82,10 @@ namespace BestAutoClicker.ViewModels
         public bool IsRunning => _isRunning;
         public CancellationTokenSource ClickingProcess => _cancelClick;
         private TimeSpan _customTime;
+        public ObservableCollection<Point> Points { get; } = new ObservableCollection<Point>();
 
         [DllImport("user32.dll")]
-        private static extern bool GetCursorPos(out Point getPoint);
+        public static extern bool GetCursorPos(out Point getPoint);
 
         [DllImport("user32.dll")]
         private static extern bool SetCursorPos(int setX, int setY);
@@ -100,14 +102,6 @@ namespace BestAutoClicker.ViewModels
             _milliSeconds = 100;
             CurrentMode = AutoClickerMode.AutoClicker;
             UpdateTime();
-        }
-        private void SetCursor()
-        {
-            SetCursorPos(_cursorPosition.X, _cursorPosition.Y);
-        }
-        private void GetCursor()
-        {
-            GetCursorPos(out _cursorPosition);
         }
 
         private void UpdateTime() => _customTime = new TimeSpan(0, _hours, _minutes, _seconds, _milliSeconds);
@@ -139,6 +133,23 @@ namespace BestAutoClicker.ViewModels
                 }
             }
             _isRunning = false;
+        }
+
+        public void MultipleClick()
+        {
+            _isRunning = true;
+
+            while (_cancelClick.IsCancellationRequested == false && _currentMode == AutoClickerMode.MultiplePoints)
+            {
+                foreach (Point i in Points)
+                {
+                    SetCursorPos(i.X, i.Y);
+                    mouse_event(lButton, 0, 0, 0, 0);
+                    Thread.Sleep(_customTime);
+                }
+            }
+            _isRunning = false;
+            _cancelClick = new CancellationTokenSource();
         }
     }
 }

@@ -70,16 +70,9 @@ namespace BestAutoClicker
             {
                 if ((int)msg.wParam == (int)Keys.F1)
                 {
-                    if (_autoClickerViewModel.CurrentMode == AutoClickerMode.AutoClicker)
-                    {
-                        if (_autoClickerViewModel.IsRunning == false) Task.Run(_autoClickerViewModel.Click);
-                        else _autoClickerViewModel.ClickingProcess.Cancel();
-                    }
-                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints)
-                    {
-                        if (_autoClickerViewModel.IsRunning == false) Task.Run(_autoClickerViewModel.MultipleClick);
-                        else _autoClickerViewModel.ClickingProcess.Cancel();
-                    }
+                    if (_autoClickerViewModel.IsRunning) _autoClickerViewModel.ClickingProcess.Cancel();
+                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.AutoClicker) Task.Run(_autoClickerViewModel.Click);
+                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints) Task.Run(_autoClickerViewModel.MultipleClick);
                 }
                 else if ((int)msg.wParam == (int)Keys.F5 && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints)
                 {

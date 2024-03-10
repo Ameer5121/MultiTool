@@ -85,6 +85,7 @@ namespace BestAutoClicker
         private void OpenMPBackground()
         {
             this.Hide();
+            Activate();
             _background.Activate();
             _background.Show();
         }

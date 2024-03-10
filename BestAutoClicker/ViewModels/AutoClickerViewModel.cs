@@ -18,6 +18,7 @@ using System.DirectoryServices.ActiveDirectory;
 using System.Threading;
 using BestAutoClicker.Helper.Enums;
 using System.Collections.ObjectModel;
+using BestAutoClicker.Helper.Structs;
 
 namespace BestAutoClicker.ViewModels
 {
@@ -95,8 +96,8 @@ namespace BestAutoClicker.ViewModels
         [DllImport("User32.dll")]
         private static extern short GetKeyState(int vKey);
 
-        [DllImport("User32.dll")]
-        private static extern short mouse_event(int dwFlags, int xPos, int yPos, int dwData, int dwExtraInfo);
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern uint SendInput(uint nInputs, MouseInput[] pInputs, int cbSize);
 
         public AutoClickerViewModel()
         {
@@ -110,18 +111,23 @@ namespace BestAutoClicker.ViewModels
         public void Click()
         {
             _isRunning = true;
+            MouseInput[] mouseInput = new MouseInput[2];
+            mouseInput[0].mouseData.dwFlags = 0x0002;
+            mouseInput[1].mouseData.dwFlags = 0x0004;
             while (_cancelClick.IsCancellationRequested == false && _currentMode == AutoClickerMode.AutoClicker)
             {
-                mouse_event(lButton, 0, 0, 0, 0);
+                SendInput(2, mouseInput, Marshal.SizeOf<MouseInput>());
                 Thread.Sleep(_customTime);
             }
             _isRunning = false;
             _cancelClick = new CancellationTokenSource();
-        }   
-        
+        }
+
         public void HoldClick()
         {
             _isRunning = true;
+            MouseInput[] mouseInput = new MouseInput[1];
+            mouseInput[0].mouseData.dwFlags = 0x0002;
             while (_currentMode == AutoClickerMode.HoldClicker)
             {
                 if (((ushort)GetKeyState(0x01) >> 15) == 1)
@@ -129,7 +135,7 @@ namespace BestAutoClicker.ViewModels
                     Thread.Sleep(500);
                     while (((ushort)GetKeyState(0x01) >> 15) == 1)
                     {
-                        mouse_event(0x002, 0, 0, 0, 0);
+                        SendInput(1, mouseInput, Marshal.SizeOf<MouseInput>());
                         Thread.Sleep(_customTime);
                     }
                 }
@@ -140,6 +146,11 @@ namespace BestAutoClicker.ViewModels
         public void MultipleClick()
         {
             _isRunning = true;
+            MouseInput[] mouseInput = new MouseInput[4];
+            mouseInput[0] = new MouseInput();
+            mouseInput[1] = new MouseInput();
+            mouseInput[2].mouseData.dwFlags = 0x0002;
+            mouseInput[3].mouseData.dwFlags = 0x0004;
             while (_cancelClick.IsCancellationRequested == false && _currentMode == AutoClickerMode.MultiplePoints)
             {
                 foreach (Point i in Points)
@@ -147,9 +158,11 @@ namespace BestAutoClicker.ViewModels
                     var screen = Screen.PrimaryScreen.Bounds;
                     var abX = i.X * 65355 / screen.Width;
                     var abY = i.Y * 65355 / screen.Height;
-                    mouse_event(0x8001, abX, abY, 0, 0);
-                    mouse_event(0x8001, abX + 1, abY + 1, 0, 0);
-                    mouse_event(lButton, 0, 0, 0, 0);
+                    mouseInput[0].mouseData.dx = abX;
+                    mouseInput[0].mouseData.dy = abY;
+                    mouseInput[1].mouseData.dx = abX + 1;
+                    mouseInput[1].mouseData.dy = abY + 1;
+                    SendInput(4, mouseInput, Marshal.SizeOf<MouseInput>());
                     Thread.Sleep(_customTime);
                 }
             }

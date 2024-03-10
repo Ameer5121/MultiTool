@@ -94,6 +94,7 @@ namespace BestAutoClicker
         {
             _background.Hide();
             this.Show();
+            this.WindowState = WindowState.Minimized;
             Activate();
         }
 

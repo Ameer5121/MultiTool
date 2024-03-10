@@ -93,6 +93,7 @@ namespace BestAutoClicker
         {
             _background.Hide();
             this.Show();
+            Activate();
         }
 
         private void AddPoints(object sender, MouseButtonEventArgs info)

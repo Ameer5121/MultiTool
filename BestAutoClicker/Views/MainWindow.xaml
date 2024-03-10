@@ -59,7 +59,7 @@
                 <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
             </CheckBox.Resources>
         </CheckBox>
-        <CheckBox IsChecked="{Binding CurrentMode, Converter={StaticResource IsCheckedConverter}, ConverterParameter={x:Static Enums:AutoClickerMode.MultiplePoints}}" Content="Multiple Points Enable" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="3" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0"  >
+        <CheckBox IsChecked="{Binding CurrentMode, Converter={StaticResource IsCheckedConverter}, ConverterParameter={x:Static Enums:AutoClickerMode.MultiplePoints}}" Content="Multi Point Clicking" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="3" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0"  >
             <CheckBox.Resources>
                 <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
             </CheckBox.Resources>
@@ -67,6 +67,9 @@
 
         <Button Content="Load" Grid.Row="4" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Bottom" Margin="5"></Button>
         <Button Content="Save" Grid.Row="4" Grid.Column="1" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Bottom" Margin="5"></Button>
+        <Button Background= "{StaticResource Buttons}" Foreground="Red" Grid.Row="5" Grid.Column="1" Width="15" Height="15" FontSize="5" BorderBrush="White" BorderThickness="0.5" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 2.5, 30, 0">
+            <materialDesign:PackIcon Kind="ExitToApp" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 2.5, 30, 0"></materialDesign:PackIcon>
+        </Button>
 
         <TextBlock Text="Custom Points" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}"/>
 

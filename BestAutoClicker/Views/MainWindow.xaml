@@ -67,9 +67,12 @@
 
         <Button Content="Load" Grid.Row="4" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Bottom" Margin="5"></Button>
         <Button Content="Save" Grid.Row="4" Grid.Column="1" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Bottom" Margin="5"></Button>
-        <Button Background= "{StaticResource Buttons}" Foreground="Red" Grid.Row="5" Grid.Column="1" Width="15" Height="15" FontSize="5" BorderBrush="White" BorderThickness="0.5" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 2.5, 30, 0">
-            <materialDesign:PackIcon Kind="ExitToApp" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 2.5, 30, 0"></materialDesign:PackIcon>
-        </Button>
+        
+        <Border Grid.Row="5" Grid.Column="1" BorderBrush="White" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Padding="0" Margin="0,0,30,0">
+            <Button Background= "{StaticResource Buttons}" Foreground="Red" Padding="0" Width="20" Height="20" VerticalAlignment="Center"  HorizontalAlignment="Center" VerticalContentAlignment="Top" BorderBrush="Transparent" BorderThickness="1">
+                <materialDesign:PackIcon Kind="WindowClose" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"></materialDesign:PackIcon>
+            </Button>
+        </Border>
 
         <TextBlock Text="Custom Points" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}"/>
 

@@ -140,12 +140,15 @@ namespace BestAutoClicker.ViewModels
         public void MultipleClick()
         {
             _isRunning = true;
-
             while (_cancelClick.IsCancellationRequested == false && _currentMode == AutoClickerMode.MultiplePoints)
             {
                 foreach (Point i in Points)
                 {
-                    SetCursorPos(i.X, i.Y);
+                    var screen = Screen.PrimaryScreen.Bounds;
+                    var abX = i.X * 65355 / screen.Width;
+                    var abY = i.Y * 65355 / screen.Height;
+                    mouse_event(0x8001, abX, abY, 0, 0);
+                    mouse_event(0x8001, abX + 1, abY + 1, 0, 0);
                     mouse_event(lButton, 0, 0, 0, 0);
                     Thread.Sleep(_customTime);
                 }

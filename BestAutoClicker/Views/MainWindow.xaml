@@ -70,9 +70,13 @@
         
         <Border Grid.Row="5" Grid.Column="1" BorderBrush="White" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Padding="0" Margin="0,0,30,0">
             <Button Background= "{StaticResource Buttons}" Foreground="Red" Padding="0" Width="20" Height="20" VerticalAlignment="Center"  HorizontalAlignment="Center" VerticalContentAlignment="Top" BorderBrush="Transparent" BorderThickness="1">
-                <materialDesign:PackIcon Kind="WindowClose" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"></materialDesign:PackIcon>
+                <materialDesign:PackIcon  Kind="WindowClose" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"></materialDesign:PackIcon>
+                <Button.ToolTip>
+                    <ToolTip Content="Clear All Points" Background="{StaticResource HomeWindow}"></ToolTip>
+                </Button.ToolTip>
             </Button>
         </Border>
+        
 
         <TextBlock Text="Custom Points" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}"/>
 

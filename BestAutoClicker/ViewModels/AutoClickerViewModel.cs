@@ -79,6 +79,8 @@ namespace BestAutoClicker.ViewModels
             set => SetPropertyValue(ref _currentMode, value);
         }
 
+        public RelayCommand ClearPointsCommand => new RelayCommand(ClearPoints);
+
         public bool IsRunning => _isRunning;
         public CancellationTokenSource ClickingProcess => _cancelClick;
         private TimeSpan _customTime;
@@ -150,6 +152,11 @@ namespace BestAutoClicker.ViewModels
             }
             _isRunning = false;
             _cancelClick = new CancellationTokenSource();
+        }
+
+        private void ClearPoints()
+        {
+            Points.Clear();
         }
     }
 }

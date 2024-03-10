@@ -72,7 +72,7 @@ namespace BestAutoClicker
                 {
                     if (_autoClickerViewModel.IsRunning) _autoClickerViewModel.ClickingProcess.Cancel();
                     else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.AutoClicker) Task.Run(_autoClickerViewModel.Click);
-                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints) Task.Run(_autoClickerViewModel.MultipleClick);
+                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints && _autoClickerViewModel.Points.Count != 0) Task.Run(_autoClickerViewModel.MultipleClick);
                 }
                 else if ((int)msg.wParam == (int)Keys.F5 && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints)
                 {

@@ -105,8 +105,8 @@ namespace BestAutoClicker
             AutoClickerViewModel.GetCursorPos(out var pos);
             _autoClickerViewModel.Points.Add(pos);
             Circle circle = new Circle();
-            _background.MPBackground.Children.Add(circle);
-            circle.RenderTransform = new TranslateTransform(pos.X, pos.Y);
+            _background.MPBackground.Children.Add(circle);           
+            circle.RenderTransform = new TranslateTransform(pos.X - 7, pos.Y - 7);
         }
 
         private void RegisterHotKeys()

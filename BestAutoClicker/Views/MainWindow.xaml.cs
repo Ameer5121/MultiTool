@@ -34,6 +34,7 @@ namespace BestAutoClicker
 
         private AutoClickerViewModel _autoClickerViewModel;
         private IntPtr _windowHandle;
+       
 
         [DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vlc);
@@ -126,6 +127,12 @@ namespace BestAutoClicker
         private void OnRightClickPoint(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            _autoClickerViewModel.ClickingProcess.Cancel();
+            base.OnClosed(e);
         }
     }
 }

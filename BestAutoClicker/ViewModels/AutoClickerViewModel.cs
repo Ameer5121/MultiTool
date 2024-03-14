@@ -128,7 +128,7 @@ namespace BestAutoClicker.ViewModels
             _isRunning = true;
             MouseInput[] mouseInput = new MouseInput[1];
             mouseInput[0].mouseData.dwFlags = 0x0002;
-            while (_currentMode == AutoClickerMode.HoldClicker)
+            while (_currentMode == AutoClickerMode.HoldClicker && _cancelClick.IsCancellationRequested == false)
             {
                 if (((ushort)GetKeyState(0x01) >> 15) == 1)
                 {

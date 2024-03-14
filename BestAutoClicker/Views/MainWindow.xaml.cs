@@ -117,5 +117,15 @@ namespace BestAutoClicker
         }
 
         private void OnHoldClickChecked(object sender, RoutedEventArgs e) => Task.Run(_autoClickerViewModel.HoldClick);
+
+        private void OnLeftClickPoint(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void OnRightClickPoint(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

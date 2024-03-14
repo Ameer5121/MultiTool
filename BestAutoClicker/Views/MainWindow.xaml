@@ -82,7 +82,7 @@
 
         <ListBox Background="{StaticResource Chat}" ItemsSource="{Binding Points}" ScrollViewer.CanContentScroll="False" BorderThickness="1" BorderBrush="{StaticResource WindowBorder}" Margin="5" Foreground="{StaticResource Text}" Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2">
             <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
+                <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
                     <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnLeftClickPoint"></EventSetter>
                     <EventSetter Event="PreviewMouseRightButtonDown" Handler="OnRightClickPoint"></EventSetter>
                 </Style>

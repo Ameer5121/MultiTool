@@ -22,6 +22,7 @@ using System.Windows.Shapes;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 using MessageBox = System.Windows.MessageBox;
 using TextBox = System.Windows.Controls.TextBox;
+using Point = System.Drawing.Point;
 
 namespace BestAutoClicker
 {
@@ -35,7 +36,6 @@ namespace BestAutoClicker
         private AutoClickerViewModel _autoClickerViewModel;
         private IntPtr _windowHandle;
        
-
         [DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vlc);
 
@@ -126,7 +126,8 @@ namespace BestAutoClicker
 
         private void OnRightClickPoint(object sender, MouseButtonEventArgs e)
         {
-
+            var LBItem = sender as ListBoxItem;
+            _autoClickerViewModel.Points.Remove((Point)LBItem.Content);
         }
 
         protected override void OnClosed(EventArgs e)

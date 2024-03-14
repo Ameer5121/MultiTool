@@ -5,16 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BestAutoClicker.Views.Assets"
              mc:Ignorable="d" 
-             d:DesignHeight="20" d:DesignWidth="20">
-    <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+             Height="20" Width="20"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-2,-2">
+    <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Name="Point" Width="20" Height="20">
+       
         <Ellipse Fill="red" Stroke="Black" StrokeThickness="1" Width="20" Height="20">
-            
         </Ellipse>
-        <Ellipse Fill="Orange" Width="12" Height="12">
-            
+        
+        
+        <Ellipse Margin="2,2" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="Orange" Width="12" Height="12">
         </Ellipse>
-        <Ellipse Fill="Yellow" Width="4" Height="4">
-            
+        
+        
+        <Ellipse x:Name="CenterCircle" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="Yellow" Width="4" Height="4">
+
         </Ellipse>
     </Grid>
 </UserControl>

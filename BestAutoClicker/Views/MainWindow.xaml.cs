@@ -102,11 +102,12 @@ namespace BestAutoClicker
 
         private void AddPoints(object sender, MouseButtonEventArgs info)
         {
-            AutoClickerViewModel.GetCursorPos(out var pos);
+            AutoClickerViewModel.GetCursorPos(out var pos);              
             _autoClickerViewModel.Points.Add(pos);
+            var backgroundPosition = _background.PointToScreen(info.MouseDevice.GetPosition(_background));
             Circle circle = new Circle();
-            _background.MPBackground.Children.Add(circle);           
-            circle.RenderTransform = new TranslateTransform(pos.X - 7, pos.Y - 7);
+            _background.MPBackground.Children.Add(circle);
+            circle.RenderTransform = new TranslateTransform(backgroundPosition.X, backgroundPosition.Y);
         }
 
         private void RegisterHotKeys()

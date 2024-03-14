@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BestAutoClicker.Views"
         mc:Ignorable="d"
         Title="MPBG" Height="450" Width="800" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid x:Name="MPBackground">
         
     </Grid>
     <Window.Background>

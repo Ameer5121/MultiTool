@@ -23,6 +23,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 using MessageBox = System.Windows.MessageBox;
 using TextBox = System.Windows.Controls.TextBox;
 using Point = System.Drawing.Point;
+using BestAutoClicker.Views.Assets;
+using MaterialDesignThemes.Wpf;
 
 namespace BestAutoClicker
 {
@@ -95,7 +97,6 @@ namespace BestAutoClicker
         {
             _background.Hide();
             this.Show();
-            this.WindowState = WindowState.Minimized;
             Activate();
         }
 
@@ -103,7 +104,9 @@ namespace BestAutoClicker
         {
             AutoClickerViewModel.GetCursorPos(out var pos);
             _autoClickerViewModel.Points.Add(pos);
-            
+            Circle circle = new Circle();
+            _background.MPBackground.Children.Add(circle);
+            circle.RenderTransform = new TranslateTransform(pos.X, pos.Y);
         }
 
         private void RegisterHotKeys()

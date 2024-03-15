@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace BestAutoClicker.Helper.Enums
 {
-    internal enum ClickingMode
+    internal enum HoldingMode
     {
-        LeftClickDown = 0x0002,
-        LeftClickUp = 0x0004,
-        RightClickDown = 0x0008,
-        RightClickUp = 0x0010
+        LeftClick = 0x01,
+        RightClick = 0x02
     }
 }

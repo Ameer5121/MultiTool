@@ -28,9 +28,6 @@ namespace BestAutoClicker.ViewModels
     {
         private bool _isRunning;
         private CancellationTokenSource _cancelClick;
-        private Keys _defaultClicker = Keys.F1;
-        private Point _cursorPosition;
-        private const int lButton = 0x0006;
         private int _milliSeconds;
         private int _seconds;
         private int _minutes;
@@ -115,8 +112,8 @@ namespace BestAutoClicker.ViewModels
         {
             _isRunning = true;
             MouseInput[] mouseInput = new MouseInput[2];
-            mouseInput[0].mouseData.dwFlags = 0x0002;
-            mouseInput[1].mouseData.dwFlags = 0x0004;
+            mouseInput[0].mouseData.dwFlags = (uint)ClickingMode.LeftClickDown;
+            mouseInput[1].mouseData.dwFlags = (uint)ClickingMode.LeftClickUp;
             while (_cancelClick.IsCancellationRequested == false && _currentMode == AutoClickerMode.AutoClicker)
             {
                 SendInput(2, mouseInput, Marshal.SizeOf<MouseInput>());
@@ -130,13 +127,13 @@ namespace BestAutoClicker.ViewModels
         {
             _isRunning = true;
             MouseInput[] mouseInput = new MouseInput[1];
-            mouseInput[0].mouseData.dwFlags = 0x0002;
+            mouseInput[0].mouseData.dwFlags = (uint)ClickingMode.LeftClickDown;
             while (_currentMode == AutoClickerMode.HoldClicker && _cancelClick.IsCancellationRequested == false)
             {
-                if (((ushort)GetKeyState(0x01) >> 15) == 1)
+                if (((ushort)GetKeyState((int)HoldingMode.LeftClick) >> 15) == 1)
                 {
                     Thread.Sleep(500);
-                    while (((ushort)GetKeyState(0x01) >> 15) == 1)
+                    while (((ushort)GetKeyState((int)HoldingMode.LeftClick) >> 15) == 1)
                     {
                         SendInput(1, mouseInput, Marshal.SizeOf<MouseInput>());
                         Thread.Sleep(_customTime);
@@ -152,8 +149,8 @@ namespace BestAutoClicker.ViewModels
             MouseInput[] mouseInput = new MouseInput[4];
             mouseInput[0] = new MouseInput();
             mouseInput[1] = new MouseInput();
-            mouseInput[2].mouseData.dwFlags = 0x0002;
-            mouseInput[3].mouseData.dwFlags = 0x0004;
+            mouseInput[2].mouseData.dwFlags = (uint)ClickingMode.LeftClickDown;
+            mouseInput[3].mouseData.dwFlags = (uint)ClickingMode.LeftClickUp;
             while (_cancelClick.IsCancellationRequested == false && _currentMode == AutoClickerMode.MultiplePoints)
             {
                 foreach (Point i in Points)

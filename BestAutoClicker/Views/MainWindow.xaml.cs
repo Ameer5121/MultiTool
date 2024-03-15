@@ -131,7 +131,10 @@ namespace BestAutoClicker
         private void OnRightClickPoint(object sender, MouseButtonEventArgs e)
         {
             var LBItem = sender as ListBoxItem;
-            _autoClickerViewModel.Points.Remove((Point)LBItem.Content);
+            Point point = (Point)LBItem.Content;
+            int indexPoint = _autoClickerViewModel.Points.IndexOf(point);
+            _autoClickerViewModel.Points.Remove(point);
+            _background.MPBackground.Children.RemoveAt(indexPoint);
         }
 
         protected override void OnClosed(EventArgs e)

@@ -19,6 +19,7 @@ using System.Threading;
 using BestAutoClicker.Helper.Enums;
 using System.Collections.ObjectModel;
 using BestAutoClicker.Helper.Structs;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace BestAutoClicker.ViewModels
 {

@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Height="20" Width="20"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-10,-10,-10,-10">
     <Border Background="Red" CornerRadius="20" BorderBrush="Black" BorderThickness="1" Width="20" Height="20">
-        <Border Width="16" Background="Orange" Height="16" CornerRadius="20">
+        <Border Width="12" Background="Orange" Height="12" CornerRadius="20">
             <Border Width="5" Background="Yellow" Height="5" CornerRadius="20">
             </Border>
         </Border>

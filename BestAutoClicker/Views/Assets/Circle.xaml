@@ -5,19 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BestAutoClicker.Views.Assets"
              mc:Ignorable="d" 
-             Height="20" Width="20"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-2,-2">
-    <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Name="Point" Width="20" Height="20">
-       
-        <Ellipse Fill="red" Stroke="Black" StrokeThickness="1" Width="20" Height="20">
-        </Ellipse>
-        
-        
-        <Ellipse Margin="2,2" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="Orange" Width="12" Height="12">
-        </Ellipse>
-        
-        
-        <Ellipse x:Name="CenterCircle" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="Yellow" Width="4" Height="4">
-
-        </Ellipse>
-    </Grid>
+             Height="20" Width="20"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-10,-10,-10,-10">
+    <Border Background="Red" CornerRadius="20" BorderBrush="Black" BorderThickness="1" Width="20" Height="20">
+        <Border Width="16" Background="Orange" Height="16" CornerRadius="20">
+            <Border Width="5" Background="Yellow" Height="5" CornerRadius="20">
+            </Border>
+        </Border>
+    </Border>
 </UserControl>

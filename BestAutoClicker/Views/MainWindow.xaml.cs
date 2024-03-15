@@ -105,7 +105,7 @@ namespace BestAutoClicker
         {
             AutoClickerViewModel.GetCursorPos(out var pos);              
             _autoClickerViewModel.Points.Add(pos);
-            var backgroundPosition = _background.PointToScreen(info.MouseDevice.GetPosition(_background));
+            var backgroundPosition = info.MouseDevice.GetPosition(_background);
             Circle circle = new Circle();
             _background.MPBackground.Children.Add(circle);
             circle.RenderTransform = new TranslateTransform(backgroundPosition.X, backgroundPosition.Y);

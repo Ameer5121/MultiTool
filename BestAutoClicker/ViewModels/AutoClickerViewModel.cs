@@ -36,6 +36,8 @@ namespace BestAutoClicker.ViewModels
         private int _minutes;
         private int _hours;
 
+        public event Action ClearUIPoints;
+
         private AutoClickerMode _currentMode;
 
         public int MilliSeconds
@@ -174,6 +176,7 @@ namespace BestAutoClicker.ViewModels
         private void ClearPoints()
         {
             Points.Clear();
+            ClearUIPoints?.Invoke();
         }
     }
 }

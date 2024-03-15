@@ -55,6 +55,7 @@ namespace BestAutoClicker
 
             ComponentDispatcher.ThreadPreprocessMessage += HandleMessages;
 
+            _autoClickerViewModel.ClearUIPoints += ClearAllUICircles;
             _background = new MPBG();
             _background.WindowState = WindowState.Maximized;
             _background.MouseDown += AddPoints;
@@ -135,6 +136,11 @@ namespace BestAutoClicker
             int indexPoint = _autoClickerViewModel.Points.IndexOf(point);
             _autoClickerViewModel.Points.Remove(point);
             _background.MPBackground.Children.RemoveAt(indexPoint);
+        }
+
+        private void ClearAllUICircles()
+        {
+            _background.MPBackground.Children.Clear();
         }
 
         protected override void OnClosed(EventArgs e)

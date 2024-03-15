@@ -25,6 +25,7 @@ using TextBox = System.Windows.Controls.TextBox;
 using Point = System.Drawing.Point;
 using BestAutoClicker.Views.Assets;
 using MaterialDesignThemes.Wpf;
+using System.Drawing;
 
 namespace BestAutoClicker
 {
@@ -58,7 +59,7 @@ namespace BestAutoClicker
             _autoClickerViewModel.ClearUIPoints += ClearAllUICircles;
             _background = new MPBG();
             _background.WindowState = WindowState.Maximized;
-            _background.MouseDown += AddPoints;
+            _background.MouseLeftButtonDown += AddPoints;
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -81,7 +82,7 @@ namespace BestAutoClicker
                 else if ((int)msg.wParam == (int)Keys.F5 && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints)
                 {
                     if (_background.IsActive == false) OpenMPBackground();
-                    else CloseBackground();
+                    else CloseMPBackground();
                 }
             }
         }
@@ -94,7 +95,7 @@ namespace BestAutoClicker
             _background.Show();
         }
 
-        private void CloseBackground()
+        private void CloseMPBackground()
         {
             _background.Hide();
             this.Show();
@@ -107,6 +108,7 @@ namespace BestAutoClicker
             _autoClickerViewModel.Points.Add(pos);
             var backgroundPosition = _background.PointToScreen(info.MouseDevice.GetPosition(_background));
             Circle circle = new Circle();
+            circle.MouseRightButtonDown += RMouseDownUI;
             _background.MPBackground.Children.Add(circle);
             circle.RenderTransform = new TranslateTransform(backgroundPosition.X, backgroundPosition.Y);
         }
@@ -126,7 +128,10 @@ namespace BestAutoClicker
 
         private void OnLeftClickPoint(object sender, MouseButtonEventArgs e)
         {
-
+            var LBItem = sender as ListBoxItem;
+            Point point = (Point)LBItem.Content;
+            OpenMPBackground();
+            AutoClickerViewModel.SetCursorPos(point.X, point.Y);
         }
 
         private void OnRightClickPoint(object sender, MouseButtonEventArgs e)
@@ -141,6 +146,14 @@ namespace BestAutoClicker
         private void ClearAllUICircles()
         {
             _background.MPBackground.Children.Clear();
+        }
+
+        private void RMouseDownUI(object sender, MouseButtonEventArgs e)
+        {
+            var circle = sender as Circle;
+            int indexPoint = _background.MPBackground.Children.IndexOf(circle);
+            _background.MPBackground.Children.Remove(circle);
+            _autoClickerViewModel.Points.RemoveAt(indexPoint);
         }
 
         protected override void OnClosed(EventArgs e)

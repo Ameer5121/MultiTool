@@ -157,7 +157,7 @@
             </TextBlock>
 
             <TextBlock Foreground="{StaticResource Text}" HorizontalAlignment="Left" Margin="5">
-         <Run Text="Multiple Points Record "></Run>
+         <Run Text="Multiple Points Menu "></Run>
          <Run Text="(F5)" Foreground="AntiqueWhite"></Run>
             </TextBlock>
         </StackPanel>

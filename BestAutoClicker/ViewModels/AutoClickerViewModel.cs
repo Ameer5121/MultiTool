@@ -94,7 +94,7 @@ namespace BestAutoClicker.ViewModels
         public static extern bool GetCursorPos(out Point getPoint);
 
         [DllImport("user32.dll")]
-        private static extern bool SetCursorPos(int setX, int setY);
+        public static extern bool SetCursorPos(int setX, int setY);
 
         [DllImport("User32.dll")]
         private static extern short GetKeyState(int vKey);

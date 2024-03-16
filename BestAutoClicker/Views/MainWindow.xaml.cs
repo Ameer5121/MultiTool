@@ -99,7 +99,6 @@ namespace BestAutoClicker
             _background.Hide();
             this.Show();
         }
-
         private void AddPoints(object sender, MouseButtonEventArgs info)
         {
             AutoClickerViewModel.GetCursorPos(out var pos);              
@@ -127,7 +126,7 @@ namespace BestAutoClicker
         private void OnLeftClickPoint(object sender, MouseButtonEventArgs e)
         {
             var LBItem = sender as ListBoxItem;
-            Point point = (Point)LBItem.Content;
+            Point point = (Point)LBItem!.Content;
             OpenMPBackground();
             AutoClickerViewModel.SetCursorPos(point.X, point.Y);
         }

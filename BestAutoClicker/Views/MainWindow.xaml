@@ -111,7 +111,10 @@
         </Border>
 
         <Border VerticalAlignment="Center" Height="{Binding ElementName=LeftClickingMode ,Path=ActualHeight}" Grid.Column="4" Grid.Row="4" Padding="0" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
-            <CheckBox Content="Right-Clicking mode" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+            <Border.ToolTip>
+                <ToolTip Content="Grants the possibility to choose if a point will be clicked by the left or right mouse button." Background="{StaticResource HomeWindow}"></ToolTip>
+            </Border.ToolTip>
+            <CheckBox Content="Right / Left Click Option (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                 <CheckBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
                 </CheckBox.Resources>

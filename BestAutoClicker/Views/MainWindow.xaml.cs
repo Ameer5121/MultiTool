@@ -47,6 +47,8 @@ namespace BestAutoClicker
 
         private MPBG _background;
 
+        private List<Circle> _circles;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -57,9 +59,7 @@ namespace BestAutoClicker
             ComponentDispatcher.ThreadPreprocessMessage += HandleMessages;
 
             _autoClickerViewModel.ClearUIPoints += ClearAllUICircles;
-            _background = new MPBG();
-            _background.WindowState = WindowState.Maximized;
-            _background.MouseLeftButtonDown += AddPoints;
+            _circles = new List<Circle>();
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -91,12 +91,20 @@ namespace BestAutoClicker
         {
             this.Hide();
             Activate(); // So that background get shown on the screen
+            _background = new MPBG();
+            _background.WindowState = WindowState.Maximized;
+            _background.MouseLeftButtonDown += AddPoints;
+            if (_circles.Count > 0) 
+            {
+                foreach (var circle in _circles) _background.MPBackground.Children.Add(circle);
+            }
             _background.Show();
         }
 
         private void CloseMPBackground()
         {
-            _background.Hide();
+            _background.MouseLeftButtonDown -= AddPoints;
+            _background.Close();
             this.Show();
         }
         private void AddPoints(object sender, MouseButtonEventArgs info)

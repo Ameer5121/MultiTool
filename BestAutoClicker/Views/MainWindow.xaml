@@ -35,13 +35,12 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -65,10 +64,10 @@
             </CheckBox.Resources>
         </CheckBox>
 
-        <Button Content="Load" Grid.Row="4" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Bottom" Margin="5, 0, 5, 0"></Button>
-        <Button Content="Save" Grid.Row="4" Grid.Column="1" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Bottom" Margin="5, 0, 5, 0"></Button>
+        <Button Content="Load" Grid.Row="4" Grid.RowSpan="2" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Top" Margin="2.5,2,2.5,0" ></Button>
+        <Button Content="Save" Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Top" Margin="2.5,2,2.5,0" ></Button>
         
-        <Border Grid.Row="5" Grid.Column="1" BorderBrush="White" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Padding="0" Margin="0,0,30,0">
+        <Border Grid.Row="5" Grid.Column="1" BorderBrush="White" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Padding="0" Margin="0,10,30,0">
             <Button Command="{Binding ClearPointsCommand}" Background= "{StaticResource Buttons}" Foreground="Red" Padding="0" Width="20" Height="20" VerticalAlignment="Center"  HorizontalAlignment="Center" VerticalContentAlignment="Top" BorderBrush="Transparent" BorderThickness="1">
                 <materialDesign:PackIcon  Kind="WindowClose" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"></materialDesign:PackIcon>
                 <Button.ToolTip>
@@ -78,7 +77,7 @@
         </Border>
         
 
-        <TextBlock Text="Custom Points" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}"/>
+        <TextBlock Text="Custom Points" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}" Margin="0,10,0,0"/>
 
         <ListBox Background="{StaticResource Chat}" ItemsSource="{Binding Points}" ScrollViewer.CanContentScroll="False" BorderThickness="1" BorderBrush="{StaticResource WindowBorder}" Margin="5" Foreground="{StaticResource Text}" Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2">
             <ListBox.ItemContainerStyle>
@@ -130,7 +129,7 @@
             </CheckBox>
         </Border>
 
-        <StackPanel Grid.Row="1" Grid.Column="3" Grid.RowSpan="4" Grid.ColumnSpan="1">
+        <StackPanel Grid.Row="1" Grid.Column="3" Grid.RowSpan="5" Grid.ColumnSpan="1" VerticalAlignment="Top">
 
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="MilliSeconds" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
@@ -154,9 +153,9 @@
 
         <!-- Right Outlines-->
         <Border Background="White" BorderThickness="1" Grid.Column="2" Width="3" Grid.RowSpan="9" HorizontalAlignment="Right"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Left" Width="3" Grid.RowSpan="5"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="4" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Left" Width="3" Grid.RowSpan="6"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="5" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="6" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="2" Height="3" VerticalAlignment="Bottom" Grid.Column="4"></Border>
         <!-- Right Outlines-->
 
@@ -168,9 +167,9 @@
 
 
 
-        <TextBlock Text="Controls" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource Text}" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2"></TextBlock>
+        <TextBlock Text="Controls" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource Text}" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2"></TextBlock>
 
-        <StackPanel Grid.Column="3" Grid.Row="6" Grid.RowSpan="2" HorizontalAlignment="Center">
+        <StackPanel Grid.Column="3" Grid.Row="7" Grid.RowSpan="2" HorizontalAlignment="Center">
             <TextBlock Foreground="{StaticResource Text}" HorizontalAlignment="Left" Margin="5">
          <Run Text="Auto Clicker: "></Run>
          <Run Text="Start/Stop (F6)" Foreground="AntiqueWhite"></Run>
@@ -182,7 +181,7 @@
             </TextBlock>
         </StackPanel>
 
-        <StackPanel Grid.Column="4" Grid.Row="6" Grid.RowSpan="2">
+        <StackPanel Grid.Column="4" Grid.Row="7" Grid.RowSpan="2">
             <ComboBox VerticalAlignment="Top" Width="50" HorizontalAlignment="Left" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
              materialDesign:TextFieldAssist.UnderlineBrush="White">
 

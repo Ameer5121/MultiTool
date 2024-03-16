@@ -49,17 +49,17 @@
 
         <Label Grid.ColumnSpan="2" Content="Mode" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
 
-        <CheckBox IsChecked="{Binding CurrentMode, Converter={StaticResource IsCheckedConverter}, ConverterParameter={x:Static Enums:AutoClickerMode.AutoClicker}}" Content="Auto Clicker" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0" >
+        <CheckBox IsChecked="{Binding CurrentMode, Converter={StaticResource IsCheckedConverter}, ConverterParameter={x:Static Enums:AutoClickerMode.AutoClicker}}" Content="Auto Clicker (AC)" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0" >
             <CheckBox.Resources>
                 <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
             </CheckBox.Resources>
         </CheckBox>
-        <CheckBox Checked="OnHoldClickChecked" IsChecked="{Binding CurrentMode, Converter={StaticResource IsCheckedConverter}, ConverterParameter={x:Static Enums:AutoClickerMode.HoldClicker}}" Content="Hold Clicker" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="2" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0"  >
+        <CheckBox Checked="OnHoldClickChecked" IsChecked="{Binding CurrentMode, Converter={StaticResource IsCheckedConverter}, ConverterParameter={x:Static Enums:AutoClickerMode.HoldClicker}}" Content="Hold Clicker (HC)" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="2" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0"  >
             <CheckBox.Resources>
                 <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
             </CheckBox.Resources>
         </CheckBox>
-        <CheckBox IsChecked="{Binding CurrentMode, Converter={StaticResource IsCheckedConverter}, ConverterParameter={x:Static Enums:AutoClickerMode.MultiplePoints}}" Content="Multi Point Clicking" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="3" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0"  >
+        <CheckBox IsChecked="{Binding CurrentMode, Converter={StaticResource IsCheckedConverter}, ConverterParameter={x:Static Enums:AutoClickerMode.MultiplePoints}}" Content="Multi Point Clicking (MPC)" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="3" Foreground="{StaticResource Text}" Background="White" Margin="5,0,0,0"  >
             <CheckBox.Resources>
                 <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
             </CheckBox.Resources>
@@ -91,7 +91,8 @@
 
 
 
-        <Label Grid.Column="3" Content="Speed" Foreground="{StaticResource Text}" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+        <Label Grid.Column="3" Content="Speed" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+        <Label Grid.Column="4" Content="Miscellaneous" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
 
 
         <Border Grid.Column="3" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
@@ -102,14 +103,29 @@
             </CheckBox>
         </Border>
 
-        <Border Grid.Column="4" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
-            <CheckBox Content="Clicks Per Second" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="2" Foreground="{StaticResource Text}" Background="White"  >
+        <Border Name="LeftClickingMode" Grid.Column="4" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
+            <CheckBox IsChecked="True" Content="Left-Clicking mode" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                 <CheckBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
                 </CheckBox.Resources>
             </CheckBox>
         </Border>
 
+        <Border VerticalAlignment="Top" Height="{Binding ElementName=LeftClickingMode ,Path=ActualHeight}" Grid.Column="4" Grid.Row="2" BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
+            <CheckBox Content="Right-Clicking mode" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+                <CheckBox.Resources>
+                    <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+                </CheckBox.Resources>
+            </CheckBox>
+        </Border>
+
+        <Border VerticalAlignment="Center" Height="{Binding ElementName=LeftClickingMode ,Path=ActualHeight}" Grid.Column="4" Grid.Row="3" BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
+            <CheckBox IsChecked="True" Content="Universal delay (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+                <CheckBox.Resources>
+                    <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+                </CheckBox.Resources>
+            </CheckBox>
+        </Border>
 
         <StackPanel Grid.Row="2" Grid.Column="3" Grid.RowSpan="4" Grid.ColumnSpan="1">
 
@@ -135,9 +151,11 @@
 
         <!-- Right Outlines-->
         <Border Background="White" BorderThickness="1" Grid.Column="2" Width="3" Grid.RowSpan="9" HorizontalAlignment="Right"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" Width="3" Grid.RowSpan="5"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Left" Width="3" Grid.RowSpan="6"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="5" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="6" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="2" Height="3" VerticalAlignment="Bottom" Grid.Column="4"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="3" Height="3" VerticalAlignment="Bottom" Grid.Column="4"></Border>
         <!-- Right Outlines-->
 
 

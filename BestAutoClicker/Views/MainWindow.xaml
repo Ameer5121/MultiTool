@@ -95,7 +95,7 @@
         <Label Grid.Column="4" Content="Miscellaneous" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
 
 
-        <Border Name="LeftClickingMode" Grid.Column="4" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
+        <Border Name="LeftClickingMode" Grid.Column="4" Grid.Row="1" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
             <CheckBox IsChecked="True" Content="Left-Clicking mode" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                 <CheckBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
@@ -103,7 +103,7 @@
             </CheckBox>
         </Border>
 
-        <Border VerticalAlignment="Top" Height="{Binding ElementName=LeftClickingMode ,Path=ActualHeight}" Grid.Column="4" Grid.Row="2" BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
+        <Border VerticalAlignment="Top" Height="{Binding ElementName=LeftClickingMode ,Path=ActualHeight}" Grid.Column="4" Grid.Row="2" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
             <CheckBox Content="Right-Clicking mode" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                 <CheckBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
@@ -111,7 +111,7 @@
             </CheckBox>
         </Border>
 
-        <Border VerticalAlignment="Center" Height="{Binding ElementName=LeftClickingMode ,Path=ActualHeight}" Grid.Column="4" Grid.Row="3" BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
+        <Border VerticalAlignment="Center" Height="{Binding ElementName=LeftClickingMode ,Path=ActualHeight}" Grid.Column="4" Grid.Row="3" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
             <Border.ToolTip>
                 <ToolTip Content="When enabled, delay of the speed section will be utilised.&#x0a;When disabled, grants the possibility to add a specific delay per point." Background="{StaticResource HomeWindow}"></ToolTip>
             </Border.ToolTip>

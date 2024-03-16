@@ -95,14 +95,6 @@
         <Label Grid.Column="4" Content="Miscellaneous" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
 
 
-        <Border Grid.Column="3" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
-            <CheckBox IsChecked="True" Content="Interval" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="2" Foreground="{StaticResource Text}" Background="White" >
-                <CheckBox.Resources>
-                    <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
-                </CheckBox.Resources>
-            </CheckBox>
-        </Border>
-
         <Border Name="LeftClickingMode" Grid.Column="4" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
             <CheckBox IsChecked="True" Content="Left-Clicking mode" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                 <CheckBox.Resources>
@@ -120,6 +112,9 @@
         </Border>
 
         <Border VerticalAlignment="Center" Height="{Binding ElementName=LeftClickingMode ,Path=ActualHeight}" Grid.Column="4" Grid.Row="3" BorderBrush="White" BorderThickness="1" Margin="5,5,5,5">
+            <Border.ToolTip>
+                <ToolTip Content="When enabled, delay of the speed section will be utilised.&#x0a;When disabled, grants the possibility to add a specific delay per point." Background="{StaticResource HomeWindow}"></ToolTip>
+            </Border.ToolTip>
             <CheckBox IsChecked="True" Content="Universal delay (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                 <CheckBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
@@ -127,7 +122,7 @@
             </CheckBox>
         </Border>
 
-        <StackPanel Grid.Row="2" Grid.Column="3" Grid.RowSpan="4" Grid.ColumnSpan="1">
+        <StackPanel Grid.Row="1" Grid.Column="3" Grid.RowSpan="4" Grid.ColumnSpan="1">
 
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="MilliSeconds" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
@@ -151,9 +146,9 @@
 
         <!-- Right Outlines-->
         <Border Background="White" BorderThickness="1" Grid.Column="2" Width="3" Grid.RowSpan="9" HorizontalAlignment="Right"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Left" Width="3" Grid.RowSpan="6"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Left" Width="3" Grid.RowSpan="5"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="4" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="5" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="6" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="2" Height="3" VerticalAlignment="Bottom" Grid.Column="4"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="3" Height="3" VerticalAlignment="Bottom" Grid.Column="4"></Border>
         <!-- Right Outlines-->
@@ -166,9 +161,9 @@
 
 
 
-        <TextBlock Text="Controls" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource Text}" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2"></TextBlock>
+        <TextBlock Text="Controls" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource Text}" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2"></TextBlock>
 
-        <StackPanel Grid.Column="3" Grid.Row="7" HorizontalAlignment="Center">
+        <StackPanel Grid.Column="3" Grid.Row="6" Grid.RowSpan="2" HorizontalAlignment="Center">
             <TextBlock Foreground="{StaticResource Text}" HorizontalAlignment="Left" Margin="5">
          <Run Text="Auto Clicker: "></Run>
          <Run Text="Start/Stop (F6)" Foreground="AntiqueWhite"></Run>
@@ -180,7 +175,7 @@
             </TextBlock>
         </StackPanel>
 
-        <StackPanel Grid.Column="4" Grid.Row="7">
+        <StackPanel Grid.Column="4" Grid.Row="6" Grid.RowSpan="2">
             <ComboBox VerticalAlignment="Top" Width="50" HorizontalAlignment="Left" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
              materialDesign:TextFieldAssist.UnderlineBrush="White">
 

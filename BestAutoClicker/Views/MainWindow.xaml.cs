@@ -144,7 +144,6 @@ namespace BestAutoClicker
             Point point = (Point)LBItem!.Content;
             int indexPoint = _autoClickerViewModel.Points.IndexOf(point);
             _autoClickerViewModel.Points.Remove(point);
-            _background.MPBackground.Children.RemoveAt(indexPoint);
             _circles.RemoveAt(indexPoint);
         }
 

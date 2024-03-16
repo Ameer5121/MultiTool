@@ -81,7 +81,7 @@ namespace BestAutoClicker
                 }
                 else if ((int)msg.wParam == (int)Keys.F5 && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints)
                 {
-                    if (_background.IsActive == false) OpenMPBackground();
+                    if (_background is null || _background.IsActive == false) OpenMPBackground();
                     else CloseMPBackground();
                 }
             }
@@ -94,10 +94,7 @@ namespace BestAutoClicker
             _background = new MPBG();
             _background.WindowState = WindowState.Maximized;
             _background.MouseLeftButtonDown += AddPoints;
-            if (_circles.Count > 0) 
-            {
-                foreach (var circle in _circles) _background.MPBackground.Children.Add(circle);
-            }
+            if (_circles.Count > 0) foreach (var circle in _circles) _background.MPBackground.Children.Add(circle);
             _background.Show();
         }
 
@@ -105,6 +102,7 @@ namespace BestAutoClicker
         {
             _background.MouseLeftButtonDown -= AddPoints;
             _background.Close();
+            foreach (var circle in _circles) _background.MPBackground.Children.Remove(circle);
             this.Show();
         }
         private void AddPoints(object sender, MouseButtonEventArgs info)
@@ -113,6 +111,7 @@ namespace BestAutoClicker
             _autoClickerViewModel.Points.Add(pos);
             var backgroundPosition = info.MouseDevice.GetPosition(_background);
             Circle circle = new Circle();
+            _circles.Add(circle);
             circle.MouseRightButtonDown += RMouseDownUI;
             _background.MPBackground.Children.Add(circle);
             circle.RenderTransform = new TranslateTransform(backgroundPosition.X, backgroundPosition.Y);
@@ -142,15 +141,18 @@ namespace BestAutoClicker
         private void OnRightClickPoint(object sender, MouseButtonEventArgs e)
         {
             var LBItem = sender as ListBoxItem;
-            Point point = (Point)LBItem.Content;
+            Point point = (Point)LBItem!.Content;
             int indexPoint = _autoClickerViewModel.Points.IndexOf(point);
             _autoClickerViewModel.Points.Remove(point);
             _background.MPBackground.Children.RemoveAt(indexPoint);
+            _circles.RemoveAt(indexPoint);
         }
 
         private void ClearAllUICircles()
         {
+            if (_circles.Count == 0) return;
             _background.MPBackground.Children.Clear();
+            _circles.Clear();
         }
 
         private void RMouseDownUI(object sender, MouseButtonEventArgs e)
@@ -159,6 +161,7 @@ namespace BestAutoClicker
             int indexPoint = _background.MPBackground.Children.IndexOf(circle);
             _background.MPBackground.Children.Remove(circle);
             _autoClickerViewModel.Points.RemoveAt(indexPoint);
+            _circles.RemoveAt(indexPoint);
         }
 
         protected override void OnClosed(EventArgs e)

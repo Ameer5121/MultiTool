@@ -38,7 +38,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
@@ -65,8 +65,8 @@
             </CheckBox.Resources>
         </CheckBox>
 
-        <Button Content="Load" Grid.Row="4" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Bottom" Margin="5"></Button>
-        <Button Content="Save" Grid.Row="4" Grid.Column="1" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Bottom" Margin="5"></Button>
+        <Button Content="Load" Grid.Row="4" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Bottom" Margin="5, 0, 5, 0"></Button>
+        <Button Content="Save" Grid.Row="4" Grid.Column="1" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Bottom" Margin="5, 0, 5, 0"></Button>
         
         <Border Grid.Row="5" Grid.Column="1" BorderBrush="White" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Padding="0" Margin="0,0,30,0">
             <Button Command="{Binding ClearPointsCommand}" Background= "{StaticResource Buttons}" Foreground="Red" Padding="0" Width="20" Height="20" VerticalAlignment="Center"  HorizontalAlignment="Center" VerticalContentAlignment="Top" BorderBrush="Transparent" BorderThickness="1">
@@ -95,7 +95,7 @@
         <Label Grid.Column="4" Content="Miscellaneous" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
 
 
-        <Border Name="LeftClickingMode" Grid.Column="4" Grid.Row="1" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
+        <Border Name="LeftClickingMode" Grid.Column="4" Grid.Row="1" BorderBrush="White" BorderThickness="0" VerticalAlignment="Center" Margin="5,5,5,5">
             <CheckBox IsChecked="True" Content="Left-Clicking mode" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                 <CheckBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
@@ -103,7 +103,15 @@
             </CheckBox>
         </Border>
 
-        <Border VerticalAlignment="Top" Height="{Binding ElementName=LeftClickingMode ,Path=ActualHeight}" Grid.Column="4" Grid.Row="2" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
+        <Border VerticalAlignment="Center" Height="{Binding ElementName=LeftClickingMode ,Path=ActualHeight}" Grid.Column="4" Grid.Row="2" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
+            <CheckBox Content="Right-Clicking mode" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+                <CheckBox.Resources>
+                    <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+                </CheckBox.Resources>
+            </CheckBox>
+        </Border>
+
+        <Border VerticalAlignment="Center" Height="{Binding ElementName=LeftClickingMode ,Path=ActualHeight}" Grid.Column="4" Grid.Row="4" Padding="0" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
             <CheckBox Content="Right-Clicking mode" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                 <CheckBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
@@ -150,7 +158,6 @@
         <Border Background="White" BorderThickness="1" Grid.Row="4" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="5" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="2" Height="3" VerticalAlignment="Bottom" Grid.Column="4"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="3" Height="3" VerticalAlignment="Bottom" Grid.Column="4"></Border>
         <!-- Right Outlines-->
 
 

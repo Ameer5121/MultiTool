@@ -171,7 +171,7 @@ namespace BestAutoClicker
 
         private void HighlightCircle(Border b1, Border b2, Border b3, ListBoxItem LBItem)
         {
-            if (b1.Background != System.Windows.Media.Brushes.LightGreen)
+            if (b1.Background != Brushes.LightGreen)
             {
                 b1.Background = Brushes.LightGreen;
                 b2.Background = Brushes.LightGreen;

@@ -28,6 +28,7 @@ using MaterialDesignThemes.Wpf;
 using System.Drawing;
 using MaterialDesignColors.Recommended;
 using System.Threading;
+using Brushes = System.Windows.Media;
 
 namespace BestAutoClicker
 {
@@ -172,17 +173,17 @@ namespace BestAutoClicker
         {
             if (b1 != null && b1.Background != System.Windows.Media.Brushes.LightGreen)
             {
-                b1.Background = System.Windows.Media.Brushes.LightGreen;
-                b2.Background = System.Windows.Media.Brushes.LightGreen;
-                b3.Background = System.Windows.Media.Brushes.LightGreen;
-                LBItem.BorderBrush = System.Windows.Media.Brushes.LightGreen;
+                b1.Background = Brushes.LightGreen;
+                b2.Background = Brushes.LightGreen;
+                b3.Background = Brushes.LightGreen;
+                LBItem.BorderBrush = Brushes.LightGreen;
                 LBItem.BorderThickness = new Thickness(1);
             }
             else
             {
-                b1.Background = System.Windows.Media.Brushes.Red;
-                b2.Background = System.Windows.Media.Brushes.Orange;
-                b3.Background = System.Windows.Media.Brushes.Yellow;
+                b1.Background = Brushes.Red;
+                b2.Background = Brushes.Orange;
+                b3.Background = Brushes.Yellow;
                 LBItem.BorderThickness = new Thickness(0);
             }
         }

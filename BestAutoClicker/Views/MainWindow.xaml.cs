@@ -26,6 +26,8 @@ using Point = System.Drawing.Point;
 using BestAutoClicker.Views.Assets;
 using MaterialDesignThemes.Wpf;
 using System.Drawing;
+using MaterialDesignColors.Recommended;
+using System.Threading;
 
 namespace BestAutoClicker
 {
@@ -134,15 +136,18 @@ namespace BestAutoClicker
         {
             var LBItem = sender as ListBoxItem;
             Point point = (Point)LBItem!.Content;
-            OpenMPBackground();
-            AutoClickerViewModel.SetCursorPos(point.X, point.Y);
+            int indexPoint = _autoClickerViewModel.Points.IndexOf(point);
+            var Border1 = _circles[indexPoint].Border1;
+            var Border2 = _circles[indexPoint].Border2;
+            var Border3 = _circles[indexPoint].Border3;
+            HighlightCircle(Border1, Border2, Border3, LBItem);
         }
 
         private void OnRightClickPoint(object sender, MouseButtonEventArgs e)
         {
             var LBItem = sender as ListBoxItem;
             Point point = (Point)LBItem!.Content;
-            int indexPoint = _autoClickerViewModel.Points.IndexOf(point);
+            int indexPoint = _autoClickerViewModel.Points.IndexOf(point);   
             _autoClickerViewModel.Points.Remove(point);
             _circles.RemoveAt(indexPoint);
         }
@@ -161,6 +166,25 @@ namespace BestAutoClicker
             _background.MPBackground.Children.Remove(circle);
             _autoClickerViewModel.Points.RemoveAt(indexPoint);
             _circles.RemoveAt(indexPoint);
+        }
+
+        private void HighlightCircle(Border b1, Border b2, Border b3, ListBoxItem LBItem)
+        {
+            if (b1 != null && b1.Background != System.Windows.Media.Brushes.LightGreen)
+            {
+                b1.Background = System.Windows.Media.Brushes.LightGreen;
+                b2.Background = System.Windows.Media.Brushes.LightGreen;
+                b3.Background = System.Windows.Media.Brushes.LightGreen;
+                LBItem.BorderBrush = System.Windows.Media.Brushes.LightGreen;
+                LBItem.BorderThickness = new Thickness(1);
+            }
+            else
+            {
+                b1.Background = System.Windows.Media.Brushes.Red;
+                b2.Background = System.Windows.Media.Brushes.Orange;
+                b3.Background = System.Windows.Media.Brushes.Yellow;
+                LBItem.BorderThickness = new Thickness(0);
+            }
         }
 
         protected override void OnClosed(EventArgs e)

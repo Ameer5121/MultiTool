@@ -28,7 +28,7 @@ using MaterialDesignThemes.Wpf;
 using System.Drawing;
 using MaterialDesignColors.Recommended;
 using System.Threading;
-using Brushes = System.Windows.Media;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace BestAutoClicker
 {

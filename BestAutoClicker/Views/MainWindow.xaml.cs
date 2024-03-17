@@ -197,7 +197,23 @@ namespace BestAutoClicker
         {
             var senderCheckBox = sender as CheckBox;
             var stackPanel = senderCheckBox.Parent as StackPanel;
-            foreach (CheckBox checkBox in stackPanel.Children) if (checkBox != senderCheckBox) checkBox.IsChecked = false;
+            foreach (CheckBox checkBox in stackPanel.Children)
+            {
+                if (checkBox != senderCheckBox && checkBox.IsChecked == true)
+                {
+                    checkBox.Unchecked -= OnCheckBoxUnChecked;
+                    checkBox.IsChecked = false;
+                    checkBox.Unchecked += OnCheckBoxUnChecked;
+                }
+            }
+        }
+
+        private void OnCheckBoxUnChecked(object sender, RoutedEventArgs e)
+        {
+            var senderCheckBox = sender as CheckBox;
+            senderCheckBox.Checked -= OnCheckBoxChecked;
+            senderCheckBox.IsChecked = true;
+            senderCheckBox.Checked += OnCheckBoxChecked;
         }
     }
 }

@@ -168,6 +168,7 @@ namespace BestAutoClicker.ViewModels
 
         private void SetMode(AutoClickerMode autoClickerMode)
         {
+            if (CurrentMode == autoClickerMode) return;
             CurrentMode = autoClickerMode;
             if (autoClickerMode == AutoClickerMode.HoldClicker) Task.Run(HoldClick);
         }

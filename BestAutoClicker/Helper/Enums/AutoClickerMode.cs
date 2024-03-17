@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BestAutoClicker.Helper.Enums
 {
-    internal enum AutoClickerMode
+    public enum AutoClickerMode
     {
         AutoClicker,
         HoldClicker,

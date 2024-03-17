@@ -15,7 +15,6 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -29,6 +28,8 @@ using System.Drawing;
 using MaterialDesignColors.Recommended;
 using System.Threading;
 using Brushes = System.Windows.Media.Brushes;
+using CheckBox = System.Windows.Controls.CheckBox;
+using System.Windows.Media;
 
 namespace BestAutoClicker
 {
@@ -41,7 +42,7 @@ namespace BestAutoClicker
 
         private AutoClickerViewModel _autoClickerViewModel;
         private IntPtr _windowHandle;
-       
+
         [DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vlc);
 
@@ -74,7 +75,7 @@ namespace BestAutoClicker
 
         private void HandleMessages(ref MSG msg, ref bool handled)
         {
-            if(msg.message == WM_HOTKEY)
+            if (msg.message == WM_HOTKEY)
             {
                 if ((int)msg.wParam == (int)Keys.F1)
                 {
@@ -110,7 +111,7 @@ namespace BestAutoClicker
         }
         private void AddPoints(object sender, MouseButtonEventArgs info)
         {
-            AutoClickerViewModel.GetCursorPos(out var pos);              
+            AutoClickerViewModel.GetCursorPos(out var pos);
             _autoClickerViewModel.Points.Add(pos);
             var backgroundPosition = info.MouseDevice.GetPosition(_background);
             Circle circle = new Circle();
@@ -131,8 +132,6 @@ namespace BestAutoClicker
             if (!int.TryParse(e.Text, out _)) e.Handled = true;
         }
 
-        private void OnHoldClickChecked(object sender, RoutedEventArgs e) => Task.Run(_autoClickerViewModel.HoldClick);
-
         private void OnLeftClickPoint(object sender, MouseButtonEventArgs e)
         {
             var LBItem = sender as ListBoxItem;
@@ -148,7 +147,7 @@ namespace BestAutoClicker
         {
             var LBItem = sender as ListBoxItem;
             Point point = (Point)LBItem!.Content;
-            int indexPoint = _autoClickerViewModel.Points.IndexOf(point);   
+            int indexPoint = _autoClickerViewModel.Points.IndexOf(point);
             _autoClickerViewModel.Points.Remove(point);
             _circles.RemoveAt(indexPoint);
         }
@@ -192,6 +191,13 @@ namespace BestAutoClicker
         {
             _autoClickerViewModel.ClickingProcess.Cancel();
             base.OnClosed(e);
+        }
+
+        private void OnCheckBoxChecked(object sender, RoutedEventArgs e)
+        {
+            var senderCheckBox = sender as CheckBox;
+            var stackPanel = senderCheckBox.Parent as StackPanel;
+            foreach (CheckBox checkBox in stackPanel.Children) if (checkBox != senderCheckBox) checkBox.IsChecked = false;
         }
     }
 }

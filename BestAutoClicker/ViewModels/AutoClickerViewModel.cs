@@ -35,8 +35,6 @@ namespace BestAutoClicker.ViewModels
 
         public event Action ClearUIPoints;
 
-        private AutoClickerMode _currentMode;
-
         public int MilliSeconds
         {
             get => _milliSeconds;
@@ -74,13 +72,11 @@ namespace BestAutoClicker.ViewModels
             }
         }
 
-        public AutoClickerMode CurrentMode
-        {
-            get => _currentMode;
-            set => SetPropertyValue(ref _currentMode, value);
-        }
+        public AutoClickerMode CurrentMode { get; set; }
+
 
         public RelayCommand ClearPointsCommand => new RelayCommand(ClearPoints);
+        public RelayCommand SetModeCommand => new RelayCommand(SetMode);
 
         public bool IsRunning => _isRunning;
         public CancellationTokenSource ClickingProcess => _cancelClick;
@@ -114,7 +110,7 @@ namespace BestAutoClicker.ViewModels
             MouseInput[] mouseInput = new MouseInput[2];
             mouseInput[0].mouseData.dwFlags = (uint)ClickingMode.LeftClickDown;
             mouseInput[1].mouseData.dwFlags = (uint)ClickingMode.LeftClickUp;
-            while (_cancelClick.IsCancellationRequested == false && _currentMode == AutoClickerMode.AutoClicker)
+            while (_cancelClick.IsCancellationRequested == false && CurrentMode == AutoClickerMode.AutoClicker)
             {
                 SendInput(2, mouseInput, Marshal.SizeOf<MouseInput>());
                 Thread.Sleep(_customTime);
@@ -128,7 +124,7 @@ namespace BestAutoClicker.ViewModels
             _isRunning = true;
             MouseInput[] mouseInput = new MouseInput[1];
             mouseInput[0].mouseData.dwFlags = (uint)ClickingMode.LeftClickDown;
-            while (_currentMode == AutoClickerMode.HoldClicker && _cancelClick.IsCancellationRequested == false)
+            while (CurrentMode == AutoClickerMode.HoldClicker && _cancelClick.IsCancellationRequested == false)
             {
                 if (((ushort)GetKeyState((int)HoldingMode.LeftClick) >> 15) == 1)
                 {
@@ -151,7 +147,7 @@ namespace BestAutoClicker.ViewModels
             mouseInput[1] = new MouseInput();
             mouseInput[2].mouseData.dwFlags = (uint)ClickingMode.LeftClickDown;
             mouseInput[3].mouseData.dwFlags = (uint)ClickingMode.LeftClickUp;
-            while (_cancelClick.IsCancellationRequested == false && _currentMode == AutoClickerMode.MultiplePoints)
+            while (_cancelClick.IsCancellationRequested == false && CurrentMode == AutoClickerMode.MultiplePoints)
             {
                 foreach (Point i in Points)
                 {
@@ -168,6 +164,12 @@ namespace BestAutoClicker.ViewModels
             }
             _isRunning = false;
             _cancelClick = new CancellationTokenSource();
+        }
+
+        private void SetMode(AutoClickerMode autoClickerMode)
+        {
+            CurrentMode = autoClickerMode;
+            if (autoClickerMode == AutoClickerMode.HoldClicker) Task.Run(HoldClick);
         }
 
         private void ClearPoints()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BestAutoClicker.Helper.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,12 @@ namespace BestAutoClicker.Commands
     public class RelayCommand : ICommand
     {
         private readonly Action execute;
+        private readonly Action<AutoClickerMode> execute2;
         private readonly Func<bool> canExecute;
         public RelayCommand(Action execute) : this(execute, canExecute: null)
+        {
+        }
+        public RelayCommand(Action<AutoClickerMode> execute2) : this(execute2, canExecute: null)
         {
         }
 
@@ -22,6 +27,14 @@ namespace BestAutoClicker.Commands
                 throw new ArgumentNullException("execute is null");
 
             this.execute = execute;
+            this.canExecute = canExecute;
+        }
+        public RelayCommand(Action<AutoClickerMode> execute2, Func<bool> canExecute)
+        {
+            if (execute2 == null)
+                throw new ArgumentNullException("execute is null");
+
+            this.execute2 = execute2;
             this.canExecute = canExecute;
         }
 
@@ -49,6 +62,7 @@ namespace BestAutoClicker.Commands
             {
                 execute();
             }
+            else if (execute2 != null) execute2((AutoClickerMode)parameter);
         }
     }
 }

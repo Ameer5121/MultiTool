@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BestAutoClicker.Helper.Enums
 {
-    internal enum ClickingMode
+    public enum ClickingMode
     {
         LeftClickDown = 0x0002,
         LeftClickUp = 0x0004,

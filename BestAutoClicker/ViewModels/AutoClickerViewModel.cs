@@ -73,10 +73,12 @@ namespace BestAutoClicker.ViewModels
         }
 
         public AutoClickerMode CurrentMode { get; set; }
+        public ClickingMode CurrentClickingMode { get; set; }
 
 
         public RelayCommand ClearPointsCommand => new RelayCommand(ClearPoints);
         public RelayCommand SetModeCommand => new RelayCommand(SetMode);
+        public RelayCommand SetClickingModeCommand => new RelayCommand(SetClickingMode);
 
         public bool IsRunning => _isRunning;
         public CancellationTokenSource ClickingProcess => _cancelClick;
@@ -100,6 +102,7 @@ namespace BestAutoClicker.ViewModels
             _cancelClick = new CancellationTokenSource();
             _milliSeconds = 100;
             CurrentMode = AutoClickerMode.AutoClicker;
+            CurrentClickingMode = ClickingMode.LeftClickDown;
             UpdateTime();
         }
 
@@ -108,8 +111,8 @@ namespace BestAutoClicker.ViewModels
         {
             _isRunning = true;
             MouseInput[] mouseInput = new MouseInput[2];
-            mouseInput[0].mouseData.dwFlags = (uint)ClickingMode.LeftClickDown;
-            mouseInput[1].mouseData.dwFlags = (uint)ClickingMode.LeftClickUp;
+            mouseInput[0].mouseData.dwFlags = (uint)CurrentClickingMode;
+            mouseInput[1].mouseData.dwFlags = GetUpFlag();
             while (_cancelClick.IsCancellationRequested == false && CurrentMode == AutoClickerMode.AutoClicker)
             {
                 SendInput(2, mouseInput, Marshal.SizeOf<MouseInput>());
@@ -122,15 +125,18 @@ namespace BestAutoClicker.ViewModels
         public void HoldClick()
         {
             _isRunning = true;
-            MouseInput[] mouseInput = new MouseInput[1];
-            mouseInput[0].mouseData.dwFlags = (uint)ClickingMode.LeftClickDown;
+            MouseInput[] mouseInput = new MouseInput[2];
             while (CurrentMode == AutoClickerMode.HoldClicker && _cancelClick.IsCancellationRequested == false)
             {
-                if (((ushort)GetKeyState((int)HoldingMode.LeftClick) >> 15) == 1)
+                var keyState = CurrentClickingMode == ClickingMode.LeftClickDown ? (int)CurrentClickingMode / 2 : (int)CurrentClickingMode / 4;
+                mouseInput[0].mouseData.dwFlags = (uint)CurrentClickingMode;
+                mouseInput[1].mouseData.dwFlags = GetUpFlag();
+                if (((ushort)GetKeyState(keyState) >> 15) == 1)
                 {
                     Thread.Sleep(500);
-                    while (((ushort)GetKeyState((int)HoldingMode.LeftClick) >> 15) == 1)
+                    while (((ushort)GetKeyState(keyState) >> 15) == 1)
                     {
+                        SendInput(2, mouseInput, Marshal.SizeOf<MouseInput>());
                         SendInput(1, mouseInput, Marshal.SizeOf<MouseInput>());
                         Thread.Sleep(_customTime);
                     }
@@ -145,8 +151,8 @@ namespace BestAutoClicker.ViewModels
             MouseInput[] mouseInput = new MouseInput[4];
             mouseInput[0] = new MouseInput();
             mouseInput[1] = new MouseInput();
-            mouseInput[2].mouseData.dwFlags = (uint)ClickingMode.LeftClickDown;
-            mouseInput[3].mouseData.dwFlags = (uint)ClickingMode.LeftClickUp;
+            mouseInput[2].mouseData.dwFlags = (uint)CurrentClickingMode;
+            mouseInput[3].mouseData.dwFlags = GetUpFlag();
             while (_cancelClick.IsCancellationRequested == false && CurrentMode == AutoClickerMode.MultiplePoints)
             {
                 foreach (Point i in Points)
@@ -166,12 +172,16 @@ namespace BestAutoClicker.ViewModels
             _cancelClick = new CancellationTokenSource();
         }
 
+        private uint GetUpFlag() => CurrentClickingMode == ClickingMode.LeftClickDown? (uint) CurrentClickingMode + 2 : (uint) CurrentClickingMode + 8;
+
         private void SetMode(AutoClickerMode autoClickerMode)
         {
             if (CurrentMode == autoClickerMode) return;
             CurrentMode = autoClickerMode;
             if (autoClickerMode == AutoClickerMode.HoldClicker) Task.Run(HoldClick);
         }
+
+        private void SetClickingMode(ClickingMode clickingMode) => CurrentClickingMode = clickingMode;
 
         private void ClearPoints()
         {

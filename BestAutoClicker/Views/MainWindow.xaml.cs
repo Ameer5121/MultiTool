@@ -215,5 +215,6 @@ namespace BestAutoClicker
             senderCheckBox.IsChecked = true;
             senderCheckBox.Checked += OnCheckBoxChecked;
         }
+
     }
 }

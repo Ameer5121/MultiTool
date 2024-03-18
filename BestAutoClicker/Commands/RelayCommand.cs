@@ -12,6 +12,7 @@ namespace BestAutoClicker.Commands
     {
         private readonly Action execute;
         private readonly Action<AutoClickerMode> execute2;
+        private readonly Action<ClickingMode> execute3;
         private readonly Func<bool> canExecute;
         public RelayCommand(Action execute) : this(execute, canExecute: null)
         {
@@ -19,7 +20,9 @@ namespace BestAutoClicker.Commands
         public RelayCommand(Action<AutoClickerMode> execute2) : this(execute2, canExecute: null)
         {
         }
-
+        public RelayCommand(Action<ClickingMode> execute3) : this(execute3, canExecute: null)
+        {
+        }
 
         public RelayCommand(Action execute, Func<bool> canExecute)
         {
@@ -32,9 +35,17 @@ namespace BestAutoClicker.Commands
         public RelayCommand(Action<AutoClickerMode> execute2, Func<bool> canExecute)
         {
             if (execute2 == null)
-                throw new ArgumentNullException("execute is null");
+                throw new ArgumentNullException("execute2 is null");
 
             this.execute2 = execute2;
+            this.canExecute = canExecute;
+        }
+        public RelayCommand(Action<ClickingMode> execute3, Func<bool> canExecute)
+        {
+            if (execute3 == null)
+                throw new ArgumentNullException("execute3 is null");
+
+            this.execute3 = execute3;
             this.canExecute = canExecute;
         }
 
@@ -63,6 +74,7 @@ namespace BestAutoClicker.Commands
                 execute();
             }
             else if (execute2 != null) execute2((AutoClickerMode)parameter);
+            else if (execute3 != null) execute3((ClickingMode)parameter);
         }
     }
 }

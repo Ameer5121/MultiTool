@@ -20,6 +20,7 @@ using BestAutoClicker.Helper.Enums;
 using System.Collections.ObjectModel;
 using BestAutoClicker.Helper.Structs;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
+using BestAutoClicker.Models;
 
 namespace BestAutoClicker.ViewModels
 {
@@ -83,7 +84,7 @@ namespace BestAutoClicker.ViewModels
         public bool IsRunning => _isRunning;
         public CancellationTokenSource ClickingProcess => _cancelClick;
         private TimeSpan _customTime;
-        public ObservableCollection<Point> Points { get; } = new ObservableCollection<Point>();
+        public ObservableCollection<MPCModel> MPCModels { get; } = new ObservableCollection<MPCModel>();
 
         [DllImport("user32.dll")]
         public static extern bool GetCursorPos(out Point getPoint);
@@ -112,7 +113,7 @@ namespace BestAutoClicker.ViewModels
             _isRunning = true;
             MouseInput[] mouseInput = new MouseInput[2];
             mouseInput[0].mouseData.dwFlags = (uint)CurrentClickingMode;
-            mouseInput[1].mouseData.dwFlags = GetUpFlag();
+            mouseInput[1].mouseData.dwFlags = GetUpFlag(CurrentClickingMode);
             while (_cancelClick.IsCancellationRequested == false && CurrentMode == AutoClickerMode.AutoClicker)
             {
                 SendInput(2, mouseInput, Marshal.SizeOf<MouseInput>());
@@ -130,7 +131,7 @@ namespace BestAutoClicker.ViewModels
             {
                 var keyState = CurrentClickingMode == ClickingMode.LeftClickDown ? (int)CurrentClickingMode / 2 : (int)CurrentClickingMode / 4;
                 mouseInput[0].mouseData.dwFlags = (uint)CurrentClickingMode;
-                mouseInput[1].mouseData.dwFlags = GetUpFlag();
+                mouseInput[1].mouseData.dwFlags = GetUpFlag(CurrentClickingMode);
                 if (((ushort)GetKeyState(keyState) >> 15) == 1)
                 {
                     Thread.Sleep(500);
@@ -151,19 +152,19 @@ namespace BestAutoClicker.ViewModels
             MouseInput[] mouseInput = new MouseInput[4];
             mouseInput[0] = new MouseInput();
             mouseInput[1] = new MouseInput();
-            mouseInput[2].mouseData.dwFlags = (uint)CurrentClickingMode;
-            mouseInput[3].mouseData.dwFlags = GetUpFlag();
             while (_cancelClick.IsCancellationRequested == false && CurrentMode == AutoClickerMode.MultiplePoints)
             {
-                foreach (Point i in Points)
+                foreach (MPCModel i in MPCModels)
                 {
                     var screen = Screen.PrimaryScreen.Bounds;
-                    var abX = i.X * 65355 / screen.Width;
-                    var abY = i.Y * 65355 / screen.Height;
+                    var abX = i.Point.X * 65355 / screen.Width;
+                    var abY = i.Point.Y * 65355 / screen.Height;
                     mouseInput[0].mouseData.dx = abX;
                     mouseInput[0].mouseData.dy = abY;
                     mouseInput[1].mouseData.dx = abX + 1;
                     mouseInput[1].mouseData.dy = abY + 1;
+                    mouseInput[2].mouseData.dwFlags = (uint)i.ClickingMode;   // 0x002 
+                    mouseInput[3].mouseData.dwFlags = GetUpFlag(i.ClickingMode); // 0x004
                     SendInput(4, mouseInput, Marshal.SizeOf<MouseInput>());
                     Thread.Sleep(_customTime);
                 }
@@ -172,7 +173,7 @@ namespace BestAutoClicker.ViewModels
             _cancelClick = new CancellationTokenSource();
         }
 
-        private uint GetUpFlag() => CurrentClickingMode == ClickingMode.LeftClickDown? (uint) CurrentClickingMode + 2 : (uint) CurrentClickingMode + 8;
+        private uint GetUpFlag(ClickingMode clickingMode) => clickingMode == ClickingMode.LeftClickDown ? (uint)clickingMode + 2 : (uint)clickingMode + 8;
 
         private void SetMode(AutoClickerMode autoClickerMode)
         {
@@ -185,7 +186,7 @@ namespace BestAutoClicker.ViewModels
 
         private void ClearPoints()
         {
-            Points.Clear();
+            MPCModels.Clear();
             ClearUIPoints?.Invoke();
         }
     }

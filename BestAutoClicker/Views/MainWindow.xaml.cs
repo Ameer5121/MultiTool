@@ -30,6 +30,7 @@ using System.Threading;
 using Brushes = System.Windows.Media.Brushes;
 using CheckBox = System.Windows.Controls.CheckBox;
 using System.Windows.Media;
+using BestAutoClicker.Models;
 
 namespace BestAutoClicker
 {
@@ -81,7 +82,7 @@ namespace BestAutoClicker
                 {
                     if (_autoClickerViewModel.IsRunning) _autoClickerViewModel.ClickingProcess.Cancel();
                     else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.AutoClicker) Task.Run(_autoClickerViewModel.Click);
-                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints && _autoClickerViewModel.Points.Count != 0) Task.Run(_autoClickerViewModel.MultipleClick);
+                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints && _autoClickerViewModel.MPCModels.Count != 0) Task.Run(_autoClickerViewModel.MultipleClick);
                 }
                 else if ((int)msg.wParam == (int)Keys.F5 && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints)
                 {
@@ -112,7 +113,7 @@ namespace BestAutoClicker
         private void AddPoints(object sender, MouseButtonEventArgs info)
         {
             AutoClickerViewModel.GetCursorPos(out var pos);
-            _autoClickerViewModel.Points.Add(pos);
+            _autoClickerViewModel.MPCModels.Add(new MPCModel(pos));
             var backgroundPosition = info.MouseDevice.GetPosition(_background);
             Circle circle = new Circle();
             _circles.Add(circle);
@@ -136,7 +137,7 @@ namespace BestAutoClicker
         {
             var LBItem = sender as ListBoxItem;
             Point point = (Point)LBItem!.Content;
-            int indexPoint = _autoClickerViewModel.Points.IndexOf(point);
+            int indexPoint = _autoClickerViewModel.MPCModels.IndexOf(_autoClickerViewModel.MPCModels.First(x => x.Point == point));
             var Border1 = _circles[indexPoint].Border1;
             var Border2 = _circles[indexPoint].Border2;
             var Border3 = _circles[indexPoint].Border3;
@@ -147,8 +148,8 @@ namespace BestAutoClicker
         {
             var LBItem = sender as ListBoxItem;
             Point point = (Point)LBItem!.Content;
-            int indexPoint = _autoClickerViewModel.Points.IndexOf(point);
-            _autoClickerViewModel.Points.Remove(point);
+            int indexPoint = _autoClickerViewModel.MPCModels.IndexOf(point);
+            _autoClickerViewModel.MPCModels.Remove(point);
             _circles.RemoveAt(indexPoint);
         }
 
@@ -164,7 +165,7 @@ namespace BestAutoClicker
             var circle = sender as Circle;
             int indexPoint = _background.MPBackground.Children.IndexOf(circle);
             _background.MPBackground.Children.Remove(circle);
-            _autoClickerViewModel.Points.RemoveAt(indexPoint);
+            _autoClickerViewModel.MPCModels.RemoveAt(indexPoint);
             _circles.RemoveAt(indexPoint);
         }
 

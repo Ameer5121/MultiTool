@@ -92,7 +92,7 @@
                 <DataTemplate>
                     <DockPanel LastChildFill="False" Width="{Binding ElementName=PointsListBox, Path=ActualWidth}">
                         <TextBlock Text="{Binding Point}" Foreground="{StaticResource Text}" VerticalAlignment="Center"></TextBlock>
-                        <ComboBox SelectedItem="{Binding ClickingMode, Converter={StaticResource LRConverter}}" Margin="0,0,25,0" DockPanel.Dock="Right" Width="50" VerticalAlignment="Center" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
+                        <ComboBox SelectedIndex="{Binding ClickingMode, Converter={StaticResource LRConverter}}" Margin="0,0,25,0" DockPanel.Dock="Right" Width="50" VerticalAlignment="Center" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
                         materialDesign:TextFieldAssist.UnderlineBrush="White">
                             <ComboBox.Resources>
                                 <SolidColorBrush x:Key="MaterialDesignPaper" Color="#2F3136"/>

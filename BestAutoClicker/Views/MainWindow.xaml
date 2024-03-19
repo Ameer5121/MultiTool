@@ -93,6 +93,18 @@
                             <ComboBox.Resources>
                                 <SolidColorBrush x:Key="MaterialDesignPaper" Color="#2F3136"/>
                             </ComboBox.Resources>
+                            <ComboBox.Style>
+                                <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=RightLeftMPCCheckBox, Path=IsChecked}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=RightLeftMPCCheckBox, Path=IsChecked}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
                         </ComboBox>
                     </DockPanel>
                 </DataTemplate>
@@ -125,7 +137,7 @@
                 <Border.ToolTip>
                     <ToolTip Content="Grants the possibility to choose if a point will be clicked by the left or right mouse button." Background="{StaticResource HomeWindow}"></ToolTip>
                 </Border.ToolTip>
-                <CheckBox Content="Right / Left Click Option (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+                <CheckBox x:Name="RightLeftMPCCheckBox" Content="Right / Left Click Option (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                     <CheckBox.Resources>
                         <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
                     </CheckBox.Resources>

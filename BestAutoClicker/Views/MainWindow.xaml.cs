@@ -136,8 +136,8 @@ namespace BestAutoClicker
         private void OnLeftClickPoint(object sender, MouseButtonEventArgs e)
         {
             var LBItem = sender as ListBoxItem;
-            Point point = (Point)LBItem!.Content;
-            int indexPoint = _autoClickerViewModel.MPCModels.IndexOf(_autoClickerViewModel.MPCModels.First(x => x.Point == point));
+            var MPCModel = (MPCModel)LBItem!.Content;
+            int indexPoint = _autoClickerViewModel.MPCModels.IndexOf(MPCModel);
             var Border1 = _circles[indexPoint].Border1;
             var Border2 = _circles[indexPoint].Border2;
             var Border3 = _circles[indexPoint].Border3;
@@ -147,9 +147,9 @@ namespace BestAutoClicker
         private void OnRightClickPoint(object sender, MouseButtonEventArgs e)
         {
             var LBItem = sender as ListBoxItem;
-            Point point = (Point)LBItem!.Content;
-            int indexPoint = _autoClickerViewModel.MPCModels.IndexOf(point);
-            _autoClickerViewModel.MPCModels.Remove(point);
+            var MPCModel = (MPCModel)LBItem!.Content;
+            int indexPoint = _autoClickerViewModel.MPCModels.IndexOf(MPCModel);
+            _autoClickerViewModel.MPCModels.Remove(MPCModel);
             _circles.RemoveAt(indexPoint);
         }
 

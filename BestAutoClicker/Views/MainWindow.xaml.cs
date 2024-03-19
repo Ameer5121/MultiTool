@@ -70,7 +70,7 @@ namespace BestAutoClicker
         {
             base.OnSourceInitialized(e);
             _windowHandle = new WindowInteropHelper(this).Handle;
-            RegisterHotKeys();
+            RegisterHotKeys();           
         }
 
         private void HandleMessages(ref MSG msg, ref bool handled)

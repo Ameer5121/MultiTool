@@ -163,8 +163,8 @@ namespace BestAutoClicker.ViewModels
                     mouseInput[0].mouseData.dy = abY;
                     mouseInput[1].mouseData.dx = abX + 1;
                     mouseInput[1].mouseData.dy = abY + 1;
-                    mouseInput[2].mouseData.dwFlags = (uint)i.ClickingMode;   // 0x002 
-                    mouseInput[3].mouseData.dwFlags = GetUpFlag(i.ClickingMode); // 0x004
+                    mouseInput[2].mouseData.dwFlags = (uint)i.ClickingMode;
+                    mouseInput[3].mouseData.dwFlags = GetUpFlag(i.ClickingMode);
                     SendInput(4, mouseInput, Marshal.SizeOf<MouseInput>());
                     Thread.Sleep(_customTime);
                 }

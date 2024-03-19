@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:BestAutoClicker"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Enums="clr-namespace:BestAutoClicker.Helper.Enums"
+        xmlns:Converter="clr-namespace:BestAutoClicker.Helper.Converters"
         mc:Ignorable="d"
         Title="MultiTool" 
         ResizeMode="CanMinimize"
@@ -16,7 +17,10 @@
         MaxWidth="700" 
         Background="{StaticResource HomeWindow}"
         FontFamily="{materialDesign:MaterialDesignFont}" Style="{StaticResource CustomWindowStyle}" >
-
+    <Window.Resources>
+        <Converter:LRConverter x:Key="LRConverter"></Converter:LRConverter>
+    </Window.Resources>
+        
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -88,7 +92,7 @@
                 <DataTemplate>
                     <DockPanel LastChildFill="False" Width="{Binding ElementName=PointsListBox, Path=ActualWidth}">
                         <TextBlock Text="{Binding Point}" Foreground="{StaticResource Text}" VerticalAlignment="Center"></TextBlock>
-                        <ComboBox Margin="0,0,25,0" DockPanel.Dock="Right" Width="50" VerticalAlignment="Center" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
+                        <ComboBox SelectedItem="{Binding ClickingMode, Converter={StaticResource LRConverter}}" Margin="0,0,25,0" DockPanel.Dock="Right" Width="50" VerticalAlignment="Center" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
                         materialDesign:TextFieldAssist.UnderlineBrush="White">
                             <ComboBox.Resources>
                                 <SolidColorBrush x:Key="MaterialDesignPaper" Color="#2F3136"/>
@@ -105,6 +109,8 @@
                                     </Style.Triggers>
                                 </Style>
                             </ComboBox.Style>
+                            <ComboBoxItem Content="L"></ComboBoxItem>
+                            <ComboBoxItem Content="R"></ComboBoxItem>
                         </ComboBox>
                     </DockPanel>
                 </DataTemplate>

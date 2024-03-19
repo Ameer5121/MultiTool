@@ -135,23 +135,25 @@ namespace BestAutoClicker
 
         private void OnLeftClickPoint(object sender, MouseButtonEventArgs e)
         {
-            var LBItem = sender as ListBoxItem;
-            var MPCModel = (MPCModel)LBItem!.Content;
+            var textBlock = sender as TextBlock;
+            var MPCModel = textBlock.DataContext as MPCModel;
             int indexPoint = _autoClickerViewModel.MPCModels.IndexOf(MPCModel);
             var Border1 = _circles[indexPoint].Border1;
             var Border2 = _circles[indexPoint].Border2;
             var Border3 = _circles[indexPoint].Border3;
-            HighlightCircle(Border1, Border2, Border3, LBItem);
+            HighlightCircle(Border1, Border2, Border3, GetCorrectListBoxItem(MPCModel));
         }
 
         private void OnRightClickPoint(object sender, MouseButtonEventArgs e)
         {
-            var LBItem = sender as ListBoxItem;
-            var MPCModel = (MPCModel)LBItem!.Content;
+            var LBItem = sender as TextBlock;
+            var MPCModel = LBItem.DataContext as MPCModel;
             int indexPoint = _autoClickerViewModel.MPCModels.IndexOf(MPCModel);
             _autoClickerViewModel.MPCModels.Remove(MPCModel);
             _circles.RemoveAt(indexPoint);
         }
+
+        private ListBoxItem GetCorrectListBoxItem(MPCModel MPCModel) => PointsListBox.ItemContainerGenerator.ContainerFromItem(MPCModel) as ListBoxItem;
 
         private void ClearAllUICircles()
         {

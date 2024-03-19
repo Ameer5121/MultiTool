@@ -131,7 +131,18 @@
             </CheckBox>
         </StackPanel>
 
-        <StackPanel Name="MPCCheckBoxes" Grid.Column="4" Grid.Row="3" Grid.RowSpan="2">
+        <StackPanel Name="MPCCheckBoxes" Grid.Column="4" Grid.Row="3" Grid.RowSpan="3">
+            <Border VerticalAlignment="Center" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
+                <Border.ToolTip>
+                    <ToolTip Content="When enabled, delay of the speed section will be utilised.&#x0a;When disabled, grants the possibility to add a specific delay per point." Background="{StaticResource HomeWindow}"></ToolTip>
+                </Border.ToolTip>
+                <CheckBox IsChecked="True" Content="Universal delay (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+                    <CheckBox.Resources>
+                        <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+                    </CheckBox.Resources>
+                </CheckBox>
+            </Border>
+
             <Border VerticalAlignment="Center" Padding="0" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
                 <Border.ToolTip>
                     <ToolTip Content="Grants the possibility to choose if a point will be clicked by the left or right mouse button.&#x0a;Overrides the Left- and Right Clicking modes." Background="{StaticResource HomeWindow}"></ToolTip>
@@ -143,15 +154,15 @@
                 </CheckBox>
             </Border>
 
-            <Border VerticalAlignment="Center" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
-                <Border.ToolTip>
-                    <ToolTip Content="When enabled, delay of the speed section will be utilised.&#x0a;When disabled, grants the possibility to add a specific delay per point." Background="{StaticResource HomeWindow}"></ToolTip>
-                </Border.ToolTip>
-                <CheckBox IsChecked="True" Content="Universal delay (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
-                    <CheckBox.Resources>
-                        <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
-                    </CheckBox.Resources>
-                </CheckBox>
+            <Border VerticalAlignment="Center" Padding="0" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
+            <Border.ToolTip>
+                <ToolTip Content="Grants the ability to choose how many times a certain point will be clicked." Background="{StaticResource HomeWindow}"></ToolTip>
+            </Border.ToolTip>
+            <CheckBox Content="Multiplicity (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+                <CheckBox.Resources>
+                    <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+                </CheckBox.Resources>
+            </CheckBox>
             </Border>
         </StackPanel>
 

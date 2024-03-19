@@ -92,7 +92,7 @@
                 <DataTemplate>
                     <DockPanel LastChildFill="False" Width="{Binding ElementName=PointsListBox, Path=ActualWidth}">
                         <TextBlock Text="{Binding Point}" Foreground="{StaticResource Text}" VerticalAlignment="Center"></TextBlock>
-                        <ComboBox SelectedIndex="{Binding ClickingMode, Converter={StaticResource LRConverter}}" Margin="0,0,25,0" DockPanel.Dock="Right" Width="50" VerticalAlignment="Center" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
+                        <ComboBox SelectedIndex="{Binding ClickingMode, Converter={StaticResource LRConverter}}" Margin="0,0,25,0" DockPanel.Dock="Right" Width="30" VerticalAlignment="Center" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
                         materialDesign:TextFieldAssist.UnderlineBrush="White">
                             <ComboBox.Resources>
                                 <SolidColorBrush x:Key="MaterialDesignPaper" Color="#2F3136"/>
@@ -141,9 +141,9 @@
         <StackPanel Name="MPCCheckBoxes" Grid.Column="4" Grid.Row="3" Grid.RowSpan="2">
             <Border VerticalAlignment="Center" Padding="0" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
                 <Border.ToolTip>
-                    <ToolTip Content="Grants the possibility to choose if a point will be clicked by the left or right mouse button." Background="{StaticResource HomeWindow}"></ToolTip>
+                    <ToolTip Content="Grants the possibility to choose if a point will be clicked by the left or right mouse button.&#x0a;Overrides the Left- and Right Clicking modes." Background="{StaticResource HomeWindow}"></ToolTip>
                 </Border.ToolTip>
-                <CheckBox x:Name="RightLeftMPCCheckBox" Content="Right / Left Click Option (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+                <CheckBox IsChecked="{Binding RLMPCIsChecked}" x:Name="RightLeftMPCCheckBox" Content="Right / Left Click Option (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                     <CheckBox.Resources>
                         <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
                     </CheckBox.Resources>

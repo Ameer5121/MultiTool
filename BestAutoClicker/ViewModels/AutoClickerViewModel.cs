@@ -75,7 +75,8 @@ namespace BestAutoClicker.ViewModels
 
         public AutoClickerMode CurrentMode { get; set; }
         public ClickingMode CurrentClickingMode { get; set; }
-
+        
+        public bool RLMPCIsChecked { get; set; }
 
         public RelayCommand ClearPointsCommand => new RelayCommand(ClearPoints);
         public RelayCommand SetModeCommand => new RelayCommand(SetMode);
@@ -156,6 +157,7 @@ namespace BestAutoClicker.ViewModels
             {
                 foreach (MPCModel i in MPCModels)
                 {
+                    var ClickingMode = RLMPCIsChecked == true ? i.ClickingMode : CurrentClickingMode;
                     var screen = Screen.PrimaryScreen.Bounds;
                     var abX = i.Point.X * 65355 / screen.Width;
                     var abY = i.Point.Y * 65355 / screen.Height;
@@ -163,8 +165,8 @@ namespace BestAutoClicker.ViewModels
                     mouseInput[0].mouseData.dy = abY;
                     mouseInput[1].mouseData.dx = abX + 1;
                     mouseInput[1].mouseData.dy = abY + 1;
-                    mouseInput[2].mouseData.dwFlags = (uint)i.ClickingMode;
-                    mouseInput[3].mouseData.dwFlags = GetUpFlag(i.ClickingMode);
+                    mouseInput[2].mouseData.dwFlags = (uint)ClickingMode;
+                    mouseInput[3].mouseData.dwFlags = GetUpFlag(ClickingMode);
                     SendInput(4, mouseInput, Marshal.SizeOf<MouseInput>());
                     Thread.Sleep(_customTime);
                 }

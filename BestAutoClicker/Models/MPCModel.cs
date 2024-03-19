@@ -10,7 +10,7 @@ namespace BestAutoClicker.Models
 {
     public class MPCModel
     {
-        public Point Point { get; set; }
+        public Point Point { get; }
         public ClickingMode ClickingMode { get; set; } = ClickingMode.LeftClickDown;
 
         public MPCModel(Point point)

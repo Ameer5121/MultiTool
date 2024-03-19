@@ -125,13 +125,13 @@
 
 
         <StackPanel Name="RightLeftCheckBoxes" Grid.Column="4" Grid.Row="1" Grid.RowSpan="2">
-            <CheckBox Command="{Binding SetClickingModeCommand}" CommandParameter="{x:Static Enums:ClickingMode.LeftClickDown}" Unchecked="OnCheckBoxUnChecked" Checked="OnCheckBoxChecked" IsChecked="True" Content="Left-Clicking mode" VerticalAlignment="Center" BorderBrush="Black" Margin="5" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+            <CheckBox Command="{Binding SetClickingModeCommand}" CommandParameter="{x:Static Enums:ClickingMode.LeftClickDown}" Unchecked="OnCheckBoxUnChecked" Checked="OnCheckBoxChecked" IsChecked="True" Content="Left Clicking mode" VerticalAlignment="Center" BorderBrush="Black" Margin="5" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                 <CheckBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
                 </CheckBox.Resources>
             </CheckBox>
 
-            <CheckBox Command="{Binding SetClickingModeCommand}" CommandParameter="{x:Static Enums:ClickingMode.RightClickDown}" Unchecked="OnCheckBoxUnChecked" Checked="OnCheckBoxChecked" Content="Right-Clicking mode" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Margin="5" Foreground="{StaticResource Text}" Background="White">
+            <CheckBox Command="{Binding SetClickingModeCommand}" CommandParameter="{x:Static Enums:ClickingMode.RightClickDown}" Unchecked="OnCheckBoxUnChecked" Checked="OnCheckBoxChecked" Content="Right Clicking mode" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Margin="5" Foreground="{StaticResource Text}" Background="White">
                 <CheckBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
                 </CheckBox.Resources>

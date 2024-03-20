@@ -32,6 +32,7 @@ using CheckBox = System.Windows.Controls.CheckBox;
 using System.Windows.Media;
 using BestAutoClicker.Models;
 
+
 namespace BestAutoClicker
 {
     /// <summary>
@@ -137,11 +138,11 @@ namespace BestAutoClicker
         {
             var textBlock = sender as TextBlock;
             var MPCModel = textBlock.DataContext as MPCModel;
-            int indexPoint = _autoClickerViewModel.MPCModels.IndexOf(MPCModel);
+            int indexPoint = _autoClickerViewModel.MPCModels.IndexOf(MPCModel!);
             var Border1 = _circles[indexPoint].Border1;
             var Border2 = _circles[indexPoint].Border2;
             var Border3 = _circles[indexPoint].Border3;
-            HighlightCircle(Border1, Border2, Border3, GetCorrectListBoxItem(MPCModel));
+            HighlightCircle(Border1, Border2, Border3, (textBlock.Parent as DockPanel).Parent as Border);
         }
 
         private void OnRightClickPoint(object sender, MouseButtonEventArgs e)
@@ -152,8 +153,6 @@ namespace BestAutoClicker
             _autoClickerViewModel.MPCModels.Remove(MPCModel);
             _circles.RemoveAt(indexPoint);
         }
-
-        private ListBoxItem GetCorrectListBoxItem(MPCModel MPCModel) => PointsListBox.ItemContainerGenerator.ContainerFromItem(MPCModel) as ListBoxItem;
 
         private void ClearAllUICircles()
         {
@@ -171,22 +170,22 @@ namespace BestAutoClicker
             _circles.RemoveAt(indexPoint);
         }
 
-        private void HighlightCircle(Border b1, Border b2, Border b3, ListBoxItem LBItem)
+        private void HighlightCircle(Border b1, Border b2, Border b3, Border itemBorder)
         {
             if (b1.Background != Brushes.LightGreen)
             {
                 b1.Background = Brushes.LightGreen;
                 b2.Background = Brushes.LightGreen;
                 b3.Background = Brushes.LightGreen;
-                LBItem.BorderBrush = Brushes.LightGreen;
-                LBItem.BorderThickness = new Thickness(1);
+                itemBorder.BorderBrush = Brushes.LightGreen;
+                itemBorder.BorderThickness = new Thickness(1);
             }
             else
             {
                 b1.Background = Brushes.Red;
                 b2.Background = Brushes.Orange;
                 b3.Background = Brushes.Yellow;
-                LBItem.BorderThickness = new Thickness(0);
+                itemBorder.BorderThickness = new Thickness(0);
             }
         }
 

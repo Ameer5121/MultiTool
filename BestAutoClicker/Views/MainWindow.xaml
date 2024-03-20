@@ -80,39 +80,41 @@
 
         <TextBlock Text="Custom Points" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}" Margin="0,10,0,0"/>
 
-        <ScrollViewer Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
-            <ItemsControl x:Name="PointsListBox" Background="{StaticResource Chat}" ItemsSource="{Binding MPCModels}" ScrollViewer.CanContentScroll="False" BorderThickness="1" BorderBrush="{StaticResource WindowBorder}" Margin="5" Foreground="{StaticResource Text}" Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border>
-                            <DockPanel LastChildFill="False" Width="{Binding ElementName=PointsListBox, Path=ActualWidth}">
-                                <TextBlock Margin="10" MouseLeftButtonDown="OnLeftClickPoint" MouseRightButtonDown="OnRightClickPoint" Text="{Binding Point}" Foreground="{StaticResource Text}" VerticalAlignment="Center"></TextBlock>
-                                <ComboBox SelectedIndex="{Binding ClickingMode, Converter={StaticResource LRConverter}}" Margin="0,0,10,0" DockPanel.Dock="Right" Width="30" VerticalAlignment="Center" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
-                                    materialDesign:TextFieldAssist.UnderlineBrush="White">
-                                    <ComboBox.Resources>
-                                        <SolidColorBrush x:Key="MaterialDesignPaper" Color="#2F3136"/>
-                                    </ComboBox.Resources>
-                                    <ComboBox.Style>
-                                        <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding ElementName=RightLeftMPCCheckBox, Path=IsChecked}" Value="True">
-                                                    <Setter Property="Visibility" Value="Visible"></Setter>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding ElementName=RightLeftMPCCheckBox, Path=IsChecked}" Value="False">
-                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </ComboBox.Style>
-                                    <ComboBoxItem Content="L"></ComboBoxItem>
-                                    <ComboBoxItem Content="R"></ComboBoxItem>
-                                </ComboBox>
-                            </DockPanel>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+        <Border Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="{StaticResource WindowBorder}" Margin="5" >
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="PointsListBox" Background="{StaticResource Chat}" ItemsSource="{Binding MPCModels}"  Foreground="{StaticResource Text}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <DockPanel LastChildFill="False" Width="{Binding ElementName=PointsListBox, Path=ActualWidth}">
+                                    <TextBlock Margin="10" MouseLeftButtonDown="OnLeftClickPoint" MouseRightButtonDown="OnRightClickPoint" Text="{Binding Point}" Foreground="{StaticResource Text}" VerticalAlignment="Center"></TextBlock>
+                                    <ComboBox SelectedIndex="{Binding ClickingMode, Converter={StaticResource LRConverter}}" Margin="0,0,10,0" DockPanel.Dock="Right" Width="30" VerticalAlignment="Center" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
+                             materialDesign:TextFieldAssist.UnderlineBrush="White">
+                                        <ComboBox.Resources>
+                                            <SolidColorBrush x:Key="MaterialDesignPaper" Color="#2F3136"/>
+                                        </ComboBox.Resources>
+                                        <ComboBox.Style>
+                                            <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=RightLeftMPCCheckBox, Path=IsChecked}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding ElementName=RightLeftMPCCheckBox, Path=IsChecked}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
+                                        <ComboBoxItem Content="L"></ComboBoxItem>
+                                        <ComboBoxItem Content="R"></ComboBoxItem>
+                                    </ComboBox>
+                                </DockPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
 
 
         <Label Grid.Column="3" Content="Speed" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>

@@ -108,6 +108,21 @@
                                         <ComboBoxItem Content="L"></ComboBoxItem>
                                         <ComboBoxItem Content="R"></ComboBoxItem>
                                     </ComboBox>
+
+                                    <TextBox DockPanel.Dock="Right" PreviewTextInput="CheckForNumbers" Width="30" Margin="0,0,10,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White">
+                                        <TextBox.Style>
+                                            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=MultiplicityCheckBox, Path=IsChecked}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding ElementName=MultiplicityCheckBox, Path=IsChecked}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBox.Style>
+                                    </TextBox>
                                 </DockPanel>
                             </Border>
                         </DataTemplate>
@@ -162,7 +177,7 @@
             <Border.ToolTip>
                 <ToolTip Content="Grants the ability to choose how many times a certain point will be clicked." Background="{StaticResource HomeWindow}"></ToolTip>
             </Border.ToolTip>
-            <CheckBox Content="Multiplicity (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+                <CheckBox x:Name="MultiplicityCheckBox" Content="Multiplicity (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                 <CheckBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
                 </CheckBox.Resources>

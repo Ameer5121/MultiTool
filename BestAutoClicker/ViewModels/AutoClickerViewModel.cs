@@ -33,6 +33,8 @@ namespace BestAutoClicker.ViewModels
         private int _seconds;
         private int _minutes;
         private int _hours;
+        private TimeSpan _customTime;
+        private IntPtr _mouseHandleHook;
 
         public event Action ClearUIPoints;
 
@@ -75,6 +77,7 @@ namespace BestAutoClicker.ViewModels
 
         public AutoClickerMode CurrentMode { get; set; }
         public ClickingMode CurrentClickingMode { get; set; }
+        public MouseMessage HoldClickMessage { get; set; } = MouseMessage.LeftButtonDown;
         
         public bool RLMPCIsChecked { get; set; }
 
@@ -83,8 +86,7 @@ namespace BestAutoClicker.ViewModels
         public RelayCommand SetClickingModeCommand => new RelayCommand(SetClickingMode);
 
         public bool IsRunning => _isRunning;
-        public CancellationTokenSource ClickingProcess => _cancelClick;
-        private TimeSpan _customTime;
+        public CancellationTokenSource ClickingProcess => _cancelClick;      
         public ObservableCollection<MPCModel> MPCModels { get; } = new ObservableCollection<MPCModel>();
 
         [DllImport("user32.dll")]
@@ -99,8 +101,21 @@ namespace BestAutoClicker.ViewModels
         [DllImport("user32.dll", SetLastError = true)]
         static extern uint SendInput(uint nInputs, MouseInput[] pInputs, int cbSize);
 
+        private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
+        private LowLevelMouseProc _holdClickCallBack;
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelMouseProc lpfn, IntPtr hMod, uint dwThreadId);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr UnhookWindowsHookEx(IntPtr handleToRemove);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+
         public AutoClickerViewModel()
         {
+            _holdClickCallBack = HoldClick;
             _cancelClick = new CancellationTokenSource();
             _milliSeconds = 100;
             CurrentMode = AutoClickerMode.AutoClicker;
@@ -124,27 +139,29 @@ namespace BestAutoClicker.ViewModels
             _cancelClick = new CancellationTokenSource();
         }
 
-        public void HoldClick()
+        private IntPtr HoldClick(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            _isRunning = true;
-            MouseInput[] mouseInput = new MouseInput[2];
-            while (CurrentMode == AutoClickerMode.HoldClicker && _cancelClick.IsCancellationRequested == false)
+            if (!_isRunning && (MouseMessage)wParam == HoldClickMessage)
             {
-                var keyState = CurrentClickingMode == ClickingMode.LeftClickDown ? (int)CurrentClickingMode / 2 : (int)CurrentClickingMode / 4;
-                mouseInput[0].mouseData.dwFlags = (uint)CurrentClickingMode;
-                mouseInput[1].mouseData.dwFlags = GetUpFlag(CurrentClickingMode);
-                if (((ushort)GetKeyState(keyState) >> 15) == 1)
+                Task.Run(() =>
                 {
+                    _isRunning = true;
+                    MouseInput[] mouseInput = new MouseInput[3];
+                    var keyState = CurrentClickingMode == ClickingMode.LeftClickDown ? (int)CurrentClickingMode / 2 : (int)CurrentClickingMode / 4;
+                    mouseInput[0].mouseData.dwFlags = (uint)CurrentClickingMode;
+                    mouseInput[1].mouseData.dwFlags = GetUpFlag(CurrentClickingMode);
+                    mouseInput[2].mouseData.dwFlags = (uint)CurrentClickingMode;
                     Thread.Sleep(500);
                     while (((ushort)GetKeyState(keyState) >> 15) == 1)
                     {
-                        SendInput(2, mouseInput, Marshal.SizeOf<MouseInput>());
-                        SendInput(1, mouseInput, Marshal.SizeOf<MouseInput>());
+                        SendInput(3, mouseInput, Marshal.SizeOf<MouseInput>());
                         Thread.Sleep(_customTime);
                     }
-                }
+                    _isRunning = false;
+                });
             }
-            _isRunning = false;
+
+            return CallNextHookEx(_mouseHandleHook, nCode, wParam, lParam);
         }
 
         public void MultipleClick()
@@ -182,10 +199,16 @@ namespace BestAutoClicker.ViewModels
         {
             if (CurrentMode == autoClickerMode) return;
             CurrentMode = autoClickerMode;
-            if (autoClickerMode == AutoClickerMode.HoldClicker) Task.Run(HoldClick);
+            if (autoClickerMode == AutoClickerMode.HoldClicker) _mouseHandleHook = SetWindowsHookEx(14, _holdClickCallBack, IntPtr.Zero, 0);
+            else UnhookWindowsHookEx(_mouseHandleHook);
         }
 
-        private void SetClickingMode(ClickingMode clickingMode) => CurrentClickingMode = clickingMode;
+        private void SetClickingMode(ClickingMode clickingMode)
+        {
+            CurrentClickingMode = clickingMode;
+            if (clickingMode == ClickingMode.LeftClickDown) HoldClickMessage = MouseMessage.LeftButtonDown;
+            else HoldClickMessage = MouseMessage.RightButtonDown;
+        }
 
         private void ClearPoints()
         {

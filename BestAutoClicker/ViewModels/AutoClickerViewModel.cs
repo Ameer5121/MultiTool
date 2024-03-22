@@ -21,6 +21,8 @@ using System.Collections.ObjectModel;
 using BestAutoClicker.Helper.Structs;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 using BestAutoClicker.Models;
+using System.Diagnostics.Metrics;
+using Application = System.Windows.Application;
 
 namespace BestAutoClicker.ViewModels
 {
@@ -35,6 +37,7 @@ namespace BestAutoClicker.ViewModels
         private int _hours;
         private TimeSpan _customTime;
         private IntPtr _mouseHandleHook;
+        private bool _holding;
 
         public event Action ClearUIPoints;
 
@@ -78,7 +81,7 @@ namespace BestAutoClicker.ViewModels
         public AutoClickerMode CurrentMode { get; set; }
         public ClickingMode CurrentClickingMode { get; set; }
         public MouseMessage HoldClickMessage { get; set; } = MouseMessage.LeftButtonDown;
-        
+
         public bool RLMPCIsChecked { get; set; }
 
         public RelayCommand ClearPointsCommand => new RelayCommand(ClearPoints);
@@ -86,7 +89,7 @@ namespace BestAutoClicker.ViewModels
         public RelayCommand SetClickingModeCommand => new RelayCommand(SetClickingMode);
 
         public bool IsRunning => _isRunning;
-        public CancellationTokenSource ClickingProcess => _cancelClick;      
+        public CancellationTokenSource ClickingProcess => _cancelClick;
         public ObservableCollection<MPCModel> MPCModels { get; } = new ObservableCollection<MPCModel>();
 
         [DllImport("user32.dll")]
@@ -141,20 +144,21 @@ namespace BestAutoClicker.ViewModels
 
         private IntPtr HoldClick(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            if (!_isRunning && (MouseMessage)wParam == HoldClickMessage)
+            if ((MouseMessage)wParam == HoldClickMessage + 1) _holding = false;
+            if (!IsRunning && (MouseMessage)wParam == HoldClickMessage)
             {
                 Task.Run(() =>
                 {
                     _isRunning = true;
-                    MouseInput[] mouseInput = new MouseInput[3];
+                    _holding = true;
                     var keyState = CurrentClickingMode == ClickingMode.LeftClickDown ? (int)CurrentClickingMode / 2 : (int)CurrentClickingMode / 4;
+                    MouseInput[] mouseInput = new MouseInput[1];
                     mouseInput[0].mouseData.dwFlags = (uint)CurrentClickingMode;
-                    mouseInput[1].mouseData.dwFlags = GetUpFlag(CurrentClickingMode);
-                    mouseInput[2].mouseData.dwFlags = (uint)CurrentClickingMode;
                     Thread.Sleep(500);
-                    while (((ushort)GetKeyState(keyState) >> 15) == 1)
+                    if ((ushort)GetKeyState(keyState) >> 15 == 1) _holding = true; // In case of a double click
+                    while (_holding)
                     {
-                        SendInput(3, mouseInput, Marshal.SizeOf<MouseInput>());
+                        SendInput(1, mouseInput, Marshal.SizeOf<MouseInput>());
                         Thread.Sleep(_customTime);
                     }
                     _isRunning = false;
@@ -184,7 +188,7 @@ namespace BestAutoClicker.ViewModels
                     mouseInput[1].mouseData.dx = abX + 1;
                     mouseInput[1].mouseData.dy = abY + 1;
                     mouseInput[2].mouseData.dwFlags = (uint)ClickingMode;
-                    mouseInput[3].mouseData.dwFlags = GetUpFlag(ClickingMode);  
+                    mouseInput[3].mouseData.dwFlags = GetUpFlag(ClickingMode);
                     SendInput(4, mouseInput, Marshal.SizeOf<MouseInput>());
                     Thread.Sleep(_customTime);
                 }

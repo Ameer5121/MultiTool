@@ -141,10 +141,16 @@ namespace BestAutoClicker.ViewModels
             _isRunning = false;
             _cancelClick = new CancellationTokenSource();
         }
-
+        private long counter;
+        public long Counter
+        {
+            get => counter;
+            set => SetPropertyValue(ref counter, value);
+        }
         private IntPtr HoldClick(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            if ((MouseMessage)wParam == HoldClickMessage + 1) _holding = false;
+            MouseInputData hookStruct = Marshal.PtrToStructure<MouseInputData>(lParam);
+            if ((MouseMessage)wParam == HoldClickMessage + 1 && (int)hookStruct.dwExtraInfo != 69) _holding = false;
             if (!IsRunning && (MouseMessage)wParam == HoldClickMessage)
             {
                 Task.Run(() =>
@@ -152,13 +158,15 @@ namespace BestAutoClicker.ViewModels
                     _isRunning = true;
                     _holding = true;
                     var keyState = CurrentClickingMode == ClickingMode.LeftClickDown ? (int)CurrentClickingMode / 2 : (int)CurrentClickingMode / 4;
-                    MouseInput[] mouseInput = new MouseInput[1];
+                    MouseInput[] mouseInput = new MouseInput[2];
                     mouseInput[0].mouseData.dwFlags = (uint)CurrentClickingMode;
+                    mouseInput[1].mouseData.dwFlags = GetUpFlag(CurrentClickingMode);
+                    mouseInput[1].mouseData.dwExtraInfo = (IntPtr)69;
                     Thread.Sleep(500);
                     if ((ushort)GetKeyState(keyState) >> 15 == 1) _holding = true; // In case of a double click
                     while (_holding)
                     {
-                        SendInput(1, mouseInput, Marshal.SizeOf<MouseInput>());
+                        SendInput(2, mouseInput, Marshal.SizeOf<MouseInput>());
                         Thread.Sleep(_customTime);
                     }
                     _isRunning = false;
@@ -167,7 +175,6 @@ namespace BestAutoClicker.ViewModels
 
             return CallNextHookEx(_mouseHandleHook, nCode, wParam, lParam);
         }
-
         public void MultipleClick()
         {
             _isRunning = true;

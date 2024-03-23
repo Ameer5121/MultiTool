@@ -19,6 +19,7 @@
         FontFamily="{materialDesign:MaterialDesignFont}" Style="{StaticResource CustomWindowStyle}" >
     <Window.Resources>
         <Converter:LRConverter x:Key="LRConverter"></Converter:LRConverter>
+        <Converter:TextBoxStringConverter x:Key="TextBoxStringConverter"></Converter:TextBoxStringConverter>
     </Window.Resources>
 
     <Grid>
@@ -134,10 +135,10 @@
 
                                         <Border DockPanel.Dock="Right" Margin="0,5,5,0" BorderBrush="White" BorderThickness="1" Width="130" >
                                             <DockPanel LastChildFill="False">
-                                                <TextBox TextAlignment="Center" Text="{Binding Milliseconds}" ToolTip="MilliSeconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
-                                                <TextBox TextAlignment="Center" Text="{Binding Seconds}" ToolTip="Seconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="6,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
-                                                <TextBox TextAlignment="Center" Text="{Binding Minutes}" ToolTip="Minutes" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
-                                                <TextBox TextAlignment="Center" Text="{Binding Hours}" ToolTip="Hours" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                                <TextBox TextAlignment="Center" Text="{Binding Milliseconds, Converter={StaticResource TextBoxStringConverter}}" ToolTip="MilliSeconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                                <TextBox TextAlignment="Center" Text="{Binding Seconds, Converter={StaticResource TextBoxStringConverter}}" ToolTip="Seconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="6,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                                <TextBox TextAlignment="Center" Text="{Binding Minutes, Converter={StaticResource TextBoxStringConverter}}" ToolTip="Minutes" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                                <TextBox TextAlignment="Center" Text="{Binding Hours, Converter={StaticResource TextBoxStringConverter}}" ToolTip="Hours" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
                                             </DockPanel>
 
                                             <Border.Style>
@@ -224,20 +225,20 @@
 
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="MilliSeconds" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
-                <TextBox PreviewTextInput="CheckForNumbers" Text="{Binding MilliSeconds, UpdateSourceTrigger=PropertyChanged}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                <TextBox PreviewTextInput="CheckForNumbers" Text="{Binding MilliSeconds, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Seconds" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
-                <TextBox PreviewTextInput="CheckForNumbers" Text="{Binding Seconds, UpdateSourceTrigger=PropertyChanged}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                <TextBox PreviewTextInput="CheckForNumbers" Text="{Binding Seconds, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Minutes" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
-                <TextBox PreviewTextInput="CheckForNumbers" Text="{Binding Minutes, UpdateSourceTrigger=PropertyChanged}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                <TextBox PreviewTextInput="CheckForNumbers" Text="{Binding Minutes, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Hours" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
-                <TextBox PreviewTextInput="CheckForNumbers" Text="{Binding Hours , UpdateSourceTrigger=PropertyChanged}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                <TextBox PreviewTextInput="CheckForNumbers" Text="{Binding Hours , UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
             </StackPanel>
         </StackPanel>
 

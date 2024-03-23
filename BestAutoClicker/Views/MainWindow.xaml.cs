@@ -131,7 +131,7 @@ namespace BestAutoClicker
 
         private void CheckForNumbers(object sender, TextCompositionEventArgs e)
         {
-            if (!int.TryParse(e.Text, out _)) e.Handled = true;
+             if (!int.TryParse(e.Text, out _)) e.Handled = true;
         }
 
         private void OnLeftClickPoint(object sender, MouseButtonEventArgs e)

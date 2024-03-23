@@ -150,7 +150,7 @@ namespace BestAutoClicker.ViewModels
         private IntPtr HoldClick(int nCode, IntPtr wParam, IntPtr lParam)
         {
             MouseInputData hookStruct = Marshal.PtrToStructure<MouseInputData>(lParam);
-            if ((MouseMessage)wParam == HoldClickMessage + 1 && (int)hookStruct.dwExtraInfo != 69) _holding = false;
+            if ((MouseMessage)wParam == HoldClickMessage + 1 && (int)hookStruct.dwExtraInfo != 5) _holding = false;
             if (!IsRunning && (MouseMessage)wParam == HoldClickMessage)
             {
                 Task.Run(() =>
@@ -161,7 +161,7 @@ namespace BestAutoClicker.ViewModels
                     MouseInput[] mouseInput = new MouseInput[2];
                     mouseInput[0].mouseData.dwFlags = (uint)CurrentClickingMode;
                     mouseInput[1].mouseData.dwFlags = GetUpFlag(CurrentClickingMode);
-                    mouseInput[1].mouseData.dwExtraInfo = (IntPtr)69;
+                    mouseInput[1].mouseData.dwExtraInfo = (IntPtr)5;
                     Thread.Sleep(500);
                     if ((ushort)GetKeyState(keyState) >> 15 == 1) _holding = true; // In case of a double click
                     while (_holding)
@@ -172,7 +172,6 @@ namespace BestAutoClicker.ViewModels
                     _isRunning = false;
                 });
             }
-
             return CallNextHookEx(_mouseHandleHook, nCode, wParam, lParam);
         }
         public void MultipleClick()

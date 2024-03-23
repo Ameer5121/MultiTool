@@ -142,7 +142,7 @@ namespace BestAutoClicker
             var Border1 = _circles[indexPoint].Border1;
             var Border2 = _circles[indexPoint].Border2;
             var Border3 = _circles[indexPoint].Border3;
-            HighlightCircle(Border1, Border2, Border3, (textBlock.Parent as DockPanel).Parent as Border);
+            HighlightCircle(Border1, Border2, Border3, (textBlock.Parent as Grid).Parent as Border);
         }
 
         private void OnRightClickPoint(object sender, MouseButtonEventArgs e)

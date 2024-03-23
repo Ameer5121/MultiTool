@@ -86,10 +86,18 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border>
-                                <DockPanel LastChildFill="False" Width="{Binding ElementName=PointsListBox, Path=ActualWidth}">
-                                    <TextBlock Margin="10" MouseLeftButtonDown="OnLeftClickPoint" MouseRightButtonDown="OnRightClickPoint" Text="{Binding Point}" Foreground="{StaticResource Text}" VerticalAlignment="Center"></TextBlock>
-                                    <ComboBox SelectedIndex="{Binding ClickingMode, Converter={StaticResource LRConverter}}" Margin="0,0,10,0" DockPanel.Dock="Right" Width="30" VerticalAlignment="Center" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
-                             materialDesign:TextFieldAssist.UnderlineBrush="White">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="30"></ColumnDefinition>
+                                        <ColumnDefinition Width="30"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                   
+                                    <TextBlock Grid.ColumnSpan="2" Margin="5,10,10,10" MouseLeftButtonDown="OnLeftClickPoint" MouseRightButtonDown="OnRightClickPoint" Text="{Binding Point}" Foreground="{StaticResource Text}" VerticalAlignment="Center"></TextBlock>
+                                   
+                                    <ComboBox Grid.Column="3" SelectedIndex="{Binding ClickingMode, Converter={StaticResource LRConverter}}" Margin="0,0,5,0" DockPanel.Dock="Right" Width="26" VerticalAlignment="Center" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
+                                            materialDesign:TextFieldAssist.UnderlineBrush="White">
                                         <ComboBox.Resources>
                                             <SolidColorBrush x:Key="MaterialDesignPaper" Color="#2F3136"/>
                                         </ComboBox.Resources>
@@ -109,7 +117,8 @@
                                         <ComboBoxItem Content="R"></ComboBoxItem>
                                     </ComboBox>
 
-                                    <TextBox Text="{Binding Multiplicity}" DockPanel.Dock="Right" PreviewTextInput="CheckForNumbers" Width="22" Margin="0,0,10,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White">
+
+                                    <TextBox Grid.Column="2" Text="{Binding Multiplicity}" DockPanel.Dock="Right" PreviewTextInput="CheckForNumbers" Width="22" Margin="0,0,10,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White">
                                         <TextBox.Style>
                                             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
                                                 <Style.Triggers>
@@ -124,10 +133,10 @@
                                         </TextBox.Style>
                                     </TextBox>
 
-                                    <Border BorderBrush="White" BorderThickness="1" Margin="0,5,0,0" Width="130">
+                                    <Border Grid.Column="1" BorderBrush="White" BorderThickness="1" >
                                         <DockPanel LastChildFill="False">
                                             <TextBox ToolTip="MilliSeconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
-                                            <TextBox ToolTip="Seconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                            <TextBox ToolTip="Seconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="6,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
                                             <TextBox ToolTip="Minutes" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
                                             <TextBox ToolTip="Hours" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
                                         </DockPanel>
@@ -146,8 +155,7 @@
                                         </Border.Style>
                                     </Border>
 
-
-                                </DockPanel>
+                                </Grid>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

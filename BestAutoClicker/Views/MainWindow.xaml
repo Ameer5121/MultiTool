@@ -135,10 +135,10 @@
 
                                     <Border Grid.Column="1" BorderBrush="White" BorderThickness="1" >
                                         <DockPanel LastChildFill="False">
-                                            <TextBox ToolTip="MilliSeconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
-                                            <TextBox ToolTip="Seconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="6,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
-                                            <TextBox ToolTip="Minutes" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
-                                            <TextBox ToolTip="Hours" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                            <TextBox Text="{Binding Milliseconds}" ToolTip="MilliSeconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                            <TextBox Text="{Binding Seconds}" ToolTip="Seconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="6,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                            <TextBox Text="{Binding Minutes}" ToolTip="Minutes" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                            <TextBox Text="{Binding Hours}" ToolTip="Hours" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
                                         </DockPanel>
 
                                         <Border.Style>
@@ -187,7 +187,7 @@
                 <Border.ToolTip>
                     <ToolTip Content="When enabled, delay of the speed section will be utilised.&#x0a;When disabled, grants the possibility to add a specific delay per point." Background="{StaticResource HomeWindow}"></ToolTip>
                 </Border.ToolTip>
-                <CheckBox x:Name="UniversalDelayCheckBox" IsChecked="True" Content="Universal delay (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+                <CheckBox IsChecked="{Binding UniversalDelay}" x:Name="UniversalDelayCheckBox" Content="Universal delay (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                     <CheckBox.Resources>
                         <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
                     </CheckBox.Resources>

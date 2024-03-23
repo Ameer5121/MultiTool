@@ -31,58 +31,22 @@ namespace BestAutoClicker.ViewModels
     {
         private bool _isRunning;
         private CancellationTokenSource _cancelClick;
-        private int _milliSeconds;
-        private int _seconds;
-        private int _minutes;
-        private int _hours;
-        private TimeSpan _customTime;
         private IntPtr _mouseHandleHook;
         private bool _holding;
 
         public event Action ClearUIPoints;
 
-        public int MilliSeconds
-        {
-            get => _milliSeconds;
-            set
-            {
-                SetPropertyValue(ref _milliSeconds, value);
-                UpdateTime();
-            }
-        }
-        public int Seconds
-        {
-            get => _seconds;
-            set
-            {
-                SetPropertyValue(ref _seconds, value);
-                UpdateTime();
-            }
-        }
-        public int Minutes
-        {
-            get => _minutes;
-            set
-            {
-                SetPropertyValue(ref _minutes, value);
-                UpdateTime();
-            }
-        }
-        public int Hours
-        {
-            get => _hours;
-            set
-            {
-                SetPropertyValue(ref _hours, value);
-                UpdateTime();
-            }
-        }
+        public int MilliSeconds { get; set; } = 100;
+        public int Seconds { get; set; }
+        public int Minutes { get; set; }
+        public int Hours { get; set; }
 
         public AutoClickerMode CurrentMode { get; set; }
         public ClickingMode CurrentClickingMode { get; set; }
         public MouseMessage HoldClickMessage { get; set; } = MouseMessage.LeftButtonDown;
 
         public bool RLMPCIsChecked { get; set; }
+        public bool UniversalDelay { get; set; } = true;
 
         public RelayCommand ClearPointsCommand => new RelayCommand(ClearPoints);
         public RelayCommand SetModeCommand => new RelayCommand(SetMode);
@@ -120,13 +84,10 @@ namespace BestAutoClicker.ViewModels
         {
             _holdClickCallBack = HoldClick;
             _cancelClick = new CancellationTokenSource();
-            _milliSeconds = 100;
             CurrentMode = AutoClickerMode.AutoClicker;
             CurrentClickingMode = ClickingMode.LeftClickDown;
-            UpdateTime();
-        }
+    }
 
-        private void UpdateTime() => _customTime = new TimeSpan(0, _hours, _minutes, _seconds, _milliSeconds);
         public void Click()
         {
             _isRunning = true;
@@ -136,7 +97,7 @@ namespace BestAutoClicker.ViewModels
             while (_cancelClick.IsCancellationRequested == false && CurrentMode == AutoClickerMode.AutoClicker)
             {
                 SendInput(2, mouseInput, Marshal.SizeOf<MouseInput>());
-                Thread.Sleep(_customTime);
+                Thread.Sleep(new TimeSpan(0, Hours, Minutes, Seconds, MilliSeconds));
             }
             _isRunning = false;
             _cancelClick = new CancellationTokenSource();
@@ -162,7 +123,7 @@ namespace BestAutoClicker.ViewModels
                     while (_holding)
                     {
                         SendInput(2, mouseInput, Marshal.SizeOf<MouseInput>());
-                        Thread.Sleep(_customTime);
+                        Thread.Sleep(new TimeSpan(0, Hours, Minutes, Seconds, MilliSeconds));
                     }
                     _isRunning = false;
                 });
@@ -181,6 +142,7 @@ namespace BestAutoClicker.ViewModels
                 foreach (MPCModel i in MPCModels)
                 {
                     var ClickingMode = RLMPCIsChecked == true ? i.ClickingMode : CurrentClickingMode;
+                    var TimeSpan = UniversalDelay == true ? new TimeSpan(0, Hours, Minutes, Seconds, MilliSeconds) : new TimeSpan(0, i.Hours, i.Minutes, i.Seconds, i.Milliseconds);
                     var abX = i.Point.X * 65355 / screen.Width;
                     var abY = i.Point.Y * 65355 / screen.Height;
                     mouseInput[0].mouseData.dx = abX;
@@ -193,7 +155,7 @@ namespace BestAutoClicker.ViewModels
                     {
                         if (_cancelClick.IsCancellationRequested) goto End;
                         SendInput(4, mouseInput, Marshal.SizeOf<MouseInput>());
-                        Thread.Sleep(_customTime);
+                        Thread.Sleep(TimeSpan);
                     }
                 }
             }

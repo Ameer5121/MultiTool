@@ -72,7 +72,7 @@ namespace BestAutoClicker
         {
             base.OnSourceInitialized(e);
             _windowHandle = new WindowInteropHelper(this).Handle;
-            RegisterHotKeys();           
+            RegisterHotKeys();
         }
 
         private void HandleMessages(ref MSG msg, ref bool handled)
@@ -131,7 +131,7 @@ namespace BestAutoClicker
 
         private void CheckForNumbers(object sender, TextCompositionEventArgs e)
         {
-             if (!int.TryParse(e.Text, out _)) e.Handled = true;
+            if (!int.TryParse(e.Text, out _)) e.Handled = true;
         }
 
         private void OnLeftClickPoint(object sender, MouseButtonEventArgs e)
@@ -172,7 +172,10 @@ namespace BestAutoClicker
 
             if (e.MiddleButton == MouseButtonState.Pressed)
             {
-                var a = PointsListBox.ItemContainerGenerator.ContainerFromIndex(IndexOfCircle) as Border;
+                var container = PointsListBox.ItemContainerGenerator.ContainerFromIndex(IndexOfCircle) as FrameworkElement;                
+                var itemTemplate = PointsListBox.ItemTemplate;
+                var border = itemTemplate.FindName("MainBorder", container) as Border;
+                HighlightCircle(Border1, Border2, Border3, border);
             }
             else if (e.RightButton == MouseButtonState.Pressed)
             {

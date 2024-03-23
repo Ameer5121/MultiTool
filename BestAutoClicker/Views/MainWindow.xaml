@@ -86,7 +86,7 @@
                 <ItemsControl x:Name="PointsListBox" Background="{StaticResource Chat}" ItemsSource="{Binding MPCModels}"  Foreground="{StaticResource Text}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border>
+                            <Border x:Name="MainBorder">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="70"></ColumnDefinition>

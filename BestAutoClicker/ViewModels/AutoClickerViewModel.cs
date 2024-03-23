@@ -175,13 +175,13 @@ namespace BestAutoClicker.ViewModels
             MouseInput[] mouseInput = new MouseInput[4];
             mouseInput[0] = new MouseInput();
             mouseInput[1] = new MouseInput();
+            var screen = Screen.PrimaryScreen.Bounds;
             while (_cancelClick.IsCancellationRequested == false && CurrentMode == AutoClickerMode.MultiplePoints)
             {
                 foreach (MPCModel i in MPCModels)
                 {
                     if (_cancelClick.IsCancellationRequested) break;
                     var ClickingMode = RLMPCIsChecked == true ? i.ClickingMode : CurrentClickingMode;
-                    var screen = Screen.PrimaryScreen.Bounds;
                     var abX = i.Point.X * 65355 / screen.Width;
                     var abY = i.Point.Y * 65355 / screen.Height;
                     mouseInput[0].mouseData.dx = abX;
@@ -190,8 +190,12 @@ namespace BestAutoClicker.ViewModels
                     mouseInput[1].mouseData.dy = abY + 1;
                     mouseInput[2].mouseData.dwFlags = (uint)ClickingMode;
                     mouseInput[3].mouseData.dwFlags = GetUpFlag(ClickingMode);
-                    SendInput(4, mouseInput, Marshal.SizeOf<MouseInput>());
-                    Thread.Sleep(_customTime);
+                    for (int x = i.Multiplicity; x > 0; --x)
+                    {
+                        if (_cancelClick.IsCancellationRequested) break;
+                        SendInput(4, mouseInput, Marshal.SizeOf<MouseInput>());
+                        Thread.Sleep(_customTime);
+                    }
                 }
             }
             _isRunning = false;

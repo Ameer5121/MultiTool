@@ -13,6 +13,8 @@ namespace BestAutoClicker.Models
         public Point Point { get; }
         public ClickingMode ClickingMode { get; set; } = ClickingMode.LeftClickDown;
 
+        public int Multiplicity { get; set; } = 1;
+
         public MPCModel(Point point)
         {
             Point = point; 

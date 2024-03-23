@@ -109,7 +109,7 @@
                                         <ComboBoxItem Content="R"></ComboBoxItem>
                                     </ComboBox>
 
-                                    <TextBox DockPanel.Dock="Right" PreviewTextInput="CheckForNumbers" Width="30" Margin="0,0,10,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White">
+                                    <TextBox Text="{Binding Multiplicity}" DockPanel.Dock="Right" PreviewTextInput="CheckForNumbers" Width="30" Margin="0,0,10,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White">
                                         <TextBox.Style>
                                             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
                                                 <Style.Triggers>

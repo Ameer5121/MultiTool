@@ -90,71 +90,74 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="70"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="30"></ColumnDefinition>
-                                        <ColumnDefinition Width="30"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                    
                                     <TextBlock Grid.ColumnSpan="2" Margin="5,10,10,10" MouseLeftButtonDown="OnLeftClickPoint" MouseRightButtonDown="OnRightClickPoint" Text="{Binding Point}" Foreground="{StaticResource Text}" VerticalAlignment="Center"></TextBlock>
-                                   
-                                    <ComboBox Grid.Column="3" SelectedIndex="{Binding ClickingMode, Converter={StaticResource LRConverter}}" Margin="0,0,5,0" DockPanel.Dock="Right" Width="26" VerticalAlignment="Center" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
-                                            materialDesign:TextFieldAssist.UnderlineBrush="White">
-                                        <ComboBox.Resources>
-                                            <SolidColorBrush x:Key="MaterialDesignPaper" Color="#2F3136"/>
-                                        </ComboBox.Resources>
-                                        <ComboBox.Style>
-                                            <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding ElementName=RightLeftMPCCheckBox, Path=IsChecked}" Value="True">
-                                                        <Setter Property="Visibility" Value="Visible"></Setter>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding ElementName=RightLeftMPCCheckBox, Path=IsChecked}" Value="False">
-                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                        <ComboBoxItem Content="L"></ComboBoxItem>
-                                        <ComboBoxItem Content="R"></ComboBoxItem>
-                                    </ComboBox>
+
+                                    <DockPanel Margin="0,0,10,0" Grid.Column="1" LastChildFill="False">
+                                        <ComboBox Grid.Column="3" SelectedIndex="{Binding ClickingMode, Converter={StaticResource LRConverter}}" Margin="0,0,5,0" DockPanel.Dock="Right" Width="26" VerticalAlignment="Center" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
+                                                materialDesign:TextFieldAssist.UnderlineBrush="White">
+                                            <ComboBox.Resources>
+                                                <SolidColorBrush x:Key="MaterialDesignPaper" Color="#2F3136"/>
+                                            </ComboBox.Resources>
+                                            <ComboBox.Style>
+                                                <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=RightLeftMPCCheckBox, Path=IsChecked}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ElementName=RightLeftMPCCheckBox, Path=IsChecked}" Value="False">
+                                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ComboBox.Style>
+                                            <ComboBoxItem Content="L"></ComboBoxItem>
+                                            <ComboBoxItem Content="R"></ComboBoxItem>
+                                        </ComboBox>
 
 
-                                    <TextBox Grid.Column="2" Text="{Binding Multiplicity}" DockPanel.Dock="Right" PreviewTextInput="CheckForNumbers" Width="22" Margin="0,0,10,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White">
-                                        <TextBox.Style>
-                                            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding ElementName=MultiplicityCheckBox, Path=IsChecked}" Value="True">
-                                                        <Setter Property="Visibility" Value="Visible"></Setter>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding ElementName=MultiplicityCheckBox, Path=IsChecked}" Value="False">
-                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBox.Style>
-                                    </TextBox>
+                                        <TextBox Grid.Column="2" Text="{Binding Multiplicity}" DockPanel.Dock="Right" PreviewTextInput="CheckForNumbers" Width="22" Margin="0,0,10,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White">
+                                            <TextBox.Style>
+                                                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=MultiplicityCheckBox, Path=IsChecked}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ElementName=MultiplicityCheckBox, Path=IsChecked}" Value="False">
+                                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBox.Style>
+                                        </TextBox>
 
-                                    <Border Grid.Column="1" BorderBrush="White" BorderThickness="1" >
-                                        <DockPanel LastChildFill="False">
-                                            <TextBox Text="{Binding Milliseconds}" ToolTip="MilliSeconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
-                                            <TextBox Text="{Binding Seconds}" ToolTip="Seconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="6,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
-                                            <TextBox Text="{Binding Minutes}" ToolTip="Minutes" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
-                                            <TextBox Text="{Binding Hours}" ToolTip="Hours" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
-                                        </DockPanel>
+                                        <Border DockPanel.Dock="Right" Margin="0,5,5,0" BorderBrush="White" BorderThickness="1" >
+                                            <DockPanel LastChildFill="False">
+                                                <TextBox Text="{Binding Milliseconds}" ToolTip="MilliSeconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                                <TextBox Text="{Binding Seconds}" ToolTip="Seconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="6,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                                <TextBox Text="{Binding Minutes}" ToolTip="Minutes" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                                <TextBox Text="{Binding Hours}" ToolTip="Hours" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                            </DockPanel>
 
-                                        <Border.Style>
-                                            <Style TargetType="Border" BasedOn="{StaticResource MaterialDesignToolBarMainPanelBorderStyle}">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding ElementName=UniversalDelayCheckBox, Path=IsChecked}" Value="True">
-                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding ElementName=UniversalDelayCheckBox, Path=IsChecked}" Value="False">
-                                                        <Setter Property="Visibility" Value="Visible"></Setter>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Border.Style>
-                                    </Border>
-
+                                            <Border.Style>
+                                                <Style TargetType="Border" BasedOn="{StaticResource MaterialDesignToolBarMainPanelBorderStyle}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=UniversalDelayCheckBox, Path=IsChecked}" Value="True">
+                                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ElementName=UniversalDelayCheckBox, Path=IsChecked}" Value="False">
+                                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                        </Border>
+                                        
+                                        
+                                    </DockPanel>
+                                    
+                                    
                                 </Grid>
                             </Border>
                         </DataTemplate>

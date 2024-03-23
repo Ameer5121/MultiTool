@@ -118,7 +118,7 @@ namespace BestAutoClicker
             var backgroundPosition = info.MouseDevice.GetPosition(_background);
             Circle circle = new Circle();
             _circles.Add(circle);
-            circle.MouseRightButtonDown += RMouseDownUI;
+            circle.MouseDown += MDownUI;
             _background.MPBackground.Children.Add(circle);
             circle.RenderTransform = new TranslateTransform(backgroundPosition.X, backgroundPosition.Y);
         }
@@ -161,13 +161,25 @@ namespace BestAutoClicker
             _circles.Clear();
         }
 
-        private void RMouseDownUI(object sender, MouseButtonEventArgs e)
+        private void MDownUI(object sender, MouseButtonEventArgs e)
         {
+            if (e.LeftButton == MouseButtonState.Pressed) return;
             var circle = sender as Circle;
-            int indexPoint = _background.MPBackground.Children.IndexOf(circle);
-            _background.MPBackground.Children.Remove(circle);
-            _autoClickerViewModel.MPCModels.RemoveAt(indexPoint);
-            _circles.RemoveAt(indexPoint);
+            int IndexOfCircle = _circles.IndexOf(circle);
+            var Border1 = _circles[IndexOfCircle].Border1;
+            var Border2 = _circles[IndexOfCircle].Border2;
+            var Border3 = _circles[IndexOfCircle].Border3;
+
+            if (e.MiddleButton == MouseButtonState.Pressed)
+            {
+                var a = PointsListBox.ItemContainerGenerator.ContainerFromIndex(IndexOfCircle) as Border;
+            }
+            else if (e.RightButton == MouseButtonState.Pressed)
+            {
+                _background.MPBackground.Children.Remove(circle);
+                _autoClickerViewModel.MPCModels.RemoveAt(IndexOfCircle);
+                _circles.RemoveAt(IndexOfCircle);
+            }
         }
 
         private void HighlightCircle(Border b1, Border b2, Border b3, Border itemBorder)

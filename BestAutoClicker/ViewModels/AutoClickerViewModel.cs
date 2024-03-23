@@ -141,12 +141,7 @@ namespace BestAutoClicker.ViewModels
             _isRunning = false;
             _cancelClick = new CancellationTokenSource();
         }
-        private long counter;
-        public long Counter
-        {
-            get => counter;
-            set => SetPropertyValue(ref counter, value);
-        }
+
         private IntPtr HoldClick(int nCode, IntPtr wParam, IntPtr lParam)
         {
             MouseInputData hookStruct = Marshal.PtrToStructure<MouseInputData>(lParam);

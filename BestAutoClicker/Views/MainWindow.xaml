@@ -20,7 +20,7 @@
     <Window.Resources>
         <Converter:LRConverter x:Key="LRConverter"></Converter:LRConverter>
     </Window.Resources>
-        
+
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -67,7 +67,7 @@
 
         <Button Content="Load" Grid.Row="4" Grid.RowSpan="2" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Top" Margin="2.5,2,2.5,0" ></Button>
         <Button Content="Save" Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Top" Margin="2.5,2,2.5,0" ></Button>
-        
+
         <Border Grid.Row="5" Grid.Column="1" BorderBrush="White" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Padding="0" Margin="0,10,30,0">
             <Button Command="{Binding ClearPointsCommand}" Background= "{StaticResource Buttons}" Foreground="Red" Padding="0" Width="20" Height="20" VerticalAlignment="Center"  HorizontalAlignment="Center" VerticalContentAlignment="Top" BorderBrush="Transparent" BorderThickness="1">
                 <materialDesign:PackIcon  Kind="WindowClose" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"></materialDesign:PackIcon>
@@ -76,7 +76,7 @@
                 </Button.ToolTip>
             </Button>
         </Border>
-        
+
 
         <TextBlock Text="Custom Points" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}" Margin="0,10,0,0"/>
 
@@ -123,6 +123,30 @@
                                             </Style>
                                         </TextBox.Style>
                                     </TextBox>
+
+                                    <Border BorderBrush="White" BorderThickness="1" Margin="0,5,0,0" Width="130">
+                                        <DockPanel LastChildFill="False">
+                                            <TextBox ToolTip="MilliSeconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                            <TextBox ToolTip="Seconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                            <TextBox ToolTip="Minutes" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                            <TextBox ToolTip="Hours" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                                        </DockPanel>
+
+                                        <Border.Style>
+                                            <Style TargetType="Border" BasedOn="{StaticResource MaterialDesignToolBarMainPanelBorderStyle}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=UniversalDelayCheckBox, Path=IsChecked}" Value="True">
+                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding ElementName=UniversalDelayCheckBox, Path=IsChecked}" Value="False">
+                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+
+
                                 </DockPanel>
                             </Border>
                         </DataTemplate>
@@ -155,7 +179,7 @@
                 <Border.ToolTip>
                     <ToolTip Content="When enabled, delay of the speed section will be utilised.&#x0a;When disabled, grants the possibility to add a specific delay per point." Background="{StaticResource HomeWindow}"></ToolTip>
                 </Border.ToolTip>
-                <CheckBox IsChecked="True" Content="Universal delay (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+                <CheckBox x:Name="UniversalDelayCheckBox" IsChecked="True" Content="Universal delay (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                     <CheckBox.Resources>
                         <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
                     </CheckBox.Resources>
@@ -174,14 +198,14 @@
             </Border>
 
             <Border VerticalAlignment="Center" Padding="0" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
-            <Border.ToolTip>
-                <ToolTip Content="Grants the ability to choose how many times a certain point will be clicked." Background="{StaticResource HomeWindow}"></ToolTip>
-            </Border.ToolTip>
+                <Border.ToolTip>
+                    <ToolTip Content="Grants the ability to choose how many times a certain point will be clicked." Background="{StaticResource HomeWindow}"></ToolTip>
+                </Border.ToolTip>
                 <CheckBox x:Name="MultiplicityCheckBox" Content="Multiplicity (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
-                <CheckBox.Resources>
-                    <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
-                </CheckBox.Resources>
-            </CheckBox>
+                    <CheckBox.Resources>
+                        <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+                    </CheckBox.Resources>
+                </CheckBox>
             </Border>
         </StackPanel>
 

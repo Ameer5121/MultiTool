@@ -132,7 +132,7 @@
                                             </TextBox.Style>
                                         </TextBox>
 
-                                        <Border DockPanel.Dock="Right" Margin="0,5,5,0" BorderBrush="White" BorderThickness="1" >
+                                        <Border DockPanel.Dock="Right" Margin="0,5,5,0" BorderBrush="White" BorderThickness="1" Width="130" >
                                             <DockPanel LastChildFill="False">
                                                 <TextBox Text="{Binding Milliseconds}" ToolTip="MilliSeconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="5,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
                                                 <TextBox Text="{Binding Seconds}" ToolTip="Seconds" PreviewTextInput="CheckForNumbers" Width="25" Margin="6,0,0,0" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>

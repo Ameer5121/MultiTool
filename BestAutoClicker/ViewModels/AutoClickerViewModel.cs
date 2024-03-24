@@ -25,6 +25,7 @@ using System.Diagnostics.Metrics;
 using Application = System.Windows.Application;
 using Newtonsoft.Json;
 using System.IO;
+using BestAutoClicker.Helper.Events;
 
 namespace BestAutoClicker.ViewModels
 {
@@ -37,7 +38,8 @@ namespace BestAutoClicker.ViewModels
         private bool _holding;
         private string _pointsDirectory;
 
-        public event Action ClearUIPoints;
+        public event Action PointsCleared;
+        public event EventHandler<LoadPointsEventArgs> PointsLoaded;
 
         public int MilliSeconds { get; set; } = 100;
         public int Seconds { get; set; }
@@ -195,7 +197,7 @@ namespace BestAutoClicker.ViewModels
         private void ClearPoints()
         {
             MPCModels.Clear();
-            ClearUIPoints?.Invoke();
+            PointsCleared?.Invoke();
         }
 
         private void SavePoints()
@@ -221,6 +223,7 @@ namespace BestAutoClicker.ViewModels
                 openFileDialog.InitialDirectory = _pointsDirectory;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
+                    if (MPCModels.Count > 0) ClearPoints();
                     using (StreamReader streamReader = new StreamReader(openFileDialog.OpenFile()))
                     {
                         var jsonData = streamReader.ReadToEnd();
@@ -229,6 +232,7 @@ namespace BestAutoClicker.ViewModels
                     }
                 }
             }
+            PointsLoaded?.Invoke(this, new LoadPointsEventArgs(MPCModels));
         }
 
         private void TryCreateInitialDirectory()

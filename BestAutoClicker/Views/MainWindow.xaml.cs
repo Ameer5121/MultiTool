@@ -31,7 +31,7 @@ using Brushes = System.Windows.Media.Brushes;
 using CheckBox = System.Windows.Controls.CheckBox;
 using System.Windows.Media;
 using BestAutoClicker.Models;
-
+using BestAutoClicker.Helper.Events;
 
 namespace BestAutoClicker
 {
@@ -64,7 +64,8 @@ namespace BestAutoClicker
 
             ComponentDispatcher.ThreadPreprocessMessage += HandleMessages;
 
-            _autoClickerViewModel.ClearUIPoints += ClearAllUICircles;
+            _autoClickerViewModel.PointsCleared += ClearAllUICircles;
+            _autoClickerViewModel.PointsLoaded += LoadCircles;
             _circles = new List<Circle>();
         }
 
@@ -231,6 +232,17 @@ namespace BestAutoClicker
             senderCheckBox.Checked -= OnCheckBoxChecked;
             senderCheckBox.IsChecked = true;
             senderCheckBox.Checked += OnCheckBoxChecked;
+        }
+
+        private void LoadCircles(object sender, LoadPointsEventArgs e)
+        {
+            foreach(var mpcModel in e.Models)
+            {
+                Circle circle = new Circle();
+                circle.RenderTransform = new TranslateTransform(mpcModel.Point.X, mpcModel.Point.Y);
+                circle.MouseDown += MDownUI;
+                _circles.Add(circle);
+            }
         }
     }
 }

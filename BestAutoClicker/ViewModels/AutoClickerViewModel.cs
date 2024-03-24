@@ -207,13 +207,8 @@ namespace BestAutoClicker.ViewModels
                 saveFileDialog.InitialDirectory = _pointsDirectory;
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var fileName = saveFileDialog.FileName;
                     var MPCList = JsonConvert.SerializeObject(MPCModels, Formatting.Indented);
-                    var File = saveFileDialog.OpenFile();
-                    using (StreamWriter sw = new StreamWriter(File))
-                    {
-                        sw.Write(MPCList);
-                    }
+                    using (StreamWriter sw = new StreamWriter(saveFileDialog.OpenFile())) sw.Write(MPCList);
                 }
             }
         }

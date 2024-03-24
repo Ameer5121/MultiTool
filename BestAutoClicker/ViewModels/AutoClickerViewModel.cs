@@ -56,6 +56,7 @@ namespace BestAutoClicker.ViewModels
         public RelayCommand SetClickingModeCommand => new RelayCommand(SetClickingMode);
 
         public RelayCommand SavePointsCommand => new RelayCommand(SavePoints);
+        public RelayCommand LoadPointsCommand => new RelayCommand(LoadPoints);
 
         public bool IsRunning => _isRunning;
         public CancellationTokenSource ClickingProcess => _cancelClick;

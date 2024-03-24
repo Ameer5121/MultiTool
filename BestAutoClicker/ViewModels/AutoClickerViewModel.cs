@@ -204,7 +204,7 @@ namespace BestAutoClicker.ViewModels
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.Filter = "Points Data (PD File) | *.PD";
+                saveFileDialog.Filter = "Points Data (pd File) | *.pd";
                 saveFileDialog.InitialDirectory = _pointsDirectory;
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {

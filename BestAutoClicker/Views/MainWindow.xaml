@@ -19,7 +19,6 @@
         FontFamily="{materialDesign:MaterialDesignFont}" Style="{StaticResource CustomWindowStyle}" >
     <Window.Resources>
         <Converter:LRConverter x:Key="LRConverter"></Converter:LRConverter>
-        <Converter:TextBoxStringConverter x:Key="TextBoxStringConverter"></Converter:TextBoxStringConverter>
     </Window.Resources>
 
     <Grid>

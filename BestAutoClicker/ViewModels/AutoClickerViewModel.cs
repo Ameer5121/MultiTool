@@ -23,6 +23,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 using BestAutoClicker.Models;
 using System.Diagnostics.Metrics;
 using Application = System.Windows.Application;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace BestAutoClicker.ViewModels
 {
@@ -33,6 +35,7 @@ namespace BestAutoClicker.ViewModels
         private CancellationTokenSource _cancelClick;
         private IntPtr _mouseHandleHook;
         private bool _holding;
+        private string _pointsDirectory;
 
         public event Action ClearUIPoints;
 
@@ -51,6 +54,8 @@ namespace BestAutoClicker.ViewModels
         public RelayCommand ClearPointsCommand => new RelayCommand(ClearPoints);
         public RelayCommand SetModeCommand => new RelayCommand(SetMode);
         public RelayCommand SetClickingModeCommand => new RelayCommand(SetClickingMode);
+
+        public RelayCommand SavePointsCommand => new RelayCommand(SavePoints);
 
         public bool IsRunning => _isRunning;
         public CancellationTokenSource ClickingProcess => _cancelClick;
@@ -80,13 +85,17 @@ namespace BestAutoClicker.ViewModels
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
+
+
         public AutoClickerViewModel()
         {
             _holdClickCallBack = HoldClick;
             _cancelClick = new CancellationTokenSource();
             CurrentMode = AutoClickerMode.AutoClicker;
             CurrentClickingMode = ClickingMode.LeftClickDown;
-    }
+            _pointsDirectory = $@"{Directory.GetCurrentDirectory()}\Points";
+            TryCreateInitialDirectory();
+        }
 
         public void Click()
         {
@@ -160,7 +169,7 @@ namespace BestAutoClicker.ViewModels
                 }
             }
 
-            End:
+        End:
             _isRunning = false;
             _cancelClick = new CancellationTokenSource();
         }
@@ -186,6 +195,30 @@ namespace BestAutoClicker.ViewModels
         {
             MPCModels.Clear();
             ClearUIPoints?.Invoke();
+        }
+
+        private void SavePoints()
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                //WIP
+                saveFileDialog.Filter = "Points Data (PD File) | *.PD";
+                saveFileDialog.InitialDirectory = _pointsDirectory;
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                   
+                }
+            }
+        }
+
+        private void LoadPoints()
+        {
+
+        }
+
+        private void TryCreateInitialDirectory()
+        {           
+            if (!Directory.Exists(_pointsDirectory)) Directory.CreateDirectory(_pointsDirectory);
         }
     }
 }

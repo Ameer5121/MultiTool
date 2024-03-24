@@ -95,7 +95,7 @@
                                    
                                     <TextBlock Margin="5,10,10,10" MouseLeftButtonDown="OnLeftClickPoint" MouseRightButtonDown="OnRightClickPoint" Text="{Binding Point}" Foreground="{StaticResource Text}" VerticalAlignment="Center"></TextBlock>
 
-                                    <DockPanel Margin="0,0,10,0" Grid.Column="1" LastChildFill="False">
+                                    <DockPanel Margin="0,0,0,0" Grid.Column="1" LastChildFill="False">
                                         <ComboBox Grid.Column="3" SelectedIndex="{Binding ClickingMode, Converter={StaticResource LRConverter}}" Margin="0,0,5,0" DockPanel.Dock="Right" Width="26" VerticalAlignment="Center" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
                                                 materialDesign:TextFieldAssist.UnderlineBrush="White">
                                             <ComboBox.Resources>

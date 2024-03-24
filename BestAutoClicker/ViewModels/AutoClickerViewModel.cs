@@ -120,7 +120,7 @@ namespace BestAutoClicker.ViewModels
                     mouseInput[1].mouseData.dwExtraInfo = (IntPtr)5;
                     Thread.Sleep(500);
                     if ((ushort)GetKeyState(keyState) >> 15 == 1) _holding = true; // In case of a double click
-                    while (_holding)
+                    while (_holding && CurrentMode == AutoClickerMode.HoldClicker)
                     {
                         SendInput(2, mouseInput, Marshal.SizeOf<MouseInput>());
                         Thread.Sleep(new TimeSpan(0, Hours, Minutes, Seconds, MilliSeconds));

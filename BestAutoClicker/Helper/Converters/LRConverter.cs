@@ -14,13 +14,14 @@ namespace BestAutoClicker.Helper.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return 0;
+            if ((ClickingMode)value == ClickingMode.LeftClickDown) return 0;
+            return 1;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if ((int)value == 0) return ClickingMode.LeftClickDown;
-            else return ClickingMode.RightClickDown;
+            return ClickingMode.RightClickDown;
         }
     }
 }

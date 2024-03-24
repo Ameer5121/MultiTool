@@ -55,7 +55,7 @@ namespace BestAutoClicker.ViewModels
         public RelayCommand SetModeCommand => new RelayCommand(SetMode);
         public RelayCommand SetClickingModeCommand => new RelayCommand(SetClickingMode);
 
-        public RelayCommand SavePointsCommand => new RelayCommand(SavePoints);
+        public RelayCommand SavePointsCommand => new RelayCommand(SavePoints, CanSavePoints);
         public RelayCommand LoadPointsCommand => new RelayCommand(LoadPoints);
 
         public bool IsRunning => _isRunning;
@@ -212,9 +212,23 @@ namespace BestAutoClicker.ViewModels
             }
         }
 
+        private bool CanSavePoints() => MPCModels.Count > 0;
         private void LoadPoints()
         {
-
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Points Data (pd File) | *.pd";
+                openFileDialog.InitialDirectory = _pointsDirectory;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (StreamReader streamReader = new StreamReader(openFileDialog.OpenFile()))
+                    {
+                        var jsonData = streamReader.ReadToEnd();
+                        var mpcModelsToReturn = JsonConvert.DeserializeObject<IEnumerable<MPCModel>>(jsonData);
+                        foreach (var mpcModel in mpcModelsToReturn) MPCModels.Add(mpcModel);
+                    }
+                }
+            }
         }
 
         private void TryCreateInitialDirectory()

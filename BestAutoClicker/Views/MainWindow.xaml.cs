@@ -158,7 +158,7 @@ namespace BestAutoClicker
         private void ClearAllUICircles()
         {
             if (_circles.Count == 0) return;
-            _background.MPBackground.Children.Clear();
+            _background?.MPBackground.Children.Clear();
             _circles.Clear();
         }
 

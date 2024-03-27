@@ -83,7 +83,7 @@ namespace BestAutoClicker
                 if ((int)msg.wParam == (int)Keys.F1)
                 {
                     if (_autoClickerViewModel.IsRunning) _autoClickerViewModel.ClickingProcess.Cancel();
-                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.AutoClicker) Task.Run(_autoClickerViewModel.Click);
+                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.AutoClicker) Task.Factory.StartNew(_autoClickerViewModel.Click, TaskCreationOptions.LongRunning);
                     else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints && _autoClickerViewModel.MPCModels.Count != 0) Task.Run(_autoClickerViewModel.MultipleClick);
                 }
                 else if ((int)msg.wParam == (int)Keys.F5 && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints)

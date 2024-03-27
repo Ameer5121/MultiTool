@@ -110,7 +110,7 @@ namespace BestAutoClicker.ViewModels
             while (_cancelClick.IsCancellationRequested == false && CurrentMode == AutoClickerMode.AutoClicker)
             {
                 SendInput(2, mouseInput, Marshal.SizeOf<MouseInput>());
-                Thread.Sleep(1);
+                Thread.Sleep(timeToWait);
             }
             _isRunning = false;
             _cancelClick = new CancellationTokenSource();

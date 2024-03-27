@@ -106,10 +106,11 @@ namespace BestAutoClicker.ViewModels
             MouseInput[] mouseInput = new MouseInput[2];
             mouseInput[0].mouseData.dwFlags = (uint)CurrentClickingMode;
             mouseInput[1].mouseData.dwFlags = GetUpFlag(CurrentClickingMode);
+            var timeToWait = new TimeSpan(0, Hours, Minutes, Seconds, MilliSeconds);
             while (_cancelClick.IsCancellationRequested == false && CurrentMode == AutoClickerMode.AutoClicker)
             {
                 SendInput(2, mouseInput, Marshal.SizeOf<MouseInput>());
-                Thread.Sleep(new TimeSpan(0, Hours, Minutes, Seconds, MilliSeconds));
+                Thread.Sleep(1);
             }
             _isRunning = false;
             _cancelClick = new CancellationTokenSource();
@@ -121,6 +122,7 @@ namespace BestAutoClicker.ViewModels
             if ((MouseMessage)wParam == HoldClickMessage + 1 && (int)hookStruct.dwExtraInfo != 5) _holding = false;
             if (!IsRunning && (MouseMessage)wParam == HoldClickMessage)
             {
+                var timeToWait = new TimeSpan(0, Hours, Minutes, Seconds, MilliSeconds);
                 Task.Run(() =>
                 {
                     _isRunning = true;
@@ -135,7 +137,7 @@ namespace BestAutoClicker.ViewModels
                     while (_holding && CurrentMode == AutoClickerMode.HoldClicker)
                     {
                         SendInput(2, mouseInput, Marshal.SizeOf<MouseInput>());
-                        Thread.Sleep(new TimeSpan(0, Hours, Minutes, Seconds, MilliSeconds));
+                        Thread.Sleep(timeToWait);
                     }
                     _isRunning = false;
                 });

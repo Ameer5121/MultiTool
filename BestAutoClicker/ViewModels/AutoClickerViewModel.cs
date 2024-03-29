@@ -113,7 +113,7 @@ namespace BestAutoClicker.ViewModels
         public void StartTimer()
         {
             if (!IsRunning) IsRunning = true;
-            TimerIdentifier = timeSetEvent(Interval == 0 ? 1 : Interval, 1, _timerHandler, IntPtr.Zero, 1);
+            TimerIdentifier = timeSetEvent(Interval == 0 ? 1 : Interval, 0, _timerHandler, IntPtr.Zero, 1);
         }
         public void StopTimer()
         {

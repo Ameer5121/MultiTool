@@ -32,6 +32,7 @@ using CheckBox = System.Windows.Controls.CheckBox;
 using System.Windows.Media;
 using BestAutoClicker.Models;
 using BestAutoClicker.Helper.Events;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BestAutoClicker
 {
@@ -82,9 +83,16 @@ namespace BestAutoClicker
             {
                 if ((int)msg.wParam == (int)Keys.F1)
                 {
-                    if (_autoClickerViewModel.IsRunning) _autoClickerViewModel.ClickingProcess.Cancel();
-                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.AutoClicker) Task.Run(_autoClickerViewModel.Click);
-                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints && _autoClickerViewModel.MPCModels.Count != 0) Task.Run(_autoClickerViewModel.MultipleClick);
+                    if (_autoClickerViewModel.IsRunning) _autoClickerViewModel.StopTimer();
+                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.AutoClicker)
+                    {
+                        _autoClickerViewModel.SetNormalClickInput();
+                        _autoClickerViewModel.StartTimer();
+                    }
+                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints && _autoClickerViewModel.MPCModels.Count != 0)
+                    {
+
+                    }
                 }
                 else if ((int)msg.wParam == (int)Keys.F5 && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints)
                 {

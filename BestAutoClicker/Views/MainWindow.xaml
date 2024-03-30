@@ -69,17 +69,22 @@
         <Button Command="{Binding LoadPointsCommand}" Content="Load" Grid.Row="4" Grid.RowSpan="2" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Top" Margin="2.5,2,2.5,0" ></Button>
         <Button Command="{Binding SavePointsCommand}" Content="Save" Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Top" Margin="2.5,2,2.5,0" ></Button>
 
-        <Border Grid.Row="5" Grid.Column="1" BorderBrush="White" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Padding="0" Margin="0,10,30,0">
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 0">
+            <materialDesign:PackIcon Margin="0, 0, 10, 0" Kind="About" Foreground="White" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <materialDesign:PackIcon.ToolTip>
+                    <ToolTip Content="👽👽👽" Background="{StaticResource HomeWindow}"></ToolTip>
+                </materialDesign:PackIcon.ToolTip>
+            </materialDesign:PackIcon>
+            <TextBlock Text="Custom Points" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}"/>
+            <Border Margin="10, 0, 0, 0" Grid.Row="5" Grid.Column="1" BorderBrush="White" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Padding="0">
             <Button Command="{Binding ClearPointsCommand}" Background= "{StaticResource Buttons}" Foreground="Red" Padding="0" Width="20" Height="20" VerticalAlignment="Center"  HorizontalAlignment="Center" VerticalContentAlignment="Top" BorderBrush="Transparent" BorderThickness="1">
                 <materialDesign:PackIcon  Kind="WindowClose" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"></materialDesign:PackIcon>
                 <Button.ToolTip>
                     <ToolTip Content="Clear All Points" Background="{StaticResource HomeWindow}"></ToolTip>
                 </Button.ToolTip>
             </Button>
-        </Border>
-
-
-        <TextBlock Text="Custom Points" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}" Margin="0,10,0,0"/>
+            </Border>
+        </StackPanel>
 
         <Border Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="{StaticResource WindowBorder}" Margin="5" >
             <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -225,20 +230,20 @@
 
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="MilliSeconds" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
-                <TextBox Text="{Binding MilliSeconds, UpdateSourceTrigger=Default, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                <TextBox Text="{Binding MilliSeconds, UpdateSourceTrigger=Default, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="White" CaretBrush="White"></TextBox>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Seconds" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
-                <TextBox Text="{Binding Seconds, UpdateSourceTrigger=Default, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                <TextBox Text="{Binding Seconds, UpdateSourceTrigger=Default, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="White" CaretBrush="White"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Minutes" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
-                <TextBox Text="{Binding Minutes, UpdateSourceTrigger=Default, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                <TextBox Text="{Binding Minutes, UpdateSourceTrigger=Default, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="White" CaretBrush="White"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Hours" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
-                <TextBox Text="{Binding Hours, UpdateSourceTrigger=Default, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="LightGreen" CaretBrush="White"></TextBox>
+                <TextBox Text="{Binding Hours, UpdateSourceTrigger=Default, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="White" CaretBrush="White"></TextBox>
             </StackPanel>
         </StackPanel>
 

@@ -79,7 +79,7 @@
                             <LineBreak></LineBreak>
                             <LineBreak></LineBreak>
                             <Run Text="Right Click:  " Foreground="LightBlue"></Run>
-                            <Run Text="Removes the point in both the Main- and MPC Window"></Run>
+                            <Run Text="Removes a point in both the Main- and MPC Window"></Run>
                             <LineBreak></LineBreak>
                             <LineBreak></LineBreak>
                             <Run Text="Middle Click:  " Foreground="LightBlue"></Run>

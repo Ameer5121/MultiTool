@@ -47,7 +47,9 @@ namespace BestAutoClicker.ViewModels
         public int Seconds { get; set; }
         public int Minutes { get; set; }
         public int Hours { get; set; }
-        private int Interval => (int)new TimeSpan(0, Hours, Minutes, Seconds, MilliSeconds).TotalMilliseconds;
+        public int Interval => (int)new TimeSpan(0, Hours, Minutes, Seconds, MilliSeconds).TotalMilliseconds;
+
+        private int _currentMPCModelIndex;
 
         public int TimerIdentifier { get; private set; }
 
@@ -89,12 +91,11 @@ namespace BestAutoClicker.ViewModels
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
-        private delegate void TimerHandler();
-        private TimerHandler _timerHandler;
+        private Action _timerHandler;
 
         [DllImport("winmm.dll")]
         private static extern int timeSetEvent(int delay, int resolution,
-                                         TimerHandler handler, IntPtr user, int eventType);
+                                         Action handler, IntPtr user, int eventType);
         [DllImport("winmm.dll")]
         private static extern int timeKillEvent(int uTimerID);
 
@@ -109,15 +110,40 @@ namespace BestAutoClicker.ViewModels
             TryCreateInitialDirectory();
         }
         private void Click() => SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<MouseInput>());
+        public void MultiplePointClick()
+        {
+            MPCModel mpcModel = MPCModels.ElementAt(_currentMPCModelIndex);
+            if (_currentMPCModelIndex == MPCModels.Count - 1) _currentMPCModelIndex = -1;
+            var screen = Screen.PrimaryScreen.Bounds;
+            var clickingMode = RLMPCIsChecked == true ? mpcModel.ClickingMode : CurrentClickingMode;
+            var interval = UniversalDelay == true ? Interval : (int)new TimeSpan(0, mpcModel.Hours, mpcModel.Minutes, mpcModel.Seconds, mpcModel.Milliseconds).TotalMilliseconds;
+            var abX = mpcModel.Point.X * 65355 / screen.Width;
+            var abY = mpcModel.Point.Y * 65355 / screen.Height;
+            MouseInput[0].mouseData.dx = abX;
+            MouseInput[0].mouseData.dy = abY;
+            MouseInput[1].mouseData.dx = abX + 1;
+            MouseInput[1].mouseData.dy = abY + 1;
+            MouseInput[2].mouseData.dwFlags = (uint)clickingMode;
+            MouseInput[3].mouseData.dwFlags = GetUpFlag(clickingMode);
+            Click();
+            _currentMPCModelIndex++;
+            if (TimerIdentifier == 0) StartTimer(interval);
+            else if (!UniversalDelay)
+            {
+                timeKillEvent(TimerIdentifier);
+                StartTimer(interval);
+            }
+        }
 
-        public void StartTimer()
+        public void StartTimer(int totalMilliSeconds)
         {
             if (!IsRunning) IsRunning = true;
-            TimerIdentifier = timeSetEvent(Interval == 0 ? 1 : Interval, 0, _timerHandler, IntPtr.Zero, 1);
+            TimerIdentifier = timeSetEvent(totalMilliSeconds == 0 ? 1 : totalMilliSeconds, 0, _timerHandler, IntPtr.Zero, 1);
         }
         public void StopTimer()
         {
             timeKillEvent(TimerIdentifier);
+            if (CurrentMode == AutoClickerMode.MultiplePoints) _currentMPCModelIndex = 0;
             TimerIdentifier = 0;
             IsRunning = false;
         }
@@ -142,7 +168,7 @@ namespace BestAutoClicker.ViewModels
                 Task.Run(() =>
                 {
                     _holding = true;
-                    IsRunning = true;                   
+                    IsRunning = true;
                     _timerHandler = Click;
                     var keyState = CurrentClickingMode == ClickingMode.LeftClickDown ? (int)CurrentClickingMode / 2 : (int)CurrentClickingMode / 4;
                     MouseInput = new MouseInput[2];
@@ -152,43 +178,19 @@ namespace BestAutoClicker.ViewModels
                     MouseInput[1].mouseData.dwExtraInfo = (IntPtr)5;
                     Thread.Sleep(500);
                     if ((ushort)GetKeyState(keyState) >> 15 == 1) _holding = true; // In case of a double click
-                    if (_holding) StartTimer();
+                    if (_holding) StartTimer(Interval);
                     else IsRunning = false;
                 });
             }
             return CallNextHookEx(_mouseHandleHook, nCode, wParam, lParam);
         }
+
         public void SetMultipleClickInput()
         {
-            MouseInput[] mouseInput = new MouseInput[4];
-            mouseInput[0] = new MouseInput();
-            mouseInput[1] = new MouseInput();
-            var screen = Screen.PrimaryScreen.Bounds;
-            while (CurrentMode == AutoClickerMode.MultiplePoints)
-            {
-                foreach (MPCModel i in MPCModels)
-                {
-                    var ClickingMode = RLMPCIsChecked == true ? i.ClickingMode : CurrentClickingMode;
-                    var TimeSpan = UniversalDelay == true ? new TimeSpan(0, Hours, Minutes, Seconds, MilliSeconds) : new TimeSpan(0, i.Hours, i.Minutes, i.Seconds, i.Milliseconds);
-                    var abX = i.Point.X * 65355 / screen.Width;
-                    var abY = i.Point.Y * 65355 / screen.Height;
-                    mouseInput[0].mouseData.dx = abX;
-                    mouseInput[0].mouseData.dy = abY;
-                    mouseInput[1].mouseData.dx = abX + 1;
-                    mouseInput[1].mouseData.dy = abY + 1;
-                    mouseInput[2].mouseData.dwFlags = (uint)ClickingMode;
-                    mouseInput[3].mouseData.dwFlags = GetUpFlag(ClickingMode);
-                    for (int x = i.Multiplicity; x > 0; --x)
-                    {
-                        if (_cancelClick.IsCancellationRequested) goto End;
-                        SendInput(4, mouseInput, Marshal.SizeOf<MouseInput>());
-                        Thread.Sleep(TimeSpan);
-                    }
-                }
-            }
-
-        End:
-            _cancelClick = new CancellationTokenSource();
+            _timerHandler = MultiplePointClick;
+            MouseInput = new MouseInput[4];
+            MouseInput[0] = new MouseInput();
+            MouseInput[1] = new MouseInput();
         }
 
         private uint GetUpFlag(ClickingMode clickingMode) => clickingMode == ClickingMode.LeftClickDown ? (uint)clickingMode + 2 : (uint)clickingMode + 8;
@@ -250,7 +252,7 @@ namespace BestAutoClicker.ViewModels
         }
 
         private void TryCreateInitialDirectory()
-        {           
+        {
             if (!Directory.Exists(_pointsDirectory)) Directory.CreateDirectory(_pointsDirectory);
         }
     }

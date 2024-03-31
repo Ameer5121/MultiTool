@@ -30,11 +30,5 @@
 
 
 
-    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}" x:Key="TabButton">
-        <Style.Triggers>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="Transparent"></Setter>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
+    
 </ResourceDictionary>

@@ -20,9 +20,17 @@
     <Window.Resources>
         <Converter:LRConverter x:Key="LRConverter"></Converter:LRConverter>
         <Converter:TextBoxStringConverter x:Key="TextBoxStringConverter"></Converter:TextBoxStringConverter>
+
+        <Style x:Key="TabButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+            <Style.Resources>
+                <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="Transparent"/>
+            </Style.Resources>
+        </Style>
     </Window.Resources>
 
 
+    
+    
     <Window.Style>
         <Style TargetType="{x:Type Window}">
             <Setter Property="WindowChrome.WindowChrome">

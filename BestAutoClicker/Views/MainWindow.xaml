@@ -47,6 +47,10 @@
                                 <Button Background="Transparent" BorderBrush="Transparent" Foreground="White" DockPanel.Dock="Right" WindowChrome.IsHitTestVisibleInChrome="True" Click="Minimize">
                                     <materialDesign:PackIcon Kind="Minimize"></materialDesign:PackIcon>
                                 </Button>
+                                <DockPanel >
+                                    <Button Style="{StaticResource TabButton}" Foreground="LightGray" WindowChrome.IsHitTestVisibleInChrome="True" Height="25" FontSize="12" Content="AutoClicker" BorderBrush="Transparent" Background="Transparent" Margin="0, 5, 0, 0" ></Button>
+                                    <Button Style="{StaticResource TabButton}" Foreground="LightGray" WindowChrome.IsHitTestVisibleInChrome="True" Height="25" FontSize="12" Content="Controls" BorderBrush="Transparent" Background="Transparent" Margin="0, 5, 0, 0" ></Button>
+                                </DockPanel>
                             </DockPanel>
                         </Grid>
                     </ControlTemplate>
@@ -55,15 +59,16 @@
 
         </Style>
     </Window.Style>
-    
+
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*"></ColumnDefinition>
-            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+            <ColumnDefinition Width="149*"></ColumnDefinition>
+            <ColumnDefinition Width="149*"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="199*"></ColumnDefinition>
+            <ColumnDefinition Width="25*"></ColumnDefinition>
+            <ColumnDefinition Width="175*"/>
 
         </Grid.ColumnDefinitions>
 
@@ -80,9 +85,9 @@
 
 
 
-        <Label Grid.ColumnSpan="2" Content="Mode" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+        <Label Grid.ColumnSpan="3" Content="Mode" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Margin="0,0,3,0"></Label>
 
-        <StackPanel Name="ModeCheckBoxes" Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="2">
+        <StackPanel Name="ModeCheckBoxes" Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="0,0,3,0">
             <CheckBox IsChecked="True" Unchecked="OnCheckBoxUnChecked" Checked="OnCheckBoxChecked"  Command="{Binding SetModeCommand}" CommandParameter="{x:Static Enums:AutoClickerMode.AutoClicker}" Content="Auto Clicker (AC)" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource Text}" Background="White" Margin="5" >
                 <CheckBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
@@ -100,10 +105,10 @@
             </CheckBox>
         </StackPanel>
 
-        <Button Command="{Binding LoadPointsCommand}" Content="Load" Grid.Row="4" Grid.RowSpan="2" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Top" Margin="2.5,2,2.5,0" ></Button>
-        <Button Command="{Binding SavePointsCommand}" Content="Save" Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Top" Margin="2.5,2,2.5,0" ></Button>
+        <Button Command="{Binding LoadPointsCommand}" Content="Load" Grid.Row="4" Grid.RowSpan="2" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Top" Margin="2,2,2,0" ></Button>
+        <Button Command="{Binding SavePointsCommand}" Content="Save" Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" Background="{StaticResource Buttons}" BorderBrush="Transparent" VerticalAlignment="Top" Margin="3,2,3,0" ></Button>
 
-        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 0">
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
             <materialDesign:PackIcon Margin="0, 0, 10, 0" Kind="About" Foreground="White" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:PackIcon.ToolTip>
                     <ToolTip Background="{StaticResource HomeWindow}">
@@ -124,16 +129,16 @@
             </materialDesign:PackIcon>
             <TextBlock Text="Custom Points" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource Text}"/>
             <Border Margin="10, 0, 0, 0" Grid.Row="5" Grid.Column="1" BorderBrush="White" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Padding="0">
-            <Button Command="{Binding ClearPointsCommand}" Background= "{StaticResource Buttons}" Foreground="Red" Padding="0" Width="20" Height="20" VerticalAlignment="Center"  HorizontalAlignment="Center" VerticalContentAlignment="Top" BorderBrush="Transparent" BorderThickness="1">
-                <materialDesign:PackIcon  Kind="WindowClose" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"></materialDesign:PackIcon>
-                <Button.ToolTip>
-                    <ToolTip Content="Clear All Points" Background="{StaticResource HomeWindow}"></ToolTip>
-                </Button.ToolTip>
-            </Button>
+                <Button Command="{Binding ClearPointsCommand}" Background= "{StaticResource Buttons}" Foreground="Red" Padding="0" Width="20" Height="20" VerticalAlignment="Center"  HorizontalAlignment="Center" VerticalContentAlignment="Top" BorderBrush="Transparent" BorderThickness="1">
+                    <materialDesign:PackIcon  Kind="WindowClose" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"></materialDesign:PackIcon>
+                    <Button.ToolTip>
+                        <ToolTip Content="Clear All Points" Background="{StaticResource HomeWindow}"></ToolTip>
+                    </Button.ToolTip>
+                </Button>
             </Border>
         </StackPanel>
 
-        <Border Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="{StaticResource WindowBorder}" Margin="5" >
+        <Border Grid.Row="6" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="{StaticResource WindowBorder}" Margin="5,5,5,5" >
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl x:Name="PointsListBox" Background="{StaticResource Chat}" ItemsSource="{Binding MPCModels}"  Foreground="{StaticResource Text}">
                     <ItemsControl.ItemTemplate>
@@ -144,7 +149,7 @@
                                         <ColumnDefinition Width="70"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                   
+
                                     <TextBlock Margin="5,10,10,10" MouseLeftButtonDown="OnLeftClickPoint" MouseRightButtonDown="OnRightClickPoint" Text="{Binding Point}" Foreground="{StaticResource Text}" VerticalAlignment="Center"></TextBlock>
 
                                     <DockPanel Margin="0,0,0,0" Grid.Column="1" LastChildFill="False">
@@ -206,11 +211,11 @@
                                                 </Style>
                                             </Border.Style>
                                         </Border>
-                                        
-                                        
+
+
                                     </DockPanel>
-                                    
-                                    
+
+
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -220,11 +225,11 @@
         </Border>
 
 
-        <Label Grid.Column="3" Content="Speed" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
-        <Label Grid.Column="4" Content="Miscellaneous" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+        <Label Grid.Column="3" Content="Speed" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2" Margin="0,0,25,0"></Label>
+        <Label Grid.Column="4" Content="Miscellaneous" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2"></Label>
 
 
-        <StackPanel Name="RightLeftCheckBoxes" Grid.Column="4" Grid.Row="1" Grid.RowSpan="2">
+        <StackPanel Name="RightLeftCheckBoxes" Grid.Column="4" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <CheckBox Command="{Binding SetClickingModeCommand}" CommandParameter="{x:Static Enums:ClickingMode.LeftClickDown}" Unchecked="OnCheckBoxUnChecked" Checked="OnCheckBoxChecked" IsChecked="True" Content="Left Clicking mode" VerticalAlignment="Center" BorderBrush="Black" Margin="5" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
                 <CheckBox.Resources>
                     <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
@@ -238,7 +243,7 @@
             </CheckBox>
         </StackPanel>
 
-        <StackPanel Name="MPCCheckBoxes" Grid.Column="4" Grid.Row="3" Grid.RowSpan="3">
+        <StackPanel Name="MPCCheckBoxes" Grid.Column="4" Grid.Row="3" Grid.RowSpan="3" Grid.ColumnSpan="2">
             <Border VerticalAlignment="Center" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
                 <Border.ToolTip>
                     <ToolTip Content="When enabled, delay of the speed section will be utilised.&#x0a;When disabled, grants the possibility to add a specific delay per point." Background="{StaticResource HomeWindow}"></ToolTip>
@@ -273,7 +278,7 @@
             </Border>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="3" Grid.RowSpan="5" Grid.ColumnSpan="1" VerticalAlignment="Top">
+        <StackPanel Grid.Row="1" Grid.Column="3" Grid.RowSpan="5" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="0,0,25,0">
 
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="MilliSeconds" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
@@ -296,19 +301,19 @@
 
 
         <!-- Right Outlines-->
-        <Border Background="White" BorderThickness="1" Grid.Column="2" Width="3" Grid.RowSpan="9" HorizontalAlignment="Right"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Column="2" Width="3" Grid.RowSpan="8" HorizontalAlignment="Center"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Left" Width="3" Grid.RowSpan="6"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="5" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="6" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="2"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="2" Height="3" VerticalAlignment="Bottom" Grid.Column="4"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="5" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="3"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="6" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="3"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="2" Height="3" VerticalAlignment="Bottom" Grid.Column="4" Grid.ColumnSpan="2"></Border>
         <!-- Right Outlines-->
 
 
         <!-- Left Outlines-->
-        <Border Background="White" BorderThickness="1" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="5"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="3"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="6"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Height="3" Grid.ColumnSpan="4" Margin="0,27,199,0"></Border>
         <!-- Left Outlines-->
 
-        <TextBlock Text="WIP" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource Text}" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2"></TextBlock>
+        <TextBlock Text="WIP" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource Text}" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" Margin="181,0,0,0"></TextBlock>
     </Grid>
 </Window>

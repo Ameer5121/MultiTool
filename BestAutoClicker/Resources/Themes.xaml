@@ -26,4 +26,15 @@
     <SolidColorBrush x:Key="SubWindow">#FF303030</SolidColorBrush>
     <SolidColorBrush x:Key="ChatDisplayName" Color="Silver"></SolidColorBrush>
     <SolidColorBrush x:Key="UnderLineBrush" Color="Silver"></SolidColorBrush>
+
+
+
+
+    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}" x:Key="TabButton">
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="Transparent"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

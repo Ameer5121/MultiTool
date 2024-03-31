@@ -255,5 +255,15 @@ namespace BestAutoClicker
         }
         private void ShutDown(object sender, RoutedEventArgs e) => Environment.Exit(Environment.ExitCode);
         private void Minimize(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+
+        private void OpenAutoClickerTab(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = null;
+        }
+
+        private void OpenControlsTab(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new Controls();
+        }
     }
 }

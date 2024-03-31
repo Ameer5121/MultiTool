@@ -22,6 +22,12 @@
         <Converter:TextBoxStringConverter x:Key="TextBoxStringConverter"></Converter:TextBoxStringConverter>
 
         <Style x:Key="TabButton" TargetType="{x:Type Button}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="White"></Setter>
+                    <Setter Property="BorderThickness" Value="0.5"></Setter>
+                </Trigger>
+            </Style.Triggers>
             <Style.Resources>
                 <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="Transparent"/>
             </Style.Resources>
@@ -59,8 +65,8 @@
                                     <materialDesign:PackIcon Kind="Minimize"></materialDesign:PackIcon>
                                 </Button>
                                 <DockPanel >
-                                    <Button Style="{StaticResource TabButton}" Foreground="LightGray" WindowChrome.IsHitTestVisibleInChrome="True" Height="25" FontSize="12" Content="AutoClicker" Background="Transparent" Margin="0, 5, 0, 0" BorderBrush="Transparent" ></Button>
-                                    <Button Style="{StaticResource TabButton}" Foreground="LightGray" WindowChrome.IsHitTestVisibleInChrome="True" Height="25" FontSize="12" Content="Controls" Background="Transparent" Margin="0, 5, 0, 0" BorderBrush="Transparent" ></Button>
+                                    <Button Style="{StaticResource TabButton}" Foreground="LightGray" WindowChrome.IsHitTestVisibleInChrome="True" Height="25" FontSize="12" Content="AutoClicker" Background="Transparent" Margin="1, 5, 0, 0" Click="OpenAutoClickerTab" ></Button>
+                                    <Button Style="{StaticResource TabButton}" Foreground="LightGray" WindowChrome.IsHitTestVisibleInChrome="True" Height="25" FontSize="12" Content="Controls" Background="Transparent" Margin="0, 5, 0, 0" Click="OpenControlsTab" ></Button>
                                 </DockPanel>
                             </DockPanel>
                         </Grid>
@@ -72,8 +78,6 @@
     </Window.Style>
 
     <Grid>
-
-        <Frame x:Name="MainFrame" Grid.ColumnSpan="99" Grid.RowSpan="99"></Frame>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="149*"></ColumnDefinition>
@@ -328,5 +332,8 @@
         <!-- Left Outlines-->
 
         <TextBlock Text="WIP" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource Text}" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" Margin="181,0,0,0"></TextBlock>
+
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="99" Grid.RowSpan="99"></Frame>
+
     </Grid>
 </Window>

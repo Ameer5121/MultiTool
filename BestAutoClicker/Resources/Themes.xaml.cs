@@ -9,7 +9,5 @@ namespace BestAutoClicker.Resources
 {
     public partial class Themes : ResourceDictionary
     {
-        private void ShutDown(object sender, RoutedEventArgs e) => Environment.Exit(Environment.ExitCode);
-        private void Minimize(object sender, RoutedEventArgs e) => Application.Current.MainWindow.WindowState = WindowState.Minimized;
     }
 }

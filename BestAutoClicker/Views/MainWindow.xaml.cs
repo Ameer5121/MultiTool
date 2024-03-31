@@ -253,5 +253,7 @@ namespace BestAutoClicker
                 _circles.Add(circle);
             }
         }
+        private void ShutDown(object sender, RoutedEventArgs e) => Environment.Exit(Environment.ExitCode);
+        private void Minimize(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
     }
 }

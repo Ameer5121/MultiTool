@@ -21,22 +21,19 @@
         <Converter:LRConverter x:Key="LRConverter"></Converter:LRConverter>
         <Converter:TextBoxStringConverter x:Key="TextBoxStringConverter"></Converter:TextBoxStringConverter>
 
-        <Style x:Key="TabButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="White"></Setter>
-                    <Setter Property="BorderThickness" Value="0.5"></Setter>
-                </Trigger>
-            </Style.Triggers>
+        <Style x:Key="TabButton" TargetType="{x:Type Button}">
             <Style.Resources>
                 <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="Transparent"/>
             </Style.Resources>
+            <Style.BasedOn>
+                <StaticResource ResourceKey="MaterialDesignFlatButton"/>
+            </Style.BasedOn>
         </Style>
     </Window.Resources>
 
 
-    
-    
+
+
     <Window.Style>
         <Style TargetType="{x:Type Window}">
             <Setter Property="WindowChrome.WindowChrome">
@@ -62,8 +59,8 @@
                                     <materialDesign:PackIcon Kind="Minimize"></materialDesign:PackIcon>
                                 </Button>
                                 <DockPanel >
-                                    <Button Style="{StaticResource TabButton}" Foreground="White" WindowChrome.IsHitTestVisibleInChrome="True" Height="25" FontSize="12" Content="AutoClicker" Background="Transparent" Margin="1, 5, 0, 0" ></Button>
-                                    <Button Style="{StaticResource TabButton}" Foreground="White" WindowChrome.IsHitTestVisibleInChrome="True" Height="25" FontSize="12" Content="Controls" Background="Transparent" Margin="0, 5, 0, 0" ></Button>
+                                    <Button Style="{StaticResource TabButton}" Foreground="LightGray" WindowChrome.IsHitTestVisibleInChrome="True" Height="25" FontSize="12" Content="AutoClicker" Background="Transparent" Margin="0, 5, 0, 0" BorderBrush="Transparent" ></Button>
+                                    <Button Style="{StaticResource TabButton}" Foreground="LightGray" WindowChrome.IsHitTestVisibleInChrome="True" Height="25" FontSize="12" Content="Controls" Background="Transparent" Margin="0, 5, 0, 0" BorderBrush="Transparent" ></Button>
                                 </DockPanel>
                             </DockPanel>
                         </Grid>
@@ -75,6 +72,8 @@
     </Window.Style>
 
     <Grid>
+
+        <Frame x:Name="MainFrame" Grid.ColumnSpan="99" Grid.RowSpan="99"></Frame>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="149*"></ColumnDefinition>
@@ -127,16 +126,16 @@
                 <materialDesign:PackIcon.ToolTip>
                     <ToolTip Background="{StaticResource HomeWindow}">
                         <TextBlock>
-                            <Run Text="Left Click:  " Foreground="LightBlue"></Run>
-                            <Run Text="Highlights a point through the Main Window, else, when used in the MPC window, creates a new point" Foreground="White"></Run>
-                            <LineBreak></LineBreak>
-                            <LineBreak></LineBreak>
-                            <Run Text="Right Click:  " Foreground="LightBlue"></Run>
-                            <Run Text="Removes a point in both the Main- and MPC Window"></Run>
-                            <LineBreak></LineBreak>
-                            <LineBreak></LineBreak>
-                            <Run Text="Middle Click:  " Foreground="LightBlue"></Run>
-                            <Run Text="Highlights a point through the MPC Window"></Run>
+                        <Run Text="Left Click:  " Foreground="LightBlue"></Run>
+                        <Run Text="Highlights a point through the Main Window, else, when used in the MPC window, creates a new point" Foreground="White"></Run>
+                        <LineBreak></LineBreak>
+                        <LineBreak></LineBreak>
+                        <Run Text="Right Click:  " Foreground="LightBlue"></Run>
+                        <Run Text="Removes a point in both the Main- and MPC Window"></Run>
+                        <LineBreak></LineBreak>
+                        <LineBreak></LineBreak>
+                        <Run Text="Middle Click:  " Foreground="LightBlue"></Run>
+                        <Run Text="Highlights a point through the MPC Window"></Run>
                         </TextBlock>
                     </ToolTip>
                 </materialDesign:PackIcon.ToolTip>
@@ -168,7 +167,7 @@
 
                                     <DockPanel Margin="0,0,0,0" Grid.Column="1" LastChildFill="False">
                                         <ComboBox Grid.Column="3" SelectedIndex="{Binding ClickingMode, Converter={StaticResource LRConverter}}" Margin="0,0,5,0" DockPanel.Dock="Right" Width="26" VerticalAlignment="Center" Foreground="White" materialDesign:ComboBoxAssist.ShowSelectedItem="True" BorderBrush="White" 
-                                                materialDesign:TextFieldAssist.UnderlineBrush="White">
+                                            materialDesign:TextFieldAssist.UnderlineBrush="White">
                                             <ComboBox.Resources>
                                                 <SolidColorBrush x:Key="MaterialDesignPaper" Color="#2F3136"/>
                                             </ComboBox.Resources>

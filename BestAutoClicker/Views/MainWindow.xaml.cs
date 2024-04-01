@@ -33,6 +33,7 @@ using System.Windows.Media;
 using BestAutoClicker.Models;
 using BestAutoClicker.Helper.Events;
 using static System.Net.Mime.MediaTypeNames;
+using BestAutoClicker.Helper;
 
 namespace BestAutoClicker
 {
@@ -43,11 +44,9 @@ namespace BestAutoClicker
     {
         public const int WM_HOTKEY = 0x0312;
 
-        private AutoClickerViewModel _autoClickerViewModel;
-        private IntPtr _windowHandle;
+        private Controls _controlsInstance;
 
-        [DllImport("user32.dll")]
-        private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vlc);
+        private AutoClickerViewModel _autoClickerViewModel;
 
         [DllImport("user32.dll")]
         private static extern bool SetCapture(IntPtr hWnd);
@@ -72,9 +71,8 @@ namespace BestAutoClicker
 
         protected override void OnSourceInitialized(EventArgs e)
         {
+            TabsManager.InitializeTabs();
             base.OnSourceInitialized(e);
-            _windowHandle = new WindowInteropHelper(this).Handle;
-            RegisterHotKeys();
         }
 
         private void HandleMessages(ref MSG msg, ref bool handled)
@@ -135,12 +133,6 @@ namespace BestAutoClicker
             circle.MouseDown += MDownUI;
             _background.MPBackground.Children.Add(circle);
             circle.RenderTransform = new TranslateTransform(backgroundPosition.X, backgroundPosition.Y);
-        }
-
-        private void RegisterHotKeys()
-        {
-            RegisterHotKey(_windowHandle, (int)Keys.F1, 0, (int)Keys.F1);
-            RegisterHotKey(_windowHandle, (int)Keys.F5, 0, (int)Keys.F5);
         }
 
         private void CheckForNumbers(object sender, TextCompositionEventArgs e)
@@ -267,7 +259,7 @@ namespace BestAutoClicker
 
         private void OpenControlsTab(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new Controls();
+            MainFrame.Content = TabsManager.ControlsTab;
         }
     }
 }

@@ -24,6 +24,6 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Text="WIP" Width="100" Height="100" FontSize="50" TextAlignment="Center" Grid.ColumnSpan="2" Foreground="White"></TextBlock>
-        <Button Click="Subscribe" Tag="{Binding ClickingHotkey}"></Button>
+        <Button Click="Subscribe" Tag="{Binding Bindings[0]}"></Button>
     </Grid>
 </Page>

@@ -79,7 +79,7 @@ namespace BestAutoClicker
         {
             if (msg.message == WM_HOTKEY)
             {
-                if ((int)msg.wParam == (int)Keys.F1)
+                if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.Click])
                 {
                     if (_autoClickerViewModel.IsRunning) _autoClickerViewModel.StopTimer();
                     else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.AutoClicker)
@@ -93,14 +93,10 @@ namespace BestAutoClicker
                         _autoClickerViewModel.StartTimer(_autoClickerViewModel.GetMPCInterval());
                     }
                 }
-                else if ((int)msg.wParam == (int)Keys.F5 && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints)
+                else if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.MPCMenu] && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints)
                 {
                     if (_background is null || _background.IsActive == false) OpenMPBackground();
                     else CloseMPBackground();
-                }
-                else if ((int)msg.wParam == (int)Keys.F5)
-                {
-                    ShutDown(this, null);
                 }
             }
         }

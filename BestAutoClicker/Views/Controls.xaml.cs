@@ -1,4 +1,5 @@
 ﻿using BestAutoClicker.Commands;
+using BestAutoClicker.Helper.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,8 +30,7 @@ namespace BestAutoClicker.Views
     {
         int WM_KEYDOWN = 0x0100;
 
-        public static Keys ClickingHotkey { get; private set; } = Keys.F1;
-        public static Keys MPCMenu { get; private set; } = Keys.F5;
+        public static Dictionary<HotKeys, Keys> Bindings { get; private set; }
 
         private IntPtr _windowHandle;
 
@@ -40,13 +40,14 @@ namespace BestAutoClicker.Views
         [DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
+        private static HotKeys _keyToChange;
         public Controls()
         {
             InitializeComponent();
             DataContext = this;
             _windowHandle = new WindowInteropHelper(Application.Current.MainWindow).Handle;
-            RegisterHotKeys(ClickingHotkey);
-            RegisterHotKeys(MPCMenu);
+            Bindings = new Dictionary<HotKeys, Keys>() { { HotKeys.Click, Keys.F1 }, { HotKeys.MPCMenu, Keys.F5 } };
+            foreach (var key in Bindings.Values) RegisterBinding(key);
         }
 
         private void RecordHotkey(ref MSG msg, ref bool handled)
@@ -54,17 +55,20 @@ namespace BestAutoClicker.Views
             if (msg.message == WM_KEYDOWN)
             {
                 Keys key = (Keys)msg.wParam;
-                RegisterHotKeys(key);
+                RegisterBinding(key);
+                Bindings[_keyToChange] = key;
                 ComponentDispatcher.ThreadPreprocessMessage -= RecordHotkey;
             }
         }
 
-        private void RegisterHotKeys(Keys key) => RegisterHotKey(_windowHandle, (int) key, 0, (int) key);
+        private void RegisterBinding(Keys key) => RegisterHotKey(_windowHandle, (int) key, 0, (int) key);
 
         private void Subscribe(object sender, RoutedEventArgs e)
         {
             ComponentDispatcher.ThreadPreprocessMessage += RecordHotkey;
-            UnregisterHotKey(_windowHandle, (int)(Keys)(sender as Button).Tag);
+            Keys tag = (Keys)(sender as Button).Tag;
+            UnregisterHotKey(_windowHandle, (int)tag);
+            _keyToChange = Bindings.First(x => x.Value == tag).Key;
         }
     }
 }

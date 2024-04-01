@@ -112,8 +112,8 @@ namespace BestAutoClicker.ViewModels
         private void Click() => SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<MouseInput>());
         public void MultiplePointClick()
         {
+            if (_currentMPCModelIndex == MPCModels.Count) _currentMPCModelIndex = 0;
             MPCModel mpcModel = MPCModels.ElementAt(_currentMPCModelIndex);
-            if (_currentMPCModelIndex == MPCModels.Count - 1) _currentMPCModelIndex = -1;
             var screen = Screen.PrimaryScreen.Bounds;
             var clickingMode = RLMPCIsChecked == true ? mpcModel.ClickingMode : CurrentClickingMode;
             var interval = UniversalDelay == true ? Interval : (int)new TimeSpan(0, mpcModel.Hours, mpcModel.Minutes, mpcModel.Seconds, mpcModel.Milliseconds).TotalMilliseconds;
@@ -126,15 +126,15 @@ namespace BestAutoClicker.ViewModels
             MouseInput[2].mouseData.dwFlags = (uint)clickingMode;
             MouseInput[3].mouseData.dwFlags = GetUpFlag(clickingMode);
             Click();
-            _currentMPCModelIndex++;
-            if (TimerIdentifier == 0) StartTimer(interval);
-            else if (!UniversalDelay)
+            _currentMPCModelIndex++;          
+            if (!UniversalDelay && IsRunning)
             {
                 timeKillEvent(TimerIdentifier);
                 StartTimer(interval);
             }
         }
 
+        public int GetMPCInterval() => UniversalDelay == true ? Interval : (int)new TimeSpan(0, MPCModels[0].Hours, MPCModels[0].Minutes, MPCModels[0].Seconds, MPCModels[0].Milliseconds).TotalMilliseconds;
         public void StartTimer(int totalMilliSeconds)
         {
             if (!IsRunning) IsRunning = true;

@@ -92,13 +92,17 @@ namespace BestAutoClicker
                     else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints && _autoClickerViewModel.MPCModels.Count != 0)
                     {
                         _autoClickerViewModel.SetMultipleClickInput();
-                        _autoClickerViewModel.MultiplePointClick();
+                        _autoClickerViewModel.StartTimer(_autoClickerViewModel.GetMPCInterval());
                     }
                 }
                 else if ((int)msg.wParam == (int)Keys.F5 && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints)
                 {
                     if (_background is null || _background.IsActive == false) OpenMPBackground();
                     else CloseMPBackground();
+                }
+                else if ((int)msg.wParam == (int)Keys.F5)
+                {
+                    ShutDown(this, null);
                 }
             }
         }

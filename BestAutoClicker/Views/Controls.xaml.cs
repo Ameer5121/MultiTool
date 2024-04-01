@@ -22,7 +22,7 @@ namespace BestAutoClicker.Views
     {
         public Controls()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
     }
 }

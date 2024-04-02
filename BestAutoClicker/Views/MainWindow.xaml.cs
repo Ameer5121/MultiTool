@@ -265,6 +265,7 @@ namespace BestAutoClicker
         {
             if (!_autoClickerViewModel.Editing)
             {
+                RemoveHighlightedBorder();
                 PointsBorder.BorderBrush = new SolidColorBrush(Colors.Red);
                 EnablePointEditing();
                 _autoClickerViewModel.Editing = true;
@@ -278,7 +279,6 @@ namespace BestAutoClicker
         }
 
         private int _firstCircleToReplace = -1;
-        private Border _tempBorder;
         private int _secondCircleToReplace = -1;
         private void ChoosePointToReplace(object sender, MouseButtonEventArgs e)
         {
@@ -292,7 +292,6 @@ namespace BestAutoClicker
             }
             else if (_firstCircleToReplace == -1)
             {
-                _tempBorder = border;
                 _firstCircleToReplace = index;
                 border.BorderBrush = Brushes.LightGreen;
                 border.BorderThickness = new Thickness(1);
@@ -300,9 +299,7 @@ namespace BestAutoClicker
             else
             {
                 _secondCircleToReplace = index;
-                _tempBorder.BorderBrush = Brushes.Transparent;
-                _tempBorder.BorderThickness = new Thickness(0);
-                _tempBorder = null;
+                RemoveHighlightedBorder();
 
                 ReplaceCircles(_firstCircleToReplace, _secondCircleToReplace);
                 _autoClickerViewModel.ReplacePoints(_firstCircleToReplace, _secondCircleToReplace);
@@ -330,6 +327,14 @@ namespace BestAutoClicker
                 result.Add(border);
             }
             return result;
+        }
+
+        private void RemoveHighlightedBorder()
+        {
+            var border = GetAllBorders().FirstOrDefault(x => x.BorderThickness == new Thickness(1));
+            if (border is null) return;
+            border.BorderBrush = Brushes.Transparent;
+            border.BorderThickness = new Thickness(0);
         }
 
         private void EnablePointEditing()

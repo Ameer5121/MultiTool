@@ -331,10 +331,11 @@ namespace BestAutoClicker
 
         private void RemoveHighlightedBorder()
         {
-            var border = GetAllBorders().FirstOrDefault(x => x.BorderThickness == new Thickness(1));
-            if (border is null) return;
-            border.BorderBrush = Brushes.Transparent;
-            border.BorderThickness = new Thickness(0);
+            foreach (var border in GetAllBorders().Where(x => x.BorderThickness == new Thickness(1)))
+            {
+                border.BorderBrush = Brushes.Transparent;
+                border.BorderThickness = new Thickness(0);
+            }
         }
 
         private void EnablePointEditing()

@@ -138,13 +138,16 @@ namespace BestAutoClicker
 
         private void OnLeftClickPoint(object sender, MouseButtonEventArgs e)
         {
-            var textBlock = sender as TextBlock;
-            var MPCModel = textBlock.DataContext as MPCModel;
-            int indexPoint = _autoClickerViewModel.MPCModels.IndexOf(MPCModel!);
-            var Border1 = _circles[indexPoint].Border1;
-            var Border2 = _circles[indexPoint].Border2;
-            var Border3 = _circles[indexPoint].Border3;
-            HighlightCircle(Border1, Border2, Border3, (textBlock.Parent as Grid).Parent as Border);
+            if (!_autoClickerViewModel.Editing)
+            {
+                var textBlock = sender as TextBlock;
+                var MPCModel = textBlock.DataContext as MPCModel;
+                int indexPoint = _autoClickerViewModel.MPCModels.IndexOf(MPCModel!);
+                var Border1 = _circles[indexPoint].Border1;
+                var Border2 = _circles[indexPoint].Border2;
+                var Border3 = _circles[indexPoint].Border3;
+                HighlightCircle(Border1, Border2, Border3, (textBlock.Parent as Grid).Parent as Border);
+            }
         }
 
         private void OnRightClickPoint(object sender, MouseButtonEventArgs e)
@@ -174,7 +177,7 @@ namespace BestAutoClicker
 
             if (e.MiddleButton == MouseButtonState.Pressed)
             {
-                var container = PointsListBox.ItemContainerGenerator.ContainerFromIndex(IndexOfCircle) as FrameworkElement;                
+                var container = PointsListBox.ItemContainerGenerator.ContainerFromIndex(IndexOfCircle) as FrameworkElement;
                 var itemTemplate = PointsListBox.ItemTemplate;
                 var border = itemTemplate.FindName("MainBorder", container) as Border;
                 HighlightCircle(Border1, Border2, Border3, border);
@@ -237,7 +240,7 @@ namespace BestAutoClicker
 
         private void LoadCircles(object sender, LoadPointsEventArgs e)
         {
-            foreach(var mpcModel in e.Models)
+            foreach (var mpcModel in e.Models)
             {
                 Circle circle = new Circle();
                 circle.RenderTransform = new TranslateTransform(mpcModel.Point.X, mpcModel.Point.Y);
@@ -256,6 +259,86 @@ namespace BestAutoClicker
         private void OpenControlsTab(object sender, RoutedEventArgs e)
         {
             MainFrame.Content = TabsManager.ControlsTab;
+        }
+
+        private void EditPoints(object sender, RoutedEventArgs e)
+        {
+            if (!_autoClickerViewModel.Editing)
+            {
+                PointsBorder.BorderBrush = new SolidColorBrush(Colors.Red);
+                EnablePointEditing();
+                _autoClickerViewModel.Editing = true;
+            }
+            else
+            {
+                PointsBorder.BorderBrush = this.Resources["WindowBorder"] as SolidColorBrush;
+                DisablePointEditing();
+                _autoClickerViewModel.Editing = false;
+            }
+        }
+
+        private int _firstCircleToReplace = -1;
+        private Border _tempBorder;
+        private int _secondCircleToReplace = -1;
+        private void ChoosePointToReplace(object sender, MouseButtonEventArgs e)
+        {
+            var border = (sender as Border);
+            var index = _autoClickerViewModel.MPCModels.IndexOf(border.Tag as MPCModel);
+            if (index == _firstCircleToReplace)
+            {
+                _firstCircleToReplace = -1;
+                border.BorderBrush = Brushes.Transparent;
+                border.BorderThickness = new Thickness(0);
+            }
+            else if (_firstCircleToReplace == -1)
+            {
+                _tempBorder = border;
+                _firstCircleToReplace = index;
+                border.BorderBrush = Brushes.LightGreen;
+                border.BorderThickness = new Thickness(1);
+            }
+            else
+            {
+                _secondCircleToReplace = index;
+                _tempBorder.BorderBrush = Brushes.Transparent;
+                _tempBorder.BorderThickness = new Thickness(0);
+                _tempBorder = null;
+
+                ReplaceCircles(_firstCircleToReplace, _secondCircleToReplace);
+                _autoClickerViewModel.ReplacePoints(_firstCircleToReplace, _secondCircleToReplace);
+
+                _firstCircleToReplace = -1;
+                _secondCircleToReplace = -1;
+            }
+        }
+
+        private void ReplaceCircles(int index1, int index2)
+        {
+            var tempCircle = _circles[index1];
+            _circles[index1] = _circles[index2];
+            _circles[index2] = tempCircle;
+        }
+
+        private IEnumerable<Border> GetAllBorders()
+        {
+            List<Border> result = new List<Border>();
+            for (int x = 0; x < PointsListBox.Items.Count; x++)
+            {
+                var container = PointsListBox.ItemContainerGenerator.ContainerFromIndex(x) as FrameworkElement;
+                var itemTemplate = PointsListBox.ItemTemplate;
+                var border = itemTemplate.FindName("MainBorder", container) as Border;
+                result.Add(border);
+            }
+            return result;
+        }
+
+        private void EnablePointEditing()
+        {
+            foreach (var border in GetAllBorders()) border.MouseDown += ChoosePointToReplace;
+        }
+        private void DisablePointEditing()
+        {
+            foreach (var border in GetAllBorders()) border.MouseDown -= ChoosePointToReplace;
         }
     }
 }

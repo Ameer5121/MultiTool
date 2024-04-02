@@ -42,6 +42,7 @@ namespace BestAutoClicker.ViewModels
 
         public bool RLMPCIsChecked { get; set; }
         public bool UniversalDelay { get; set; } = true;
+        public bool Editing { get; set; }
 
         public int MilliSeconds { get; set; } = 100;
         public int Seconds { get; set; }
@@ -126,7 +127,7 @@ namespace BestAutoClicker.ViewModels
             MouseInput[2].mouseData.dwFlags = (uint)clickingMode;
             MouseInput[3].mouseData.dwFlags = GetUpFlag(clickingMode);
             Click();
-            _currentMPCModelIndex++;          
+            _currentMPCModelIndex++;
             if (!UniversalDelay && IsRunning)
             {
                 timeKillEvent(TimerIdentifier);
@@ -210,6 +211,12 @@ namespace BestAutoClicker.ViewModels
             else HoldClickMessage = MouseMessage.RightButtonDown;
         }
 
+        public void ReplacePoints(int index1, int index2)
+        {
+            var tempModel = MPCModels[index1];
+            MPCModels[index1] = MPCModels[index2];
+            MPCModels[index2] = tempModel;
+        }
         private void ClearPoints()
         {
             MPCModels.Clear();
@@ -255,5 +262,6 @@ namespace BestAutoClicker.ViewModels
         {
             if (!Directory.Exists(_pointsDirectory)) Directory.CreateDirectory(_pointsDirectory);
         }
+
     }
 }

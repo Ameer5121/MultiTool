@@ -336,6 +336,12 @@ namespace BestAutoClicker
                 border.BorderBrush = Brushes.Transparent;
                 border.BorderThickness = new Thickness(0);
             }
+            foreach(var circle in _circles)
+            {
+                circle.Border1.Background = Brushes.Red;
+                circle.Border2.Background = Brushes.Orange;
+                circle.Border3.Background = Brushes.Yellow;
+            }
         }
 
         private void EnablePointEditing()

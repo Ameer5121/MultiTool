@@ -93,7 +93,7 @@ namespace BestAutoClicker
                         _autoClickerViewModel.StartTimer(_autoClickerViewModel.GetMPCInterval());
                     }
                 }
-                else if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.MPCMenu] && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints)
+                else if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.MPCMenu] && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints && !_autoClickerViewModel.Editing)
                 {
                     if (_background is null || _background.IsActive == false) OpenMPBackground();
                     else CloseMPBackground();

@@ -12,9 +12,9 @@
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
         MinHeight="400" 
-        MinWidth="700" 
+        MinWidth="550" 
         MaxHeight="400" 
-        MaxWidth="700" 
+        MaxWidth="550" 
         Background="{StaticResource HomeWindow}"
         FontFamily="{materialDesign:MaterialDesignFont}">
     <Window.Resources>
@@ -80,12 +80,11 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="149*"></ColumnDefinition>
-            <ColumnDefinition Width="149*"></ColumnDefinition>
+            <ColumnDefinition Width="1.3*"></ColumnDefinition>
+            <ColumnDefinition Width="1.3*"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="199*"></ColumnDefinition>
-            <ColumnDefinition Width="25*"></ColumnDefinition>
-            <ColumnDefinition Width="175*"/>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
 
@@ -96,13 +95,13 @@
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
 
 
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="99" Grid.RowSpan="99" Panel.ZIndex="1"></Frame>
-        <Label Grid.ColumnSpan="3" Content="Mode" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Margin="0,0,3,0"></Label>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="99" Grid.RowSpan="99" Panel.ZIndex="0"></Frame>
+        <Label Grid.ColumnSpan="3" FontSize="15" Content="Mode" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Margin="0,0,3,0"></Label>
 
         <StackPanel Name="ModeCheckBoxes" Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="0,0,3,0">
             <CheckBox IsChecked="True" Unchecked="OnCheckBoxUnChecked" Checked="OnCheckBoxChecked"  Command="{Binding SetModeCommand}" CommandParameter="{x:Static Enums:AutoClickerMode.AutoClicker}" Content="Auto Clicker (AC)" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource Text}" Background="White" Margin="5" >
@@ -156,7 +155,7 @@
         </StackPanel>
         <Button Click="EditPoints" Margin="0,0,10,0" Grid.Row="5" Grid.ColumnSpan="2" Content="Edit" Background= "{StaticResource Buttons}" Foreground="LightGreen" Padding="0" Width="50" Height="20" VerticalAlignment="Bottom"  HorizontalAlignment="Right" VerticalContentAlignment="Center" BorderBrush="Transparent" BorderThickness="1"></Button>
 
-        <Border Name="PointsBorder" Grid.Row="6" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="{StaticResource WindowBorder}" Margin="5,5,5,5" >
+        <Border Name="PointsBorder" Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="{StaticResource WindowBorder}" Margin="5,5,5,5" >
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl x:Name="PointsListBox" Background="{StaticResource Chat}" ItemsSource="{Binding MPCModels}"  Foreground="{StaticResource Text}">
                     <ItemsControl.ItemTemplate>
@@ -243,97 +242,96 @@
         </Border>
 
 
-        <Label Grid.Column="3" Content="Speed" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2" Margin="0,0,25,0"></Label>
-        <Label Grid.Column="4" Content="Miscellaneous" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2"></Label>
 
+        <Label Grid.Column="3" FontSize="15" Content="Miscellaneous" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.ColumnSpan="3"></Label>
+        <Label Grid.Column="3" FontSize="15" Grid.Row="6" Content="Speed" Foreground="{StaticResource Text}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="3"></Label>
 
-        <StackPanel Name="RightLeftCheckBoxes" Grid.Column="4" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
-            <CheckBox Command="{Binding SetClickingModeCommand}" CommandParameter="{x:Static Enums:ClickingMode.LeftClickDown}" Unchecked="OnCheckBoxUnChecked" Checked="OnCheckBoxChecked" IsChecked="True" Content="Left Clicking mode" VerticalAlignment="Center" BorderBrush="Black" Margin="5" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
-                <CheckBox.Resources>
-                    <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
-                </CheckBox.Resources>
-            </CheckBox>
+        <StackPanel Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="5" HorizontalAlignment="Left" VerticalAlignment="Top">
 
-            <CheckBox Command="{Binding SetClickingModeCommand}" CommandParameter="{x:Static Enums:ClickingMode.RightClickDown}" Unchecked="OnCheckBoxUnChecked" Checked="OnCheckBoxChecked" Content="Right Clicking mode" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Margin="5" Foreground="{StaticResource Text}" Background="White">
-                <CheckBox.Resources>
-                    <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
-                </CheckBox.Resources>
-            </CheckBox>
+            <StackPanel Name="RightLeftCheckBoxes" Grid.Column="4" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <CheckBox Command="{Binding SetClickingModeCommand}" CommandParameter="{x:Static Enums:ClickingMode.LeftClickDown}" Unchecked="OnCheckBoxUnChecked" Checked="OnCheckBoxChecked" IsChecked="True" Content="Left Clicking mode" VerticalAlignment="Center" BorderBrush="Black" Margin="5" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+                    <CheckBox.Resources>
+                        <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+                    </CheckBox.Resources>
+                </CheckBox>
+
+                <CheckBox Command="{Binding SetClickingModeCommand}" CommandParameter="{x:Static Enums:ClickingMode.RightClickDown}" Unchecked="OnCheckBoxUnChecked" Checked="OnCheckBoxChecked" Content="Right Clicking mode" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Margin="5" Foreground="{StaticResource Text}" Background="White">
+                    <CheckBox.Resources>
+                        <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+                    </CheckBox.Resources>
+                </CheckBox>
+            </StackPanel>
+
+            <StackPanel Name="MPCCheckBoxes" Grid.Column="4" Grid.Row="3" Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="0,5,0,0">
+                <Border VerticalAlignment="Center" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
+                    <Border.ToolTip>
+                        <ToolTip Content="When enabled, delay of the speed section will be utilised.&#x0a;When disabled, grants the possibility to add a specific delay per point." Background="{StaticResource HomeWindow}"></ToolTip>
+                    </Border.ToolTip>
+                    <CheckBox IsChecked="{Binding UniversalDelay}" x:Name="UniversalDelayCheckBox" Content="Universal delay (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+                        <CheckBox.Resources>
+                            <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+                        </CheckBox.Resources>
+                    </CheckBox>
+                </Border>
+
+                <Border VerticalAlignment="Center" Padding="0" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
+                    <Border.ToolTip>
+                        <ToolTip Content="Grants the possibility to choose if a point will be clicked by the left or right mouse button.&#x0a;Overrides the Left- and Right Clicking modes." Background="{StaticResource HomeWindow}"></ToolTip>
+                    </Border.ToolTip>
+                    <CheckBox IsChecked="{Binding RLMPCIsChecked}" x:Name="RightLeftMPCCheckBox" Content="Right / Left Click Option (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+                        <CheckBox.Resources>
+                            <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+                        </CheckBox.Resources>
+                    </CheckBox>
+                </Border>
+
+                <Border VerticalAlignment="Center" Padding="0" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
+                    <Border.ToolTip>
+                        <ToolTip Content="Grants the ability to choose how many times a certain point will be clicked." Background="{StaticResource HomeWindow}"></ToolTip>
+                    </Border.ToolTip>
+                    <CheckBox x:Name="MultiplicityCheckBox" Content="Multiplicity (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
+                        <CheckBox.Resources>
+                            <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+                        </CheckBox.Resources>
+                    </CheckBox>
+                </Border>
+            </StackPanel>
         </StackPanel>
 
-        <StackPanel Name="MPCCheckBoxes" Grid.Column="4" Grid.Row="3" Grid.RowSpan="3" Grid.ColumnSpan="2">
-            <Border VerticalAlignment="Center" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
-                <Border.ToolTip>
-                    <ToolTip Content="When enabled, delay of the speed section will be utilised.&#x0a;When disabled, grants the possibility to add a specific delay per point." Background="{StaticResource HomeWindow}"></ToolTip>
-                </Border.ToolTip>
-                <CheckBox IsChecked="{Binding UniversalDelay}" x:Name="UniversalDelayCheckBox" Content="Universal delay (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
-                    <CheckBox.Resources>
-                        <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
-                    </CheckBox.Resources>
-                </CheckBox>
-            </Border>
-
-            <Border VerticalAlignment="Center" Padding="0" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
-                <Border.ToolTip>
-                    <ToolTip Content="Grants the possibility to choose if a point will be clicked by the left or right mouse button.&#x0a;Overrides the Left- and Right Clicking modes." Background="{StaticResource HomeWindow}"></ToolTip>
-                </Border.ToolTip>
-                <CheckBox IsChecked="{Binding RLMPCIsChecked}" x:Name="RightLeftMPCCheckBox" Content="Right / Left Click Option (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
-                    <CheckBox.Resources>
-                        <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
-                    </CheckBox.Resources>
-                </CheckBox>
-            </Border>
-
-            <Border VerticalAlignment="Center" Padding="0" BorderBrush="White" BorderThickness="0" Margin="5,5,5,5">
-                <Border.ToolTip>
-                    <ToolTip Content="Grants the ability to choose how many times a certain point will be clicked." Background="{StaticResource HomeWindow}"></ToolTip>
-                </Border.ToolTip>
-                <CheckBox x:Name="MultiplicityCheckBox" Content="Multiplicity (MPC)" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" Foreground="{StaticResource Text}" Background="White">
-                    <CheckBox.Resources>
-                        <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
-                    </CheckBox.Resources>
-                </CheckBox>
-            </Border>
-        </StackPanel>
-
-        <StackPanel Grid.Row="1" Grid.Column="3" Grid.RowSpan="5" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="0,0,25,0">
+        <StackPanel Grid.Row="7" Grid.Column="3" Grid.RowSpan="5" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="0,-5,0,0">
 
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="MilliSeconds" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
-                <TextBox Text="{Binding MilliSeconds, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="White" CaretBrush="White"></TextBox>
+                <TextBox Text="{Binding MilliSeconds, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="White" CaretBrush="White" Margin="0,5,0,0"></TextBox>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Seconds" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
-                <TextBox Text="{Binding Seconds, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="White" CaretBrush="White"></TextBox>
+                <TextBox Text="{Binding Seconds, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="White" CaretBrush="White" Margin="0,5,0,0"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Minutes" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
-                <TextBox Text="{Binding Minutes, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="White" CaretBrush="White"></TextBox>
+                <TextBox Text="{Binding Minutes, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="White" CaretBrush="White" Margin="0,5,0,0"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Hours" Width="100" Foreground="{StaticResource Text}" VerticalAlignment="Bottom" DockPanel.Dock="Left"></TextBlock>
-                <TextBox Text="{Binding Hours, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="White" CaretBrush="White"></TextBox>
+                <TextBox Text="{Binding Hours, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TextBoxStringConverter}}" Width="100" VerticalAlignment="Center" BorderBrush="White" Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="White" CaretBrush="White" Margin="0,5,0,0"></TextBox>
             </StackPanel>
         </StackPanel>
 
 
         <!-- Right Outlines-->
-        <Border Background="White" BorderThickness="1" Grid.Column="2" Width="3" Grid.RowSpan="8" HorizontalAlignment="Center"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Left" Width="3" Grid.RowSpan="6"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Column="2" Width="3" Grid.RowSpan="9" HorizontalAlignment="Center"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="5" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="3"></Border>
         <Border Background="White" BorderThickness="1" Grid.Row="6" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="3"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="2" Height="3" VerticalAlignment="Bottom" Grid.Column="4" Grid.ColumnSpan="2"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="2" Grid.Column="3" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="3"></Border>
         <!-- Right Outlines-->
 
 
         <!-- Left Outlines-->
         <Border Background="White" BorderThickness="1" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Height="3" Grid.ColumnSpan="6"></Border>
-        <Border Background="White" BorderThickness="1" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Height="3" Grid.ColumnSpan="4" Margin="0,27,199,0"></Border>
+        <Border Background="White" BorderThickness="1" Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" Height="3" Grid.ColumnSpan="3"></Border>
         <!-- Left Outlines-->
-
-        <TextBlock Text="WIP" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource Text}" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" Margin="181,0,0,0"></TextBlock>
-
 
     </Grid>
 </Window>

@@ -6,9 +6,9 @@
       xmlns:local="clr-namespace:BestAutoClicker.Views"
       mc:Ignorable="d" 
       MinHeight="400" 
-      MinWidth="700" 
+      MinWidth="550" 
       MaxHeight="400" 
-      MaxWidth="700" 
+      MaxWidth="550" 
       Background="{StaticResource HomeWindow}"
       Title="Controls">
 

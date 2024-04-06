@@ -27,6 +27,7 @@ using Newtonsoft.Json;
 using System.IO;
 using BestAutoClicker.Helper.Events;
 using BestAutoClicker.Views;
+using BestAutoClicker.Helper.Extensions;
 
 namespace BestAutoClicker.ViewModels
 {
@@ -108,8 +109,8 @@ namespace BestAutoClicker.ViewModels
             _cancelClick = new CancellationTokenSource();
             CurrentMode = AutoClickerMode.AutoClicker;
             CurrentClickingMode = ClickingMode.LeftClickDown;
-            _pointsDirectory = $@"{Directory.GetCurrentDirectory()}\Points";
-            TryCreateInitialDirectory();
+            _pointsDirectory = $@"{Directory.GetCurrentDirectory()}\Data\Points";
+            _pointsDirectory.TryCreateInitialDirectory();
         }
         private void Click() => SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<MouseInput>());
         public void MultiplePointClick()
@@ -258,11 +259,5 @@ namespace BestAutoClicker.ViewModels
             }
             PointsLoaded?.Invoke(this, new LoadPointsEventArgs(MPCModels));
         }
-
-        private void TryCreateInitialDirectory()
-        {
-            if (!Directory.Exists(_pointsDirectory)) Directory.CreateDirectory(_pointsDirectory);
-        }
-
     }
 }

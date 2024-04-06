@@ -1,7 +1,11 @@
 ﻿using BestAutoClicker.Commands;
 using BestAutoClicker.Helper.Enums;
+using BestAutoClicker.Helper.Extensions;
+using BestAutoClicker.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -34,6 +38,10 @@ namespace BestAutoClicker.Views
 
         public static bool HotkeyRecording;
 
+        private string _controlsDirectory;
+
+        private string _bindingsFile;
+
         public static Dictionary<HotKeys, Keys> Bindings { get; private set; }
 
         private IntPtr _windowHandle;
@@ -51,7 +59,10 @@ namespace BestAutoClicker.Views
             DataContext = this;
             _windowHandle = new WindowInteropHelper(Application.Current.MainWindow).Handle;
             Bindings = new Dictionary<HotKeys, Keys>() { { HotKeys.Click, Keys.F1 }, { HotKeys.MPCMenu, Keys.F5 } };
-            foreach (var key in Bindings.Values) RegisterBinding(key);
+            _controlsDirectory = $@"{Directory.GetCurrentDirectory()}\Data\Controls";
+            _controlsDirectory.TryCreateInitialDirectory();
+            _bindingsFile = $@"{_controlsDirectory}\Bindings.dt";
+            InitializeControlsFile();
         }
 
         private void RecordHotkey(ref MSG msg, ref bool handled)
@@ -66,6 +77,7 @@ namespace BestAutoClicker.Views
                 _button.Content = $"Record ({key})";
                 ComponentDispatcher.ThreadPreprocessMessage -= RecordHotkey;
                 HotkeyRecording = false;
+                SaveControlsFile();
             }
         }
 
@@ -83,6 +95,43 @@ namespace BestAutoClicker.Views
                 _keyToChange = Bindings.First(x => x.Value == tag).Key;
                 _button.Content = "Recording...";
                 _button.Foreground = Brushes.LightGreen;
+            }
+        }
+
+        private void InitializeControlsFile()
+        {
+            var Directory = $@"{_controlsDirectory}\Bindings.dt";
+            if (!File.Exists(Directory))
+            {
+                File.Create(Directory).Dispose();
+                SaveControlsFile();
+                foreach (var value in Bindings.Values) RegisterBinding(value);
+            }
+            else
+            {
+                using (StreamReader sr = new StreamReader(Directory))
+                {
+                    string jsonData = sr.ReadToEnd();
+                    var loadedBindigs = JsonConvert.DeserializeObject<Dictionary<HotKeys, Keys>>(jsonData);
+                    Bindings = loadedBindigs;
+                    int counter = 0;
+                    foreach (var value in loadedBindigs.Values)
+                    {
+                        RegisterBinding(value);
+                        Button button = ButtonColumn.Children[counter] as Button;
+                        button.Content = $"Record ({value})";
+                        counter++;
+                    }
+                }
+            }
+        }
+
+        private void SaveControlsFile()
+        {
+            using (StreamWriter sw = new StreamWriter(_bindingsFile, false))
+            {
+                var bindings = JsonConvert.SerializeObject(Bindings, Formatting.Indented);
+                sw.WriteLine(bindings);
             }
         }
     }

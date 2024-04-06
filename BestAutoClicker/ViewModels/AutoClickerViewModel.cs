@@ -229,7 +229,7 @@ namespace BestAutoClicker.ViewModels
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.Filter = "Points Data (pd File) | *.pd";
+                saveFileDialog.Filter = "Points Data (dt File) | *.dt";
                 saveFileDialog.InitialDirectory = _pointsDirectory;
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -244,7 +244,7 @@ namespace BestAutoClicker.ViewModels
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "Points Data (pd File) | *.pd";
+                openFileDialog.Filter = "Points Data (dt File) | *.dt";
                 openFileDialog.InitialDirectory = _pointsDirectory;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {

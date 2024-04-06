@@ -26,6 +26,7 @@ using Application = System.Windows.Application;
 using Newtonsoft.Json;
 using System.IO;
 using BestAutoClicker.Helper.Events;
+using BestAutoClicker.Views;
 
 namespace BestAutoClicker.ViewModels
 {
@@ -164,7 +165,7 @@ namespace BestAutoClicker.ViewModels
                 _holding = false;
                 if (TimerIdentifier != 0) StopTimer();
             }
-            else if (!IsRunning && (MouseMessage)wParam == HoldClickMessage && (int)hookStruct.dwExtraInfo != 5)
+            else if (!IsRunning && (MouseMessage)wParam == HoldClickMessage && (int)hookStruct.dwExtraInfo != 5 && !Controls.HotkeyRecording)
             {
                 Task.Run(() =>
                 {

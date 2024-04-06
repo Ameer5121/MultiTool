@@ -77,7 +77,7 @@ namespace BestAutoClicker
 
         private void HandleMessages(ref MSG msg, ref bool handled)
         {
-            if (msg.message == WM_HOTKEY)
+            if (msg.message == WM_HOTKEY && !Controls.HotkeyRecording)
             {
                 if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.Click])
                 {

@@ -30,6 +30,10 @@ namespace BestAutoClicker.Views
     {
         int WM_KEYDOWN = 0x0100;
 
+        private Button _button;
+
+        public static bool HotkeyRecording;
+
         public static Dictionary<HotKeys, Keys> Bindings { get; private set; }
 
         private IntPtr _windowHandle;
@@ -57,7 +61,11 @@ namespace BestAutoClicker.Views
                 Keys key = (Keys)msg.wParam;
                 RegisterBinding(key);
                 Bindings[_keyToChange] = key;
+                _button.Tag = key;
+                _button.Foreground = Brushes.White;
+                _button.Content = $"Record ({key})";
                 ComponentDispatcher.ThreadPreprocessMessage -= RecordHotkey;
+                HotkeyRecording = false;
             }
         }
 
@@ -65,10 +73,17 @@ namespace BestAutoClicker.Views
 
         private void Subscribe(object sender, RoutedEventArgs e)
         {
-            ComponentDispatcher.ThreadPreprocessMessage += RecordHotkey;
-            Keys tag = (Keys)(sender as Button).Tag;
-            UnregisterHotKey(_windowHandle, (int)tag);
-            _keyToChange = Bindings.First(x => x.Value == tag).Key;
+            if (!HotkeyRecording)
+            {
+                HotkeyRecording = true;
+                ComponentDispatcher.ThreadPreprocessMessage += RecordHotkey;
+                Keys tag = (Keys)(sender as Button).Tag;
+                _button = sender as Button;
+                UnregisterHotKey(_windowHandle, (int)tag);
+                _keyToChange = Bindings.First(x => x.Value == tag).Key;
+                _button.Content = "Recording...";
+                _button.Foreground = Brushes.LightGreen;
+            }
         }
     }
 }

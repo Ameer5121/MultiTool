@@ -15,14 +15,22 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        
+        <StackPanel Orientation="Vertical" Grid.Column="0" Name="TextColumn">
+            <TextBlock Text="Start Clicking:" FontSize="14" Foreground="White" Margin="5, 5, 0, 0" Height="{Binding ElementName=Clicking, Path=ActualHeight}"></TextBlock>
+            <TextBlock Text="MPC Menu:" FontSize="14" Foreground="White" Margin="5, 10, 0, 0" Height="{Binding ElementName=MPCMenu, Path=ActualHeight}"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Column="1" Name="ButtonColumn">
+            <Button Content="Record (F1)" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Margin="0, 5, 0, 0" Name="Clicking" Height="30" Tag="{Binding Bindings[0]}" Click="Subscribe"></Button>
+            <Button Content="Record (F5)" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Margin="0, 10, 0, 0" Name="MPCMenu" Height="30" Tag="{Binding Bindings[1]}" Click="Subscribe"></Button>
+        </StackPanel>
     </Grid>
 </Page>

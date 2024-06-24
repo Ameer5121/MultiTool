@@ -58,13 +58,12 @@ namespace BestAutoClicker.Views
             InitializeComponent();
             DataContext = this;
             _windowHandle = new WindowInteropHelper(Application.Current.MainWindow).Handle;
-            Bindings = new Dictionary<HotKeys, Keys>() { { HotKeys.Click, Keys.F1 }, { HotKeys.MPCMenu, Keys.F5 } };
+            Bindings = new Dictionary<HotKeys, Keys>() { { HotKeys.Click, Keys.F1 }, { HotKeys.MPCMenu, Keys.F5 }, { HotKeys.Macro, Keys.F2 } };
             _controlsDirectory = $@"{Directory.GetCurrentDirectory()}\Data\Controls";
             _controlsDirectory.TryCreateInitialDirectory();
             _bindingsFile = $@"{_controlsDirectory}\Bindings.dt";
             InitializeControlsFile();
         }
-
         private void RecordHotkey(ref MSG msg, ref bool handled)
         {
             if (msg.message == WM_KEYDOWN)
@@ -93,7 +92,7 @@ namespace BestAutoClicker.Views
                 _button = sender as Button;
                 UnregisterHotKey(_windowHandle, (int)tag);
                 _keyToChange = Bindings.First(x => x.Value == tag).Key;
-                _button.Content = "Recording...";
+                _button.Content = "Select a keybind";
                 _button.Foreground = Brushes.LightGreen;
             }
         }

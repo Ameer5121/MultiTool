@@ -10,6 +10,6 @@ namespace BestAutoClicker.Helper.Enums
     {
         Click,
         MPCMenu,
-        MarcoRecord,
+        Macro,
     }
 }

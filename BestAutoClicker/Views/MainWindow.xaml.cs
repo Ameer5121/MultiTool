@@ -112,9 +112,12 @@ namespace BestAutoClicker
                     if (_background is null || _background.IsActive == false) OpenMPBackground();
                     else CloseMPBackground();
                 }
+                else if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.Macro])
+                {
+                    MessageBox.Show("Macro in the future");
+                }
             }
         }
-
         private void OpenMPBackground()
         {
             this.Hide();

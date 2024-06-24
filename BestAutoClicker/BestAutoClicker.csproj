@@ -3,8 +3,11 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
+	  <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <Nullable>disable</Nullable>
 	  <UseWindowsForms>true</UseWindowsForms>
+	    <PublishSingleFile>true</PublishSingleFile>
+	   <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 

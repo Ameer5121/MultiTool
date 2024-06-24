@@ -28,6 +28,9 @@ using System.IO;
 using BestAutoClicker.Helper.Events;
 using BestAutoClicker.Views;
 using BestAutoClicker.Helper.Extensions;
+using System.Diagnostics;
+using System.Windows.Shapes;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace BestAutoClicker.ViewModels
 {
@@ -84,6 +87,7 @@ namespace BestAutoClicker.ViewModels
 
         private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
         private LowLevelMouseProc _holdClickCallBack;
+        private LowLevelMouseProc _captureMousePathCallBack;
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelMouseProc lpfn, IntPtr hMod, uint dwThreadId);
@@ -102,26 +106,120 @@ namespace BestAutoClicker.ViewModels
         [DllImport("winmm.dll")]
         private static extern int timeKillEvent(int uTimerID);
 
+        private Rectangle _screenBounds;
+
+
+        Stopwatch watch = new Stopwatch();
+        private int pathHistoryCounter = 0;
 
         public AutoClickerViewModel()
         {
             _holdClickCallBack = HoldClick;
+            _captureMousePathCallBack = CaptureMousePath;
             _cancelClick = new CancellationTokenSource();
             CurrentMode = AutoClickerMode.AutoClicker;
             CurrentClickingMode = ClickingMode.LeftClickDown;
             _pointsDirectory = $@"{Directory.GetCurrentDirectory()}\Data\Points";
             _pointsDirectory.TryCreateInitialDirectory();
+
+            _screenBounds = Screen.PrimaryScreen.Bounds;
+
         }
+
+        public bool recording;
+
+        public void StartRecord()
+        {
+            recording = true;
+            PathHistory = new List<TestingData>();
+            _mouseHandleHook = SetWindowsHookEx(14, _captureMousePathCallBack, IntPtr.Zero, 0);
+            watch.Start();
+        }
+
+        public void StopRecord()
+        {
+            recording = false;
+            UnhookWindowsHookEx(_mouseHandleHook);
+            watch.Stop();
+        }
+
+        public List<TestingData> PathHistory { get; private set; } = new List<TestingData>();
+        public class TestingData
+        {
+            public Point point;
+            public IntPtr wParam;
+            public TimeSpan timetowait;
+
+            public TestingData(IntPtr wParam, Point point)
+            {
+                this.wParam = wParam;
+                this.point = point;
+            }
+        }
+
+        private IntPtr CaptureMousePath(int nCode, IntPtr wParam, IntPtr lParam)
+        {
+            var timeElapsed = watch.Elapsed;
+            watch.Restart();
+            var testingData = new TestingData(wParam, new Point());
+            GetCursorPos(out testingData.point);
+            testingData.timetowait = timeElapsed;
+            PathHistory.Add(testingData);
+            return CallNextHookEx(_mouseHandleHook, nCode, wParam, lParam);
+        }
+
+
+        public void GetPointsBetween2Points(Point point1, Point point2)
+        {
+            //List<Point> points = new List<Point>();
+            //points.Add(point1);
+            var slope = (point1.Y - point2.Y) / (point1.X - point2.X);
+            var yIntecept = point1.Y - (slope * point1.X);
+            var startingPoint = Math.Min(point1.X, point2.X);
+            for (int x = startingPoint + 1; x < Math.Max(point1.Y, point2.Y); x++)
+            {
+
+                PathHistory.Add(new TestingData(IntPtr.Zero, new Point(x, slope * x + yIntecept)));
+            }
+
+        }
+
+        public void StartLinearMovement()
+        {
+            MouseInput = new MouseInput[1];
+            MouseInput[0].mouseData.dx = PathHistory[pathHistoryCounter].point.X * 65355 / _screenBounds.Width;
+            MouseInput[0].mouseData.dy = PathHistory[pathHistoryCounter].point.Y * 65355 / _screenBounds.Height;
+            MouseInput[0].mouseData.dwFlags = 0x8001;
+            SendInput(1, MouseInput, Marshal.SizeOf<MouseInput>());
+            pathHistoryCounter++;
+            if (pathHistoryCounter == PathHistory.Count)
+            {
+                StopTimer();
+                pathHistoryCounter = 0;
+                return;
+            }
+            else if (TimerIdentifier == 0)
+            {
+                _timerHandler = StartLinearMovement;
+                TimerIdentifier = timeSetEvent(1, 0, _timerHandler, IntPtr.Zero, 1);
+            }
+            else
+            {
+                StopTimer();
+                TimerIdentifier = timeSetEvent(1, 0, _timerHandler, IntPtr.Zero, 1);
+            }
+        }
+
         private void Click() => SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<MouseInput>());
         public void MultiplePointClick()
         {
+
             if (_currentMPCModelIndex == MPCModels.Count) _currentMPCModelIndex = 0;
             MPCModel mpcModel = MPCModels.ElementAt(_currentMPCModelIndex);
-            var screen = Screen.PrimaryScreen.Bounds;
             var clickingMode = RLMPCIsChecked == true ? mpcModel.ClickingMode : CurrentClickingMode;
             var interval = UniversalDelay == true ? Interval : (int)new TimeSpan(0, mpcModel.Hours, mpcModel.Minutes, mpcModel.Seconds, mpcModel.Milliseconds).TotalMilliseconds;
-            var abX = mpcModel.Point.X * 65355 / screen.Width;
-            var abY = mpcModel.Point.Y * 65355 / screen.Height;
+            var abX = mpcModel.Point.X * 65355 / _screenBounds.Width;
+            var abY = mpcModel.Point.Y * 65355 / _screenBounds.Height;
             MouseInput[0].mouseData.dx = abX;
             MouseInput[0].mouseData.dy = abY;
             MouseInput[1].mouseData.dx = abX + 1;

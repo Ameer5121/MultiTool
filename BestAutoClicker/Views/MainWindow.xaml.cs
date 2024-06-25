@@ -79,20 +79,6 @@ namespace BestAutoClicker
         {
             if (msg.message == WM_HOTKEY && !Controls.HotkeyRecording)
             {
-
-                if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.MarcoRecord])
-                {
-                    if (_autoClickerViewModel.recording)
-                    {
-                       // _autoClickerViewModel.StopRecord();
-                       // _autoClickerViewModel.StartLinearMovement();
-                    }else
-                    {
-                        // _autoClickerViewModel.StartRecord();
-                        _autoClickerViewModel.GetPointsBetween2Points(new Point(16, 6), new Point(12, 4));
-
-                    }
-                }
                 if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.Click])
                 {
                     if (_autoClickerViewModel.IsRunning) _autoClickerViewModel.StopTimer();

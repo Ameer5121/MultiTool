@@ -87,7 +87,6 @@ namespace BestAutoClicker.ViewModels
 
         private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
         private LowLevelMouseProc _holdClickCallBack;
-        private LowLevelMouseProc _captureMousePathCallBack;
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelMouseProc lpfn, IntPtr hMod, uint dwThreadId);
@@ -108,14 +107,9 @@ namespace BestAutoClicker.ViewModels
 
         private Rectangle _screenBounds;
 
-
-        Stopwatch watch = new Stopwatch();
-        private int pathHistoryCounter = 0;
-
         public AutoClickerViewModel()
         {
             _holdClickCallBack = HoldClick;
-            _captureMousePathCallBack = CaptureMousePath;
             _cancelClick = new CancellationTokenSource();
             CurrentMode = AutoClickerMode.AutoClicker;
             CurrentClickingMode = ClickingMode.LeftClickDown;
@@ -124,90 +118,6 @@ namespace BestAutoClicker.ViewModels
 
             _screenBounds = Screen.PrimaryScreen.Bounds;
 
-        }
-
-        public bool recording;
-
-        public void StartRecord()
-        {
-            recording = true;
-            PathHistory = new List<TestingData>();
-            _mouseHandleHook = SetWindowsHookEx(14, _captureMousePathCallBack, IntPtr.Zero, 0);
-            watch.Start();
-        }
-
-        public void StopRecord()
-        {
-            recording = false;
-            UnhookWindowsHookEx(_mouseHandleHook);
-            watch.Stop();
-        }
-
-        public List<TestingData> PathHistory { get; private set; } = new List<TestingData>();
-        public class TestingData
-        {
-            public Point point;
-            public IntPtr wParam;
-            public TimeSpan timetowait;
-
-            public TestingData(IntPtr wParam, Point point)
-            {
-                this.wParam = wParam;
-                this.point = point;
-            }
-        }
-
-        private IntPtr CaptureMousePath(int nCode, IntPtr wParam, IntPtr lParam)
-        {
-            var timeElapsed = watch.Elapsed;
-            watch.Restart();
-            var testingData = new TestingData(wParam, new Point());
-            GetCursorPos(out testingData.point);
-            testingData.timetowait = timeElapsed;
-            PathHistory.Add(testingData);
-            return CallNextHookEx(_mouseHandleHook, nCode, wParam, lParam);
-        }
-
-
-        public void GetPointsBetween2Points(Point point1, Point point2)
-        {
-            //List<Point> points = new List<Point>();
-            //points.Add(point1);
-            var slope = (point1.Y - point2.Y) / (point1.X - point2.X);
-            var yIntecept = point1.Y - (slope * point1.X);
-            var startingPoint = Math.Min(point1.X, point2.X);
-            for (int x = startingPoint + 1; x < Math.Max(point1.Y, point2.Y); x++)
-            {
-
-                PathHistory.Add(new TestingData(IntPtr.Zero, new Point(x, slope * x + yIntecept)));
-            }
-
-        }
-
-        public void StartLinearMovement()
-        {
-            MouseInput = new MouseInput[1];
-            MouseInput[0].mouseData.dx = PathHistory[pathHistoryCounter].point.X * 65355 / _screenBounds.Width;
-            MouseInput[0].mouseData.dy = PathHistory[pathHistoryCounter].point.Y * 65355 / _screenBounds.Height;
-            MouseInput[0].mouseData.dwFlags = 0x8001;
-            SendInput(1, MouseInput, Marshal.SizeOf<MouseInput>());
-            pathHistoryCounter++;
-            if (pathHistoryCounter == PathHistory.Count)
-            {
-                StopTimer();
-                pathHistoryCounter = 0;
-                return;
-            }
-            else if (TimerIdentifier == 0)
-            {
-                _timerHandler = StartLinearMovement;
-                TimerIdentifier = timeSetEvent(1, 0, _timerHandler, IntPtr.Zero, 1);
-            }
-            else
-            {
-                StopTimer();
-                TimerIdentifier = timeSetEvent(1, 0, _timerHandler, IntPtr.Zero, 1);
-            }
         }
 
         private void Click() => SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<MouseInput>());
@@ -220,12 +130,13 @@ namespace BestAutoClicker.ViewModels
             var interval = UniversalDelay == true ? Interval : (int)new TimeSpan(0, mpcModel.Hours, mpcModel.Minutes, mpcModel.Seconds, mpcModel.Milliseconds).TotalMilliseconds;
             var abX = mpcModel.Point.X * 65355 / _screenBounds.Width;
             var abY = mpcModel.Point.Y * 65355 / _screenBounds.Height;
-            MouseInput[0].mouseData.dx = abX;
-            MouseInput[0].mouseData.dy = abY;
-            MouseInput[1].mouseData.dx = abX + 1;
-            MouseInput[1].mouseData.dy = abY + 1;
-            MouseInput[2].mouseData.dwFlags = (uint)clickingMode;
-            MouseInput[3].mouseData.dwFlags = GetUpFlag(clickingMode);
+            for (int x = 0; x < MouseInput.Length - 2; x++)
+            {
+                MouseInput[x].mouseData.dx = abX + x;
+                MouseInput[x].mouseData.dy = abY + x;
+            }
+            MouseInput[MouseInput.Length - 2].mouseData.dwFlags = (uint)clickingMode;
+            MouseInput[MouseInput.Length - 1].mouseData.dwFlags = GetUpFlag(clickingMode);
             Click();
             _currentMPCModelIndex++;
             if (!UniversalDelay && IsRunning)
@@ -289,9 +200,9 @@ namespace BestAutoClicker.ViewModels
         public void SetMultipleClickInput()
         {
             _timerHandler = MultiplePointClick;
-            MouseInput = new MouseInput[4];
-            MouseInput[0] = new MouseInput();
-            MouseInput[1] = new MouseInput();
+            MouseInput = new MouseInput[300];
+            for (int x = 0; x < MouseInput.Length - 2; x++)
+                MouseInput[x] = new MouseInput();
         }
 
         private uint GetUpFlag(ClickingMode clickingMode) => clickingMode == ClickingMode.LeftClickDown ? (uint)clickingMode + 2 : (uint)clickingMode + 8;

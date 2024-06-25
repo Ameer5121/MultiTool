@@ -263,7 +263,10 @@ namespace BestAutoClicker
         {
             MainFrame.Content = TabsManager.ControlsTab;
         }
-
+        private void OpenKeyClickerTab(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = TabsManager.KeyClickerTab;
+        }
         private void EditPoints(object sender, RoutedEventArgs e)
         {
             if (!_autoClickerViewModel.Editing)

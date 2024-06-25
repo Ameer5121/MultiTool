@@ -10,10 +10,12 @@ namespace BestAutoClicker.Helper
     internal class TabsManager
     {
         public static Controls ControlsTab { get; private set; }
+        public static KeyClicker KeyClickerTab { get; private set; }
 
         public static void InitializeTabs()
         {
             ControlsTab = new Controls();
+            KeyClickerTab = new KeyClicker();
         }
     }
 }

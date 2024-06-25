@@ -125,7 +125,7 @@ namespace BestAutoClicker.ViewModels
         {
 
             if (_currentMPCModelIndex == MPCModels.Count) _currentMPCModelIndex = 0;
-            MPCModel mpcModel = MPCModels.ElementAt(_currentMPCModelIndex);
+            MPCModel mpcModel = MPCModels.ElementAt(_currentMPCModelIndex++);
             var clickingMode = RLMPCIsChecked == true ? mpcModel.ClickingMode : CurrentClickingMode;
             var interval = UniversalDelay == true ? Interval : (int)new TimeSpan(0, mpcModel.Hours, mpcModel.Minutes, mpcModel.Seconds, mpcModel.Milliseconds).TotalMilliseconds;
             var abX = mpcModel.Point.X * 65355 / _screenBounds.Width;
@@ -138,7 +138,6 @@ namespace BestAutoClicker.ViewModels
             MouseInput[MouseInput.Length - 2].mouseData.dwFlags = (uint)clickingMode;
             MouseInput[MouseInput.Length - 1].mouseData.dwFlags = GetUpFlag(clickingMode);
             Click();
-            _currentMPCModelIndex++;
             if (!UniversalDelay && IsRunning)
             {
                 timeKillEvent(TimerIdentifier);

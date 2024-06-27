@@ -79,7 +79,7 @@ namespace BestAutoClicker
         {
             if (msg.message == WM_HOTKEY && !Controls.HotkeyRecording)
             {
-                if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.Click])
+                if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.Click] && MainFrame.Content == null)
                 {
                     if (_autoClickerViewModel.IsRunning) _autoClickerViewModel.StopTimer();
                     else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.AutoClicker)
@@ -93,7 +93,7 @@ namespace BestAutoClicker
                         _autoClickerViewModel.StartTimer(_autoClickerViewModel.GetMPCInterval());
                     }
                 }
-                else if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.MPCMenu] && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints && !_autoClickerViewModel.Editing)
+                else if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.MPCMenu] && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints && !_autoClickerViewModel.Editing && MainFrame.Content == null)
                 {
                     if (_background is null || _background.IsActive == false) OpenMPBackground();
                     else CloseMPBackground();

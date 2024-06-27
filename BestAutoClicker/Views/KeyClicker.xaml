@@ -13,6 +13,17 @@
       Title="KeyClicker">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         
+        <Button Background="Gray" Height="50" Width="50" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="2" Click="Button_Click"></Button>
     </Grid>
 </Page>

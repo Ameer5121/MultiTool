@@ -63,7 +63,7 @@ namespace BestAutoClicker.ViewModels
         public ClickingMode CurrentClickingMode { get; set; }
         public MouseMessage HoldClickMessage { get; set; } = MouseMessage.LeftButtonDown;
 
-        public MouseInput[] MouseInput { get; set; }
+        public KeyboardMouseInput[] MouseInput { get; set; }
 
         public RelayCommand ClearPointsCommand => new RelayCommand(ClearPoints);
         public RelayCommand SetModeCommand => new RelayCommand(SetMode);
@@ -83,7 +83,7 @@ namespace BestAutoClicker.ViewModels
         private static extern short GetKeyState(int vKey);
 
         [DllImport("user32.dll", SetLastError = true)]
-        static extern uint SendInput(int nInputs, MouseInput[] pInputs, int cbSize);
+        static extern uint SendInput(int nInputs, KeyboardMouseInput[] pInputs, int cbSize);
 
         private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
         private LowLevelMouseProc _holdClickCallBack;
@@ -120,7 +120,7 @@ namespace BestAutoClicker.ViewModels
 
         }
 
-        private void Click() => SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<MouseInput>());
+        private void Click() => SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<KeyboardMouseInput>());
         public void MultiplePointClick()
         {
 
@@ -161,7 +161,7 @@ namespace BestAutoClicker.ViewModels
         public void SetNormalClickInput()
         {
             _timerHandler = Click;
-            MouseInput = new MouseInput[2];
+            MouseInput = new KeyboardMouseInput[2];
             MouseInput[0].mouseData.dwFlags = (uint)CurrentClickingMode;
             MouseInput[1].mouseData.dwFlags = GetUpFlag(CurrentClickingMode);
         }
@@ -182,7 +182,7 @@ namespace BestAutoClicker.ViewModels
                     IsRunning = true;
                     _timerHandler = Click;
                     var keyState = CurrentClickingMode == ClickingMode.LeftClickDown ? (int)CurrentClickingMode / 2 : (int)CurrentClickingMode / 4;
-                    MouseInput = new MouseInput[2];
+                    MouseInput = new KeyboardMouseInput[2];
                     MouseInput[0].mouseData.dwFlags = (uint)CurrentClickingMode;
                     MouseInput[1].mouseData.dwFlags = GetUpFlag(CurrentClickingMode);
                     MouseInput[0].mouseData.dwExtraInfo = (IntPtr)5;
@@ -199,9 +199,9 @@ namespace BestAutoClicker.ViewModels
         public void SetMultipleClickInput()
         {
             _timerHandler = MultiplePointClick;
-            MouseInput = new MouseInput[300];
+            MouseInput = new KeyboardMouseInput[300];
             for (int x = 0; x < MouseInput.Length - 2; x++)
-                MouseInput[x] = new MouseInput();
+                MouseInput[x] = new KeyboardMouseInput();
         }
 
         private uint GetUpFlag(ClickingMode clickingMode) => clickingMode == ClickingMode.LeftClickDown ? (uint)clickingMode + 2 : (uint)clickingMode + 8;

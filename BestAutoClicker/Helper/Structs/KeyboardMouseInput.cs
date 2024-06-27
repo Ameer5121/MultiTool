@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace BestAutoClicker.Helper.Structs
 {
-    struct MouseInput
+    struct KeyboardMouseInput
     {
         public int type;
         public MouseInputData mouseData;
 
-        public MouseInput()
+
+        public KeyboardMouseInput(int type = 0)
         {
-            type = 0;
+            this.type = type;
             mouseData = new MouseInputData();
             mouseData.dwFlags = 0x8001;
         }

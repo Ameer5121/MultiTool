@@ -267,5 +267,21 @@ namespace BestAutoClicker.ViewModels
             }
             PointsLoaded?.Invoke(this, new LoadPointsEventArgs(MPCModels));
         }
+
+        public void Testing()
+        {
+            MouseInput = new KeyboardMouseInput[2];
+
+            MouseInput[0] = new KeyboardMouseInput(1);
+            MouseInput[0].inputUnion.keyboardData.wScan = 33;
+            MouseInput[0].inputUnion.keyboardData.dwFlags = 0x0008;
+
+            MouseInput[1] = new KeyboardMouseInput(1);
+            MouseInput[1].inputUnion.keyboardData.wScan = 33;
+            MouseInput[1].inputUnion.keyboardData.dwFlags = 0x0008 | 0x0002;
+
+            SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<KeyboardMouseInput>());
+            
+        }
     }
 }

@@ -8,8 +8,8 @@ namespace BestAutoClicker.Helper.Structs
 {
     internal struct KeyboardInputData
     {
-        public int wVk;
-        public int wScan;
+        public ushort wVk;
+        public ushort wScan;
         public uint dwFlags;
         public uint time;
         public IntPtr dwExtraInfo;

@@ -100,7 +100,7 @@ namespace BestAutoClicker
                 }
                 else if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.Macro])
                 {
-                    MessageBox.Show("Macro in the future");
+                    _autoClickerViewModel.Testing();
                 }
             }
         }

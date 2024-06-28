@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace BestAutoClicker.Helper.Structs
 {
-    struct MouseInputData
+    internal struct KeyboardInputData
     {
-        public int dx;
-        public int dy;
-        public uint mouseData;
+        public int wVk;
+        public int wScan;
         public uint dwFlags;
         public uint time;
-        public IntPtr dwExtraInfo;      
+        public IntPtr dwExtraInfo;
     }
 }

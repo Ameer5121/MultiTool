@@ -98,9 +98,9 @@ namespace BestAutoClicker
                     if (_background is null || _background.IsActive == false) OpenMPBackground();
                     else CloseMPBackground();
                 }
-                else if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.Macro])
+                else if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.Macro] && !_autoClickerViewModel.IsRunning)
                 {
-                    _autoClickerViewModel.Testing();
+                    Task.Run(() => _autoClickerViewModel.Testing());
                 }
             }
         }

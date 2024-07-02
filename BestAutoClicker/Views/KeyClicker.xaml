@@ -23,7 +23,7 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
-        <Button Background="Gray" Height="50" Width="50" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="2" Click="Button_Click"></Button>
+
+        <Button Content="Record Key (NONE)" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Margin="0, 5, 0, 0" Name="RecordKeyButton" Height="30" Click="RecordKey"></Button>
     </Grid>
 </Page>

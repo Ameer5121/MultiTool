@@ -32,7 +32,7 @@ namespace BestAutoClicker.Views
     /// </summary>
     public partial class Controls : Page
     {
-        int WM_KEYDOWN = 0x0100;
+        private int WM_KEYDOWN = 0x0100;
 
         private Button _button;
 

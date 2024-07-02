@@ -45,6 +45,8 @@ namespace BestAutoClicker.ViewModels
         public event Action PointsCleared;
         public event EventHandler<LoadPointsEventArgs> PointsLoaded;
 
+        public Keys KeyToPress { get; set; }
+
         public bool RLMPCIsChecked { get; set; }
         public bool UniversalDelay { get; set; } = true;
         public bool Editing { get; set; }
@@ -105,6 +107,9 @@ namespace BestAutoClicker.ViewModels
         [DllImport("winmm.dll")]
         private static extern int timeKillEvent(int uTimerID);
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern uint MapVirtualKey(uint uCode, uint uMapType);
+
         private Rectangle _screenBounds;
 
         public AutoClickerViewModel()
@@ -115,7 +120,6 @@ namespace BestAutoClicker.ViewModels
             CurrentClickingMode = ClickingMode.LeftClickDown;
             _pointsDirectory = $@"{Directory.GetCurrentDirectory()}\Data\Points";
             _pointsDirectory.TryCreateInitialDirectory();
-
             _screenBounds = Screen.PrimaryScreen.Bounds;
 
         }
@@ -270,18 +274,17 @@ namespace BestAutoClicker.ViewModels
 
         public void Testing()
         {
-            MouseInput = new KeyboardMouseInput[2];
-
+            IsRunning = true;
+            MouseInput = new KeyboardMouseInput[1];
             MouseInput[0] = new KeyboardMouseInput(1);
-            MouseInput[0].inputUnion.keyboardData.wScan = 33;
-            MouseInput[0].inputUnion.keyboardData.dwFlags = 0x0008;
-
-            MouseInput[1] = new KeyboardMouseInput(1);
-            MouseInput[1].inputUnion.keyboardData.wScan = 33;
-            MouseInput[1].inputUnion.keyboardData.dwFlags = 0x0008 | 0x0002;
-
+            MouseInput[0].inputUnion.keyboardData.wScan = (ushort)MapVirtualKey((uint)KeyToPress, 0);
+            MouseInput[0].inputUnion.keyboardData.time = 1;
+            MouseInput[0].inputUnion.keyboardData.dwFlags = 0x0000 | 0x0008;
             SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<KeyboardMouseInput>());
-            
-        }
+            Thread.Sleep(1);
+            MouseInput[0].inputUnion.keyboardData.dwFlags = 0x0002 | 0x0008;
+            SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<KeyboardMouseInput>());
+            IsRunning = false;
+        }                                                                                 
     }
 }

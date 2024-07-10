@@ -205,7 +205,7 @@ namespace BestAutoClicker.ViewModels
             _timerHandler = MultiplePointClick;
             MouseInput = new KeyboardMouseInput[300];
             for (int x = 0; x < MouseInput.Length - 2; x++)
-                MouseInput[x] = new KeyboardMouseInput();
+                MouseInput[x] = new KeyboardMouseInput(0);
         }
 
         private uint GetUpFlag(ClickingMode clickingMode) => clickingMode == ClickingMode.LeftClickDown ? (uint)clickingMode + 2 : (uint)clickingMode + 8;
@@ -272,7 +272,7 @@ namespace BestAutoClicker.ViewModels
             PointsLoaded?.Invoke(this, new LoadPointsEventArgs(MPCModels));
         }
 
-        public void Testing()
+        public void PressKey()
         {
             IsRunning = true;
             MouseInput = new KeyboardMouseInput[1];

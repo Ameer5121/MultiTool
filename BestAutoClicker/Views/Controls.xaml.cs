@@ -131,7 +131,8 @@ namespace BestAutoClicker.Views
             {
                 var bindings = JsonConvert.SerializeObject(Bindings, Formatting.Indented);
                 sw.WriteLine(bindings);
+                
             }
-        }
+        } 
     }
 }

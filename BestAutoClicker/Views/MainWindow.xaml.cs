@@ -100,7 +100,7 @@ namespace BestAutoClicker
                 }
                 else if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.Macro] && !_autoClickerViewModel.IsRunning)
                 {
-                    Task.Run(() => _autoClickerViewModel.Testing());
+                    Task.Run(() => _autoClickerViewModel.PressKey());
                 }
             }
         }

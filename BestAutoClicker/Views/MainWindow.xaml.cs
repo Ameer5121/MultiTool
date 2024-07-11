@@ -79,18 +79,25 @@ namespace BestAutoClicker
         {
             if (msg.message == WM_HOTKEY && !Controls.HotkeyRecording)
             {
-                if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.Click] && MainFrame.Content == null)
+                if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.Click])
                 {
-                    if (_autoClickerViewModel.IsRunning) _autoClickerViewModel.StopTimer();
-                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.AutoClicker)
+                    if (MainFrame.Content == null) 
                     {
-                        _autoClickerViewModel.SetNormalClickInput();
-                        _autoClickerViewModel.StartTimer(_autoClickerViewModel.Interval);
+                        if (_autoClickerViewModel.IsRunning) _autoClickerViewModel.StopTimer();
+                        else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.AutoClicker)
+                        {
+                            _autoClickerViewModel.SetNormalClickInput();
+                            _autoClickerViewModel.StartTimer(_autoClickerViewModel.Interval);
+                        }
+                        else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints && _autoClickerViewModel.MPCModels.Count != 0)
+                        {
+                            _autoClickerViewModel.SetMultipleClickInput();
+                            _autoClickerViewModel.StartTimer(_autoClickerViewModel.GetMPCInterval());
+                        }
                     }
-                    else if (_autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints && _autoClickerViewModel.MPCModels.Count != 0)
+                    else if (MainFrame.Content == TabsManager.KeyClickerTab)
                     {
-                        _autoClickerViewModel.SetMultipleClickInput();
-                        _autoClickerViewModel.StartTimer(_autoClickerViewModel.GetMPCInterval());
+                        Task.Run(() => _autoClickerViewModel.PressKey());
                     }
                 }
                 else if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.MPCMenu] && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints && !_autoClickerViewModel.Editing && MainFrame.Content == null)
@@ -100,7 +107,7 @@ namespace BestAutoClicker
                 }
                 else if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.Macro] && !_autoClickerViewModel.IsRunning)
                 {
-                    Task.Run(() => _autoClickerViewModel.PressKey());
+                    //WIP
                 }
             }
         }

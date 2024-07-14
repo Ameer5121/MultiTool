@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace BestAutoClicker.Views
 {
@@ -27,6 +28,9 @@ namespace BestAutoClicker.Views
     {
         private int WM_KEYDOWN = 0x0100;
         private bool _isRecording;
+        private bool _multiRecording = false;
+        private List<Keys> _keys;
+
         public KeyClicker()
         {
             InitializeComponent();
@@ -38,6 +42,7 @@ namespace BestAutoClicker.Views
                 RecordKeyButton.Foreground = Brushes.LightGreen;
                 RecordKeyButton.Content = "Press a key...";
                 ComponentDispatcher.ThreadPreprocessMessage += RecordHotkey;
+                _isRecording = true;
             }
         }
 
@@ -46,10 +51,35 @@ namespace BestAutoClicker.Views
             if (msg.message == WM_KEYDOWN)
             {
                 Keys key = (Keys)msg.wParam;
-                (Application.Current.MainWindow.DataContext as AutoClickerViewModel).KeyToPress = key;
-                RecordKeyButton.Foreground = Brushes.White;
-                RecordKeyButton.Content = $"Record Key ({key})";
+                if (!_multiRecording)
+                {
+                    (Application.Current.MainWindow.DataContext as AutoClickerViewModel).KeyToPress = key;
+                    RecordKeyButton.Foreground = Brushes.White;
+                    RecordKeyButton.Content = $"Record Key ({key})";
+                    ComponentDispatcher.ThreadPreprocessMessage -= RecordHotkey;
+                    _isRecording = false;
+                }
+                else _keys.Add(key);
+            }
+        }
+
+        private void RecordMultiKey(object sender, RoutedEventArgs e)
+        {
+            if (!_isRecording) 
+            {
+                _multiRecording = true;
+                _isRecording = true;
+                _keys = new List<Keys>();
+                RecordMultipleKeys.Content = "Press keys...";
+                ComponentDispatcher.ThreadPreprocessMessage += RecordHotkey;
+            }
+            else
+            {
                 ComponentDispatcher.ThreadPreprocessMessage -= RecordHotkey;
+                RecordMultipleKeys.Content = "Record Multiple Keys";
+                _isRecording = false;
+                _multiRecording = false;
+                (Application.Current.MainWindow.DataContext as AutoClickerViewModel).MultiKeys = _keys;
             }
         }
     }

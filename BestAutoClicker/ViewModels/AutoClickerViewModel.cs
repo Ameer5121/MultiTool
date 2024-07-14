@@ -46,6 +46,7 @@ namespace BestAutoClicker.ViewModels
         public event EventHandler<LoadPointsEventArgs> PointsLoaded;
 
         public Keys KeyToPress { get; set; }
+        public List<Keys> MultiKeys { get; set; }
 
         public bool RLMPCIsChecked { get; set; }
         public bool UniversalDelay { get; set; } = true;
@@ -285,6 +286,24 @@ namespace BestAutoClicker.ViewModels
             MouseInput[0].inputUnion.keyboardData.dwFlags = 0x0002 | 0x0008;
             SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<KeyboardMouseInput>());
             IsRunning = false;
-        }                                                                                 
+        }    
+        
+        public void PressMultiKey()
+        {
+            IsRunning = true;
+            MouseInput = new KeyboardMouseInput[1];
+            MouseInput[0] = new KeyboardMouseInput(1);
+            foreach (Keys key in MultiKeys)
+            {
+                MouseInput[0].inputUnion.keyboardData.wScan = (ushort)MapVirtualKey((uint)key, 0);
+                MouseInput[0].inputUnion.keyboardData.time = 1;
+                MouseInput[0].inputUnion.keyboardData.dwFlags = 0x0000 | 0x0008;
+                SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<KeyboardMouseInput>());
+                Thread.Sleep(1);
+                MouseInput[0].inputUnion.keyboardData.dwFlags = 0x0002 | 0x0008;
+                SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<KeyboardMouseInput>());
+            } 
+            IsRunning = false;
+        }
     }
 }

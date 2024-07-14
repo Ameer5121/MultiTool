@@ -279,18 +279,15 @@ namespace BestAutoClicker.ViewModels
             IsRunning = true;
             MouseInput = new KeyboardMouseInput[1];
             MouseInput[0] = new KeyboardMouseInput(1);
-            if (CurrentKMode == KeyClickerMode.Single) 
+            if (CurrentKMode == KeyClickerMode.Single)
             {
                 MouseInput[0].inputUnion.keyboardData.wScan = (ushort)MapVirtualKey((uint)KeyToPress, 0);
                 Click();
             }
-            else
+            else foreach (Keys key in MultiKeys)
             {
-                foreach (Keys key in MultiKeys)
-                {
-                    MouseInput[0].inputUnion.keyboardData.wScan = (ushort)MapVirtualKey((uint)key, 0);
-                    Click();
-                }
+                MouseInput[0].inputUnion.keyboardData.wScan = (ushort)MapVirtualKey((uint)key, 0);
+                Click();
             }
             void Click()
             {

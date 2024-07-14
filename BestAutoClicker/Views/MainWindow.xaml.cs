@@ -97,7 +97,7 @@ namespace BestAutoClicker
                     }
                     else if (MainFrame.Content == TabsManager.KeyClickerTab)
                     {
-                        Task.Run(() => _autoClickerViewModel.PressMultiKey());
+                        Task.Run(() => _autoClickerViewModel.PressKey());
                     }
                 }
                 else if ((int)msg.wParam == (int)Controls.Bindings[HotKeys.MPCMenu] && _autoClickerViewModel.CurrentMode == AutoClickerMode.MultiplePoints && !_autoClickerViewModel.Editing && MainFrame.Content == null)

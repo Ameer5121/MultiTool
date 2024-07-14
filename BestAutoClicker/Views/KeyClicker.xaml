@@ -24,8 +24,6 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Button Content="Record Key (NONE)" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Margin="0, 5, 0, 0" Name="RecordKeyButton" Height="30" Click="RecordKey"></Button>
-
-        <Button Grid.Row="1" Content="Record Multiple Keys" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Margin="0, 5, 0, 0" Name="RecordMultipleKeys" Height="30" Click="RecordMultiKey"></Button>
+        <Button Focusable="False" Content="Record Key(s)" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Margin="1, 0, 0, 0" Name="RecordKeyButton" Height="30" Click="RecordKey"></Button>
     </Grid>
 </Page>

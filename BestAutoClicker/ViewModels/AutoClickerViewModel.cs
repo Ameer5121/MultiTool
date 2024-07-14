@@ -64,6 +64,7 @@ namespace BestAutoClicker.ViewModels
 
         public AutoClickerMode CurrentMode { get; set; }
         public ClickingMode CurrentClickingMode { get; set; }
+        public KeyClickerMode CurrentKMode { get; set; }
         public MouseMessage HoldClickMessage { get; set; } = MouseMessage.LeftButtonDown;
 
         public KeyboardMouseInput[] MouseInput { get; set; }
@@ -71,7 +72,6 @@ namespace BestAutoClicker.ViewModels
         public RelayCommand ClearPointsCommand => new RelayCommand(ClearPoints);
         public RelayCommand SetModeCommand => new RelayCommand(SetMode);
         public RelayCommand SetClickingModeCommand => new RelayCommand(SetClickingMode);
-
         public RelayCommand SavePointsCommand => new RelayCommand(SavePoints, CanSavePoints);
         public RelayCommand LoadPointsCommand => new RelayCommand(LoadPoints);
 
@@ -122,7 +122,8 @@ namespace BestAutoClicker.ViewModels
             _pointsDirectory = $@"{Directory.GetCurrentDirectory()}\Data\Points";
             _pointsDirectory.TryCreateInitialDirectory();
             _screenBounds = Screen.PrimaryScreen.Bounds;
-
+            MultiKeys = new List<Keys>();
+            CurrentKMode = KeyClickerMode.Multi;
         }
 
         private void Click() => SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<KeyboardMouseInput>());
@@ -278,32 +279,27 @@ namespace BestAutoClicker.ViewModels
             IsRunning = true;
             MouseInput = new KeyboardMouseInput[1];
             MouseInput[0] = new KeyboardMouseInput(1);
-            MouseInput[0].inputUnion.keyboardData.wScan = (ushort)MapVirtualKey((uint)KeyToPress, 0);
-            MouseInput[0].inputUnion.keyboardData.time = 1;
-            MouseInput[0].inputUnion.keyboardData.dwFlags = 0x0000 | 0x0008;
-            SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<KeyboardMouseInput>());
-            Thread.Sleep(1);
-            MouseInput[0].inputUnion.keyboardData.dwFlags = 0x0002 | 0x0008;
-            SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<KeyboardMouseInput>());
-            IsRunning = false;
-        }    
-        
-        public void PressMultiKey()
-        {
-            IsRunning = true;
-            MouseInput = new KeyboardMouseInput[1];
-            MouseInput[0] = new KeyboardMouseInput(1);
-            foreach (Keys key in MultiKeys)
+            if (CurrentKMode == KeyClickerMode.Single) 
             {
-                MouseInput[0].inputUnion.keyboardData.wScan = (ushort)MapVirtualKey((uint)key, 0);
-                MouseInput[0].inputUnion.keyboardData.time = 1;
+                MouseInput[0].inputUnion.keyboardData.wScan = (ushort)MapVirtualKey((uint)KeyToPress, 0);
+                Click();
+            }
+            else
+            {
+                foreach (Keys key in MultiKeys)
+                {
+                    MouseInput[0].inputUnion.keyboardData.wScan = (ushort)MapVirtualKey((uint)key, 0);
+                    Click();
+                }
+            }
+            void Click()
+            {
                 MouseInput[0].inputUnion.keyboardData.dwFlags = 0x0000 | 0x0008;
                 SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<KeyboardMouseInput>());
                 Thread.Sleep(1);
                 MouseInput[0].inputUnion.keyboardData.dwFlags = 0x0002 | 0x0008;
                 SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<KeyboardMouseInput>());
-            } 
-            IsRunning = false;
+            }
         }
     }
 }

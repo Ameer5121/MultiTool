@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Application = System.Windows.Application;
+using CheckBox = System.Windows.Controls.CheckBox;
 using MessageBox = System.Windows.MessageBox;
 
 namespace BestAutoClicker.Views
@@ -69,6 +70,28 @@ namespace BestAutoClicker.Views
                 }
                 else _autoClickerViewModel.MultiKeys.Add(key);
             }
+        }
+
+        private void OnChecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox == MultiCheckbox) Unsub(SingleCheckbox);
+            else Unsub(MultiCheckbox);
+
+            void Unsub(CheckBox checkBox)
+            {
+                checkBox.Unchecked -= OnUnchecked;
+                checkBox.IsChecked = false;
+                checkBox.Unchecked += OnUnchecked;
+            }
+        }
+
+        private void OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            checkBox.Checked -= OnChecked;
+            checkBox.IsChecked = true;
+            checkBox.Checked += OnChecked;
         }
     }
 }

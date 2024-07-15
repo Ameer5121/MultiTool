@@ -74,6 +74,7 @@ namespace BestAutoClicker.ViewModels
         public RelayCommand SetClickingModeCommand => new RelayCommand(SetClickingMode);
         public RelayCommand SavePointsCommand => new RelayCommand(SavePoints, CanSavePoints);
         public RelayCommand LoadPointsCommand => new RelayCommand(LoadPoints);
+        public RelayCommand SetKeyModeCommand => new RelayCommand(SetKeyMode);
 
         public bool IsRunning { get; private set; }
         public CancellationTokenSource ClickingProcess => _cancelClick;
@@ -123,7 +124,7 @@ namespace BestAutoClicker.ViewModels
             _pointsDirectory.TryCreateInitialDirectory();
             _screenBounds = Screen.PrimaryScreen.Bounds;
             MultiKeys = new List<Keys>();
-            CurrentKMode = KeyClickerMode.Multi;
+            CurrentKMode = KeyClickerMode.Single;
         }
 
         private void Click() => SendInput(MouseInput.Length, MouseInput, Marshal.SizeOf<KeyboardMouseInput>());
@@ -225,6 +226,11 @@ namespace BestAutoClicker.ViewModels
             CurrentClickingMode = clickingMode;
             if (clickingMode == ClickingMode.LeftClickDown) HoldClickMessage = MouseMessage.LeftButtonDown;
             else HoldClickMessage = MouseMessage.RightButtonDown;
+        }
+
+        private void SetKeyMode(KeyClickerMode keyClickerMode)
+        {
+            CurrentKMode = keyClickerMode;
         }
 
         public void ReplacePoints(int index1, int index2)

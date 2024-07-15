@@ -2,6 +2,7 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:Enums="clr-namespace:BestAutoClicker.Helper.Enums"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BestAutoClicker.Views"
       mc:Ignorable="d" 
@@ -25,5 +26,15 @@
         </Grid.ColumnDefinitions>
 
         <Button Focusable="False" Content="Record Key(s)" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Margin="1, 0, 0, 0" Name="RecordKeyButton" Height="30" Click="RecordKey"></Button>
+        <CheckBox Name="MultiCheckbox" Unchecked="OnUnchecked" Checked="OnChecked" VerticalContentAlignment="Center" Padding="0" Command="{Binding SetKeyModeCommand}" CommandParameter="{x:Static Enums:KeyClickerMode.Multi}"  Content="Multi Keys Mode" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="2" Foreground="{StaticResource Text}" Background="White">
+            <CheckBox.Resources>
+                <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+            </CheckBox.Resources>
+        </CheckBox>
+        <CheckBox Name="SingleCheckbox" Unchecked="OnUnchecked" Checked="OnChecked" VerticalContentAlignment="Center" IsChecked="True" Padding="0" Command="{Binding SetKeyModeCommand}" CommandParameter="{x:Static Enums:KeyClickerMode.Single}" Content="Single Key mode" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource Text}" Background="White">
+            <CheckBox.Resources>
+                <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+            </CheckBox.Resources>
+        </CheckBox>
     </Grid>
 </Page>
